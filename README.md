@@ -48,3 +48,7 @@ claude plugin validate .
 ```
 
 Sources follow the contract in `openrtx/sources/__init__.py`. The Taiga source vendors the mirror from the former `openrtx-taiga` project.
+
+## License
+
+GPL-3.0-or-later, the same as OpenRTX. See [LICENSE](LICENSE).

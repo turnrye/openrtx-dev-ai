@@ -6,6 +6,7 @@
     "name": "Ryan Turner",
     "url": "https://github.com/turnrye"
   },
+  "license": "GPL-3.0-or-later",
   "homepage": "https://github.com/turnrye/openrtx-dev-ai",
   "repository": "https://github.com/turnrye/openrtx-dev-ai",
   "keywords": [
