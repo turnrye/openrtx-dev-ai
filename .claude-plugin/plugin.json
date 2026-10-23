@@ -1,0 +1,17 @@
+{
+  "name": "openrtx",
+  "version": "0.1.0",
+  "description": "Skills for OpenRTX developers: research across Taiga, GitHub, git and the community notes from a local cache, and write to the OpenRTX Taiga without losing formatting.",
+  "author": {
+    "name": "Ryan Turner",
+    "url": "https://github.com/turnrye"
+  },
+  "homepage": "https://github.com/turnrye/openrtx-dev-ai",
+  "repository": "https://github.com/turnrye/openrtx-dev-ai",
+  "keywords": [
+    "openrtx",
+    "taiga",
+    "research",
+    "ham-radio"
+  ]
+}
