@@ -1,0 +1,15 @@
+{
+  "name": "openrtx-dev-ai",
+  "description": "Claude Code plugins for OpenRTX developers",
+  "owner": {
+    "name": "Ryan Turner",
+    "url": "https://github.com/turnrye"
+  },
+  "plugins": [
+    {
+      "name": "openrtx",
+      "source": "./",
+      "description": "Research OpenRTX across GitHub and the Office Hours notes from a local cache, review changes against AGENTS.md and CONTRIBUTING.md, and prepare your own PRs"
+    }
+  ]
+}
