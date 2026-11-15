@@ -27,14 +27,28 @@ Every source is a module in this package with:
         What changed since `since` (ISO UTC string), newest first, one Hit
         per item with a snippet saying what happened.
 
-REFS are always source-qualified, so `#N` never means two things:
+Optional extras:
+
+    ORDER         int: where the source sorts in listings and search results
+                  (lower first; default 100, then by NAME)
+    REFS          short text naming the refs owns() accepts, for help and errors
+    cli(argv) -> int
+        Source-specific commands: `openrtx NAME …` hands everything after
+        NAME to it. CLI_HELP is its one-line summary in `openrtx -h`.
+
+Any module in this package that defines NAME and sync() is a source, so adding
+one is adding a file; helper modules without them are ignored.
+
+REFS are always source-qualified, so `#N` never means two things, e.g.:
 
     OpenRTX/OpenRTX#520               GitHub issue or PR (also a github.com URL)
     pad:officehours, pad:officehours@9689   the Office Hours pad, optionally at a revision
 
 sync() may take extra keyword arguments with defaults (e.g. a test hook).
 After a failed sync, reads keep using the cache and don't retry for
-RETRY_AFTER_FAILURE, so a source that's down or rate-limited stays quiet.
+RETRY_AFTER_FAILURE, so a source that's down or rate-limited stays quiet. An
+exception with a `retry_after` attribute (seconds) stretches that wait to what
+the service asked for.
 
 Sources must be stdlib-only (Python 3.9+), work on macOS, Linux and Windows,
 never write to the remote service, and log progress with log() (stderr), so
@@ -46,13 +60,12 @@ from __future__ import annotations
 import datetime as dt
 import importlib
 import os
+import pkgutil
 import sqlite3
 import sys
 
 from .. import paths
 
-# In the order `openrtx search` lists them
-SOURCE_MODULES = ["github", "pad"]
 RETRY_AFTER_FAILURE = dt.timedelta(minutes=10)
 
 
@@ -132,16 +145,18 @@ def load(name):
     return importlib.import_module("%s.%s" % (__name__, name))
 
 
+_found = None
+
+
 def available():
-    """The source modules that exist (a missing optional one is skipped)."""
-    found = []
-    for name in SOURCE_MODULES:
-        try:
-            found.append(load(name))
-        except ImportError as e:
-            if e.name != "%s.%s" % (__name__, name):
-                raise
-    return found
+    """Every source module in this package, in ORDER."""
+    global _found
+    if _found is None:
+        mods = [load(m.name) for m in pkgutil.iter_modules(__path__)
+                if not m.name.startswith("_")]
+        _found = sorted((m for m in mods if hasattr(m, "NAME") and hasattr(m, "sync")),
+                        key=lambda m: (getattr(m, "ORDER", 100), m.NAME))
+    return list(_found)
 
 
 def period(source):
@@ -165,20 +180,29 @@ def _failure_marker(source):
 
 
 def recent_failure(source):
-    """When the last failed sync happened, if within RETRY_AFTER_FAILURE."""
+    """When the last failed sync happened, while its wait lasts.
+
+    The wait is RETRY_AFTER_FAILURE, or longer if the service sent Retry-After.
+    """
+    marker = _failure_marker(source)
     try:
-        t = dt.datetime.fromtimestamp(os.path.getmtime(_failure_marker(source)),
-                                      dt.timezone.utc)
+        t = dt.datetime.fromtimestamp(os.path.getmtime(marker), dt.timezone.utc)
+        with open(marker) as f:
+            first = f.readline().split()
     except OSError:
         return None
-    return t if now_utc() - t < RETRY_AFTER_FAILURE else None
+    wait = RETRY_AFTER_FAILURE
+    if len(first) == 2 and first[0] == "retry-after" and first[1].isdigit():
+        wait = max(wait, dt.timedelta(seconds=int(first[1])))
+    return t if now_utc() - t < wait else None
 
 
 def refresh(source, max_age=None, full=False, quiet=False):
     """Sync if stale (or always with full=True). Returns (synced, error).
 
     An explicit request (full=True or a max_age) always tries; an automatic
-    refresh on read waits RETRY_AFTER_FAILURE after a failure.
+    refresh on read waits RETRY_AFTER_FAILURE after a failure, or as long as
+    the service asked with Retry-After.
     """
     if not full and not is_stale(source, max_age):
         return False, None
@@ -193,11 +217,15 @@ def refresh(source, max_age=None, full=False, quiet=False):
     try:
         summary = source.sync(path, full=full)
     except Exception as e:  # keep serving the old cache
+        retry_after = getattr(e, "retry_after", None) or 0
         with open(_failure_marker(source), "w") as f:
+            if retry_after:
+                f.write("retry-after %d\n" % retry_after)
             f.write("%s\n" % e)
         if not quiet:
             log("  %s: sync failed (%s); using the cached copy, retrying in %d min"
-                % (source.NAME, e, RETRY_AFTER_FAILURE.total_seconds() // 60))
+                % (source.NAME, e,
+                   max(RETRY_AFTER_FAILURE.total_seconds(), retry_after) // 60))
         return False, e
     after = source.last_sync(path)
     if after is None or (before is not None and after <= before):

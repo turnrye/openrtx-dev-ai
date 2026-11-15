@@ -8,23 +8,26 @@ allowed-tools: Bash(openrtx sources*) Bash(openrtx sync*) Bash(openrtx recent*) 
 
 # Researching OpenRTX
 
-The `openrtx` command (on the PATH while this plugin is enabled; otherwise run `"${CLAUDE_PLUGIN_ROOT}/bin/openrtx"`) answers from a local cache of every OpenRTX source. Each source refreshes itself when its copy is older than its period — GitHub after an hour, the Office Hours pad after a day — so query as often as you like. The very first query on a machine syncs GitHub and the pad in full, which takes a few minutes; tell the user that's what's happening.
+The `openrtx` command (on the PATH while this plugin is enabled; otherwise run `"${CLAUDE_PLUGIN_ROOT}/bin/openrtx"`) answers from a local cache of every OpenRTX source. Each source refreshes itself when its copy is older than its period (`openrtx sources` lists them, e.g. GitHub hourly, the Office Hours pad daily), so query as often as you like. The very first query on a machine syncs each source in full, which takes a few minutes; tell the user that's what's happening.
 
 ## Ask
 
 | Need | Command |
 |---|---|
-| A topic, across everything | `openrtx search littlefs power loss` (FTS5: `"exact phrase"`, `a OR b`, `prefix*`; `--source github` to narrow; `--json`) |
-| One item with its discussion | `openrtx show OpenRTX/OpenRTX#520`, `openrtx show pad:officehours` (`@REV` for an older revision), or a GitHub URL |
+| A topic, across everything | `openrtx search littlefs power loss` (FTS5: `"exact phrase"`, `a OR b`, `prefix*`; `--source NAME` to narrow; `--json`) |
+| One item with its discussion | `openrtx show OpenRTX/OpenRTX#520`, `openrtx show pad:officehours` (`@REV` for an older revision), or the item's URL; `openrtx -h` lists every source's refs |
 | What changed lately, everywhere | `openrtx recent --since 7d` (also `24h`, `today`, `yesterday`, an ISO date; `--source`) |
-| Anything else | `openrtx sql "SELECT …"`; each source is a schema: `github.items`, `pad.sections` |
-| How fresh the cache is | `openrtx sources` |
+| Anything else | `openrtx sql "SELECT …"`; each source is a schema: `github.items`, `pad.sections`, … |
+| A source's own commands | `openrtx NAME -h`, for the sources that have them |
+| How fresh the cache is | `openrtx sources`; force a refresh with `openrtx sync SOURCE --max-age 0` |
 
-Tables, recipes and data caveats per source are in [reference.md](reference.md); read it before writing SQL.
+`openrtx sql` attaches each source's database as a schema of the same name, and every source has `schema_docs` describing its tables (`openrtx sql "SELECT * FROM github.schema_docs"`). Search syntax everywhere is SQLite FTS5: `"exact phrase"`, `a OR b`, `NEAR(a b, 10)`, `prefix*`.
+
+Each source has a file in [sources/](sources/) with its tables, recipes, data caveats and how to cite it: [github.md](sources/github.md), [pad.md](sources/pad.md), and one for any other source `openrtx sources` lists. Read a source's file before writing SQL against it.
 
 ## Sources and refs
 
-Refs always name their source, so a bare `#N` never means two things:
+Refs always name their source, so a bare `#N` never means two things. `openrtx sources` lists every source in the cache; the main ones:
 
 - **GitHub** — `OWNER/REPO#N`: issues, PRs, comments, review comments and reviews in every OpenRTX repo — the firmware `OpenRTX/OpenRTX`, but also `rtxlink`, `rtxflash`, `OpenRTX-Companion`, `vpcgen`, `miosix-kernel`, `sa8x8-fw`, `openrtx.github.io` (website and docs), `OpenRTX-external-docs` and the Zephyr mirrors for the Retevis C62. Most design discussion and review happens here.
 - **Office Hours** — `pad:officehours`: notes of the community calls (date, attendees, topics, decisions), one entry per meeting and topic.

@@ -57,7 +57,7 @@ python3 -m unittest discover tests     # fake GitHub and Etherpad servers; no ne
 claude plugin validate .
 ```
 
-Sources follow the contract in `openrtx/sources/__init__.py`.
+Sources follow the contract in `openrtx/sources/__init__.py`. Adding one is adding a module there (any module with `NAME` and `sync()` is picked up) and its notes in `skills/research/sources/NAME.md`; nothing else names the sources, so a fork can add its own without touching shared files.
 
 ## License
 
