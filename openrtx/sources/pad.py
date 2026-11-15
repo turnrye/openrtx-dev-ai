@@ -41,6 +41,8 @@ from . import (Hit, SourceError, connect, connect_ro, fts_query, iso, last_ok_sy
 NAME = "pad"
 PERIOD = dt.timedelta(hours=24)
 DESCRIPTION = "Community pads (the Office Hours meeting notes on pad.opendoor.fr)"
+ORDER = 30
+REFS = "pad:NAME[@REV]"
 
 DEFAULT_PADS = {"officehours": "https://pad.opendoor.fr/p/ajerfmoijc9wf6"}
 USER_AGENT = "openrtx-dev-ai/%s (+https://github.com/turnrye/openrtx-dev-ai)" % __version__
