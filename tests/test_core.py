@@ -186,6 +186,31 @@ class CoreTest(unittest.TestCase):
         sources.refresh(slow, quiet=True)
         self.assertEqual(len(slow.calls), 1)
 
+    def test_source_cli_gets_its_arguments(self):
+        seen = []
+        self.src.cli = lambda argv: seen.append(argv) or 3
+        self.src.CLI_HELP = "dummy things"
+        self.assertEqual(self.run_cli("dummy", "do", "--it")[0], 3)
+        self.assertEqual(seen, [["do", "--it"]])
+        code, out, err = self.run_cli("-h")
+        self.assertIn("dummy things", out)
+
+    def test_unknown_ref_lists_each_sources_refs(self):
+        self.src.REFS = "dummy:N"
+        code, out, err = self.run_cli("show", "nope", "--no-refresh")
+        self.assertIn("dummy:N", str(code))
+
+
+class DiscoveryTest(unittest.TestCase):
+    def test_every_source_module_is_found_in_order(self):
+        found = sources.available()
+        names = [s.NAME for s in found]
+        self.assertIn("github", names)
+        self.assertIn("pad", names)
+        self.assertEqual(found, sorted(found, key=lambda s: (getattr(s, "ORDER", 100), s.NAME)))
+        for s in found:
+            self.assertTrue(callable(s.sync))
+
 
 class PathsTest(unittest.TestCase):
     def test_parse_and_format_age(self):

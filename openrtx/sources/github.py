@@ -33,6 +33,8 @@ from . import (Hit, SourceError, connect, connect_ro, fts_query, iso, last_ok_sy
 NAME = "github"
 PERIOD = dt.timedelta(hours=1)
 DESCRIPTION = "GitHub issues, PRs, comments and reviews in every repo of the OpenRTX org"
+ORDER = 20
+REFS = "OWNER/REPO#N or a github.com URL"
 
 OVERLAP = dt.timedelta(minutes=5)  # re-read a little before the last sync
 USER_AGENT = "openrtx-dev-ai/%s (+https://github.com/turnrye/openrtx-dev-ai)" % __version__

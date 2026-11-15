@@ -5,13 +5,13 @@
                                           refresh sources older than their period
     openrtx search QUERY… [--source S]    full-text search across every source
     openrtx recent [--since 7d]           what changed lately, across every source
-    openrtx show REF                      one item: OpenRTX/OpenRTX#520,
-                                          pad:officehours[@REV], or a GitHub URL
+    openrtx show REF                      one item, e.g. OpenRTX/OpenRTX#520 or
+                                          pad:officehours[@REV]; refs per source below
     openrtx sql "SELECT …" [--json]       read-only SQL; each source is a schema
                                           (github.items, pad.sections…)
 
-Reads refresh a source first when its cache is older than its period (GitHub
-1 h, the pad 24 h), so repeated queries are fast and never hammer
+Reads refresh a source first when its cache is older than its period (see
+`openrtx sources`), so repeated queries are fast and never hammer
 the services. --no-refresh skips that. The cache lives in the platform cache
 dir (see paths.py) and can be deleted at any time.
 """
@@ -26,6 +26,12 @@ import sys
 
 from . import __version__, paths, sources
 from .sources import log
+
+
+def ref_help():
+    return "\n".join("  %-7s %s" % (s.NAME, s.REFS)
+                     for s in sources.available() if getattr(s, "REFS", None))
+
 
 def pick(names):
     found = {s.NAME: s for s in sources.available()}
@@ -143,8 +149,8 @@ def cmd_show(args):
                 sys.exit("%s: nothing cached for %s" % (s.NAME, args.ref))
             sys.stdout.write(text if text.endswith("\n") else text + "\n")
             return 0
-    sys.exit("can't tell which source %r belongs to; use OWNER/REPO#N, "
-             "pad:NAME or a GitHub URL" % args.ref)
+    sys.exit("can't tell which source %r belongs to; refs are:\n%s"
+             % (args.ref, ref_help()))
 
 
 def cmd_sql(args):
@@ -176,7 +182,12 @@ def cmd_sql(args):
 
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else list(argv)
+    # `openrtx NAME …` hands the rest to a source's own commands
+    with_cli = {s.NAME: s for s in sources.available() if hasattr(s, "cli")}
+    if argv[:1] and argv[0] in with_cli:
+        return with_cli[argv[0]].cli(argv[1:]) or 0
     p = argparse.ArgumentParser(prog="openrtx", description=__doc__,
+                                epilog="refs:\n" + ref_help(),
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--version", action="version", version="openrtx %s" % __version__)
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -213,5 +224,8 @@ def main(argv=None):
     s.add_argument("query", nargs="+")
     s.add_argument("--json", action="store_true")
     s.set_defaults(fn=cmd_sql)
+    for name, src in with_cli.items():
+        sub.add_parser(name, help=getattr(src, "CLI_HELP", "%s commands" % name)
+                       + "; `openrtx %s -h`" % name)
     args = p.parse_args(argv)
     return args.fn(args) or 0

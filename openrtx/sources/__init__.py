@@ -27,7 +27,19 @@ Every source is a module in this package with:
         What changed since `since` (ISO UTC string), newest first, one Hit
         per item with a snippet saying what happened.
 
-REFS are always source-qualified, so `#N` never means two things:
+Optional extras:
+
+    ORDER         int: where the source sorts in listings and search results
+                  (lower first; default 100, then by NAME)
+    REFS          short text naming the refs owns() accepts, for help and errors
+    cli(argv) -> int
+        Source-specific commands: `openrtx NAME …` hands everything after
+        NAME to it. CLI_HELP is its one-line summary in `openrtx -h`.
+
+Any module in this package that defines NAME and sync() is a source, so adding
+one is adding a file; helper modules without them are ignored.
+
+REFS are always source-qualified, so `#N` never means two things, e.g.:
 
     OpenRTX/OpenRTX#520               GitHub issue or PR (also a github.com URL)
     pad:officehours, pad:officehours@9689   the Office Hours pad, optionally at a revision
@@ -48,13 +60,12 @@ from __future__ import annotations
 import datetime as dt
 import importlib
 import os
+import pkgutil
 import sqlite3
 import sys
 
 from .. import paths
 
-# In the order `openrtx search` lists them
-SOURCE_MODULES = ["github", "pad"]
 RETRY_AFTER_FAILURE = dt.timedelta(minutes=10)
 
 
@@ -134,16 +145,18 @@ def load(name):
     return importlib.import_module("%s.%s" % (__name__, name))
 
 
+_found = None
+
+
 def available():
-    """The source modules that exist (a missing optional one is skipped)."""
-    found = []
-    for name in SOURCE_MODULES:
-        try:
-            found.append(load(name))
-        except ImportError as e:
-            if e.name != "%s.%s" % (__name__, name):
-                raise
-    return found
+    """Every source module in this package, in ORDER."""
+    global _found
+    if _found is None:
+        mods = [load(m.name) for m in pkgutil.iter_modules(__path__)
+                if not m.name.startswith("_")]
+        _found = sorted((m for m in mods if hasattr(m, "NAME") and hasattr(m, "sync")),
+                        key=lambda m: (getattr(m, "ORDER", 100), m.NAME))
+    return list(_found)
 
 
 def period(source):
