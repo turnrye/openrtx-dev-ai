@@ -34,7 +34,7 @@ const openrtxTool = {
 	name: "openrtx_run",
 	label: "OpenRTX CLI",
 	description:
-		"Run the openrtx CLI to query the local OpenRTX project cache (GitHub issues/PRs, Office Hours notes). " +
+		"Run the openrtx CLI to query the local OpenRTX project cache (GitHub issues/PRs, Office Hours notes, and any other source `openrtx sources` lists). " +
 		"Examples: 'openrtx sources', 'openrtx search littlefs power loss', 'openrtx recent --since 7d', " +
 		"'openrtx show OpenRTX/OpenRTX#520'. See the research skill for full command reference.",
 	promptSnippet: "Run openrtx CLI commands to query the OpenRTX project cache.",
