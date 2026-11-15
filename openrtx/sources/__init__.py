@@ -34,7 +34,9 @@ REFS are always source-qualified, so `#N` never means two things:
 
 sync() may take extra keyword arguments with defaults (e.g. a test hook).
 After a failed sync, reads keep using the cache and don't retry for
-RETRY_AFTER_FAILURE, so a source that's down or rate-limited stays quiet.
+RETRY_AFTER_FAILURE, so a source that's down or rate-limited stays quiet. An
+exception with a `retry_after` attribute (seconds) stretches that wait to what
+the service asked for.
 
 Sources must be stdlib-only (Python 3.9+), work on macOS, Linux and Windows,
 never write to the remote service, and log progress with log() (stderr), so
@@ -165,20 +167,29 @@ def _failure_marker(source):
 
 
 def recent_failure(source):
-    """When the last failed sync happened, if within RETRY_AFTER_FAILURE."""
+    """When the last failed sync happened, while its wait lasts.
+
+    The wait is RETRY_AFTER_FAILURE, or longer if the service sent Retry-After.
+    """
+    marker = _failure_marker(source)
     try:
-        t = dt.datetime.fromtimestamp(os.path.getmtime(_failure_marker(source)),
-                                      dt.timezone.utc)
+        t = dt.datetime.fromtimestamp(os.path.getmtime(marker), dt.timezone.utc)
+        with open(marker) as f:
+            first = f.readline().split()
     except OSError:
         return None
-    return t if now_utc() - t < RETRY_AFTER_FAILURE else None
+    wait = RETRY_AFTER_FAILURE
+    if len(first) == 2 and first[0] == "retry-after" and first[1].isdigit():
+        wait = max(wait, dt.timedelta(seconds=int(first[1])))
+    return t if now_utc() - t < wait else None
 
 
 def refresh(source, max_age=None, full=False, quiet=False):
     """Sync if stale (or always with full=True). Returns (synced, error).
 
     An explicit request (full=True or a max_age) always tries; an automatic
-    refresh on read waits RETRY_AFTER_FAILURE after a failure.
+    refresh on read waits RETRY_AFTER_FAILURE after a failure, or as long as
+    the service asked with Retry-After.
     """
     if not full and not is_stale(source, max_age):
         return False, None
@@ -193,11 +204,15 @@ def refresh(source, max_age=None, full=False, quiet=False):
     try:
         summary = source.sync(path, full=full)
     except Exception as e:  # keep serving the old cache
+        retry_after = getattr(e, "retry_after", None) or 0
         with open(_failure_marker(source), "w") as f:
+            if retry_after:
+                f.write("retry-after %d\n" % retry_after)
             f.write("%s\n" % e)
         if not quiet:
             log("  %s: sync failed (%s); using the cached copy, retrying in %d min"
-                % (source.NAME, e, RETRY_AFTER_FAILURE.total_seconds() // 60))
+                % (source.NAME, e,
+                   max(RETRY_AFTER_FAILURE.total_seconds(), retry_after) // 60))
         return False, e
     after = source.last_sync(path)
     if after is None or (before is not None and after <= before):

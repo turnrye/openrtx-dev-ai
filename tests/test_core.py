@@ -169,6 +169,23 @@ class CoreTest(unittest.TestCase):
         self.assertIn("dummy", out)
         self.assertIn("synced 0s ago", out)
 
+    def test_retry_after_stretches_the_wait(self):
+        err = sources.SourceError("rate limited")
+        err.retry_after = 3600
+        slow = dummy_source()
+
+        def sync(db_path, full=False):
+            slow.calls.append(full)
+            raise err
+        slow.sync = sync
+        sources.refresh(slow, quiet=True)
+        marker = paths.db_path(slow.NAME) + ".failed"
+        past = (sources.now_utc() - dt.timedelta(minutes=30)).timestamp()
+        os.utime(marker, (past, past))  # beyond the default wait, within Retry-After
+        self.assertIsNotNone(sources.recent_failure(slow))
+        sources.refresh(slow, quiet=True)
+        self.assertEqual(len(slow.calls), 1)
+
 
 class PathsTest(unittest.TestCase):
     def test_parse_and_format_age(self):
