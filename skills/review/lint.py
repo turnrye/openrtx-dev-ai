@@ -293,6 +293,282 @@ def check_append_only(path, lines, added):
     return out
 
 
+# Calls a layer may not make (AGENTS.md § Layering and Ownership, § Concurrency and Real-Time):
+# (pattern, test on the path that makes the call a violation, title, body)
+CALL_RULES = [
+    (r"\bradio_[a-zA-Z]+\s*\(", lambda p: p.startswith("openrtx/") and not p.startswith(("openrtx/src/rtx/", "openrtx/include/")),
+     "Radio API called outside the rtx thread",
+     "Only the rtx thread drives the radio: change the configuration and set `sync_rtx = true` instead "
+     "(AGENTS.md § Layering and Ownership)."),
+    (r"\bpthread_mutex_(?:lock|trylock)\s*\(\s*&\s*state_mutex\b", lambda p: p.startswith("openrtx/src/rtx/"),
+     "rtx thread takes the state mutex",
+     "Waiting on the state mutex can delay the rtx thread and break real-time work such as M17 modulation; "
+     "the rtx thread must not take it (AGENTS.md § Concurrency and Real-Time)."),
+    (r"\bui_updateFSM\s*\(", lambda p: p.startswith("openrtx/") and p != "openrtx/src/core/threads.c",
+     "ui_updateFSM() called outside the UI thread",
+     "The UI thread already calls `ui_updateFSM()` (threads.c); calling it from elsewhere races with it."),
+    (r"\bdisplay_(?:init|terminate)\s*\(", lambda p: p.startswith("openrtx/src/ui/"),
+     "Display driver initialised from the UI",
+     "`display_init()` runs once at startup; the UI shouldn't re-initialise the driver."),
+]
+
+
+def check_calls(path, lines, added):
+    """Calls the layer this file belongs to may not make."""
+    out = []
+    for n in sorted(added):
+        if n > len(lines) or not re.match(r"\s", lines[n - 1]):  # calls sit inside function bodies
+            continue
+        line = strip_comments(lines[n - 1])
+        for pattern, bad, title, body in CALL_RULES:
+            if bad(path) and re.search(pattern, line):
+                out.append(finding("layering", path, n, "P1", title, body))
+    return out
+
+
+def block_opener(code, n):
+    """The text that opens the innermost { } block around line n ('' at file level)."""
+    depth = 0
+    for j in range(n - 2, -1, -1):
+        for ch in reversed(code[j]):
+            if ch == "}":
+                depth += 1
+            elif ch == "{":
+                if depth > 0:
+                    depth -= 1
+                    continue
+                return " ".join(code[max(0, j - 1):j + 1])
+    return ""
+
+
+def check_unused(path, lines, added, refs):
+    """New struct members and macros that nothing references (`refs(name)` counts lines naming it).
+
+    Only in openrtx/: drivers and MCU support legitimately add register maps whose
+    definitions mostly go unused.
+    """
+    out = []
+    if not path.startswith("openrtx/"):
+        return out
+    code = strip_comments("\n".join(lines)).split("\n")
+    for n in sorted(added):
+        if n > len(code):
+            continue
+        line = code[n - 1]
+        m = re.match(r"\s*#\s*define\s+([A-Za-z_]\w*)", line)
+        kind = "Macro"
+        if not m and path.endswith((".h", ".hpp")) and re.match(r"\s", line) \
+                and re.search(r"\b(struct|union)\b", block_opener(code, n)) and "=" not in block_opener(code, n):
+            m = re.match(r"\s+(?:const\s+|volatile\s+|unsigned\s+|struct\s+|enum\s+)*[A-Za-z_][\w:<>]*[\s\*]+"
+                         r"([A-Za-z_]\w*)\s*(?:\[[^\]]*\])?\s*(?::\s*\w+)?\s*;\s*$", line)
+            kind = "Struct member"
+        if not m or re.search(r"_H_?$|_HPP_?$", m.group(1)):
+            continue
+        if refs(m.group(1)) <= 1:
+            out.append(finding("unused", path, n, "P2", "%s `%s` is not used" % (kind, m.group(1)),
+                               "Nothing else in the tree refers to `%s`. Remove it, or add it with the change "
+                               "that uses it." % m.group(1)))
+    return out
+
+
+def check_doxygen(path, lines, added):
+    """New public function declarations in headers need a Doxygen comment (AGENTS.md § Documentation)."""
+    out = []
+    if not path.endswith((".h", ".hpp")) or not path.startswith(("openrtx/include/", "platform/")):
+        return out
+    for n in sorted(added):
+        if n > len(lines):
+            continue
+        line = strip_comments(lines[n - 1])
+        c_decl = re.match(r"(?!typedef\b|#|return\b|struct\s+\w+\s*\{)(?:extern\s+|static\s+inline\s+|inline\s+)?"
+                          r"[A-Za-z_][\w\s\*]*?[\s\*]([A-Za-z_]\w*)\s*\(", line)
+        # a method declaration has a return type before its name; `reset();` is a call
+        cpp_decl = path.endswith(".hpp") and re.match(r"\s+(?:virtual\s+|static\s+|inline\s+)*(?:const\s+)?"
+                                                      r"[A-Za-z_][\w:]*(?:<[^;()]*>)?[\s\*&]+"
+                                                      r"([A-Za-z_]\w*)\s*\([^;{]*\)\s*(?:const\s*)?"
+                                                      r"(?:override\s*)?;\s*$", line)
+        m = c_decl or cpp_decl
+        if not m or "return" in line or m.group(1) in ("if", "while", "for", "switch", "sizeof"):
+            continue
+        prev = next((lines[j].strip() for j in range(n - 2, -1, -1) if lines[j].strip()), "")
+        if not (prev.endswith("*/") or prev.startswith("//")):
+            out.append(finding("doxygen", path, n, "P2", "No Doxygen comment on `%s`" % m.group(1),
+                               "Every public function is documented in its header with a Doxygen comment "
+                               "(AGENTS.md § Documentation)."))
+    return out
+
+
+def check_static_locals(path, lines, added):
+    """Static variables inside function bodies: keep state at file scope, at the top of the file."""
+    out = []
+    if not path.endswith((".c", ".cpp", ".cc")):
+        return out
+    code = strip_comments("\n".join(lines)).split("\n")
+    for n in sorted(added):
+        if n > len(code) or not re.match(r"\s+static\s+(?!const\b|constexpr\b|inline\b|void\b)[A-Za-z_]", code[n - 1]):
+            continue
+        opener = block_opener(code, n)
+        if ")" in opener and not re.search(r"\b(struct|class|enum|namespace)\b", opener):
+            out.append(finding("static-local", path, n, "P3", "Static variable inside a function",
+                               "Move function-local static state to the beginning of the file, where the "
+                               "module's state lives."))
+    return out
+
+
+def check_switch_chain(path, lines, added):
+    """An if / else if chain comparing one variable with constants reads better as a switch."""
+    out = []
+    if not path.endswith(SOURCE_EXT):
+        return out
+    test = r"\(\s*([\w.\->\[\]]+)\s*==\s*[\w:]+\s*\)"
+    for n in sorted(added):
+        if n > len(lines):
+            continue
+        m = re.match(r"\s*if\s*" + test, strip_comments(lines[n - 1]))
+        if not m:
+            continue
+        var, branches = m.group(1), 0
+        for j in range(n, min(n + 60, len(lines))):
+            e = re.search(r"\belse\s+if\s*" + test, strip_comments(lines[j]))
+            if e and e.group(1) == var:
+                branches += 1
+        if branches >= 2:
+            out.append(finding("switch", path, n, "P3", "if / else if chain on `%s`" % var,
+                               "Comparing one value with several constants reads better as a `switch`; put "
+                               "the error case in `default` (`return -ENOTSUP`) (AGENTS.md § Readability)."))
+    return out
+
+
+def check_define_location(path, lines, added):
+    """#defines in a source file belong at its top, not between functions."""
+    out = []
+    if not path.endswith((".c", ".cpp", ".cc")):
+        return out
+    code = strip_comments("\n".join(lines)).split("\n")
+    first_fn = next((i + 1 for i, l in enumerate(code)
+                     if re.match(r"[A-Za-z_][\w\s\*:<>]*\b\w+\s*\([^;]*$", l) and not l.startswith(("#", "typedef"))
+                     and any(code[k].strip().startswith("{") or code[k].rstrip().endswith("{")
+                             for k in range(i, min(i + 3, len(code))))), None)
+    for n in sorted(added):
+        if first_fn and n > first_fn and n <= len(code) and re.match(r"\s*#\s*define\b", code[n - 1]):
+            out.append(finding("define-location", path, n, "P3", "#define between functions",
+                               "Put macros at the beginning of the source file, with the others."))
+    return out
+
+
+def top_level_split(expr):
+    """Split an expression at depth-0 && and ||, stopping at the parenthesis that closes it."""
+    parts, depth, start, i = [], 0, 0, 0
+    while i < len(expr):
+        ch = expr[i]
+        if ch in "([":
+            depth += 1
+        elif ch in ")]":
+            depth -= 1
+            if depth < 0:  # the `)` that closes the if / while condition
+                expr = expr[:i]
+                break
+        elif depth == 0 and expr[i:i + 2] in ("&&", "||"):
+            parts.append(expr[start:i])
+            start, i = i + 2, i + 2
+            continue
+        i += 1
+    return parts + [expr[start:]]
+
+
+def unwrapped_comparison(operand):
+    """True when an operand has a comparison outside parentheses."""
+    s = operand.strip()
+    depth = 0
+    for i, ch in enumerate(s):
+        if ch in "([":
+            depth += 1
+        elif ch in ")]":
+            depth -= 1
+        elif depth == 0 and (s[i:i + 2] in ("==", "!=", "<=", ">=") or
+                             (ch in "<>" and s[i - 1:i] not in "<>-" and s[i + 1:i + 2] not in "<>=")):
+            return True
+    return False
+
+
+def check_parentheses(path, lines, added):
+    """Each comparison in a compound condition sits in its own parentheses (AGENTS.md § Readability)."""
+    out = []
+    if not path.endswith(SOURCE_EXT):
+        return out
+    for n in sorted(added):
+        if n > len(lines):
+            continue
+        line = strip_comments(lines[n - 1])
+        if "&&" not in line and "||" not in line or "template" in line:
+            continue
+        # the condition may continue on the next line: take everything after `if (`
+        m = re.search(r"\b(?:if|while)\s*\((.*)", line)
+        expr = m.group(1) if m else re.split(r"\breturn\b|=(?!=)", line, maxsplit=1)[-1]
+        parts = top_level_split(expr)
+        if len(parts) > 1 and any(unwrapped_comparison(p) for p in parts):
+            out.append(finding("parentheses", path, n, "P3", "Comparison not in its own parentheses",
+                               "Put each comparison of a compound condition in parentheses: "
+                               "`(a == b) && (c < d)` (AGENTS.md § Readability)."))
+    return out
+
+
+def check_std_array(path, lines, added):
+    """C++ class members that are raw arrays: use std::array (AGENTS.md § C++ Class Conventions)."""
+    out = []
+    if not path.endswith(CPP_EXT):
+        return out
+    code = strip_comments("\n".join(lines)).split("\n")
+    for n in sorted(added):
+        if n > len(code):
+            continue
+        m = re.match(r"\s+(?:static\s+)?(?:constexpr\s+|const\s+)*(?!char\b)([A-Za-z_][\w:<>]*)\s+(\w+)\s*\[[^\]]+\]\s*(?:=.*)?;",
+                     code[n - 1])
+        if m and re.search(r"\b(class|struct)\b", block_opener(code, n)):
+            out.append(finding("std-array", path, n, "P3", "Raw array member `%s`" % m.group(2),
+                               "Use `std::array<%s, N>` for class members: it carries its size and has "
+                               "`fill()` (AGENTS.md § C++ Class Conventions)." % m.group(1)))
+    return out
+
+
+def check_hw_literals(path, lines, added):
+    """Frequencies hard-coded in core code break radios on other bands."""
+    out = []
+    if not path.startswith(("openrtx/src/core/", "openrtx/src/ui/", "openrtx/src/rtx/")):
+        return out
+    for n in sorted(added):
+        if n <= len(lines) and re.search(r"(?<![\w.])(?:[1-9]\d{8,9})(?![\w.])", strip_comments(lines[n - 1])):
+            out.append(finding("hw-literal", path, n, "P2", "Hard-coded frequency",
+                               "Take defaults and limits from the hardware info (band limits), so the code "
+                               "works on VHF and UHF radios alike (AGENTS.md, defaults from the hardware config)."))
+    return out
+
+
+def check_new_files(repo, base, head):
+    """Scripts outside scripts/, where the repository keeps them all."""
+    out = []
+    for path in git(repo, "diff", "--name-only", "--diff-filter=A", base, head).split("\n"):
+        if path.endswith((".py", ".sh", ".pl")) and not path.startswith(
+                ("scripts/", "tests/", ".github/", "lib/", "subprojects/", "docs/", ".devcontainer/")):
+            out.append(finding("script-location", path, 1, "P3", "Script outside scripts/",
+                               "Keep scripts and generators together in `scripts/` at the repository root."))
+    return out
+
+
+def check_changelog(repo, base, head):
+    """Changelog entries are one short line."""
+    out, n = [], None
+    for line in git(repo, "diff", "-U0", base, head, "--", "CHANGELOG.rst", "CHANGELOG.md").splitlines():
+        if line.startswith("@@"):
+            n = int(re.match(r"@@ -\S+ \+(\d+)", line).group(1))
+        elif line.startswith("+") and not line.startswith("+++") and n is not None:
+            if re.match(r"\s*[-*] ", line[1:]) and len(line[1:].strip()) > 80:
+                out.append(finding("changelog", "CHANGELOG.rst", n, "P3", "Long changelog entry",
+                                   "Keep each changelog entry to one short line; maintainers trim long ones."))
+            n += 1
+    return out
+
+
 def tidy_flags(tree, path):
     """Compiler flags for clang-tidy, modelled on the Linux build."""
     inc = ["platform/targets/linux", "platform/targets/linux/emulator", "platform/drivers/audio",
@@ -359,6 +635,22 @@ def lint(repo, base, head="HEAD", tidy=False, tree=None):
             out += check_file_local(path, lines, new, declared, used_elsewhere)
         if APPEND_ONLY.match(path):
             out += check_append_only(path, lines, new)
+        out += check_calls(path, lines, new)
+        out += check_doxygen(path, lines, new)
+        out += check_static_locals(path, lines, new)
+        out += check_switch_chain(path, lines, new)
+        out += check_define_location(path, lines, new)
+        out += check_parentheses(path, lines, new)
+        out += check_std_array(path, lines, new)
+        out += check_hw_literals(path, lines, new)
+
+        def refs(name):
+            hits = git(repo, "grep", "-c", "-w", "-F", name, head, "--", *["*" + e for e in SOURCE_EXT])
+            return sum(int(h.rsplit(":", 1)[1]) for h in hits.split("\n") if h)
+
+        out += check_unused(path, lines, new, refs)
+    out += check_new_files(repo, base, head)
+    out += check_changelog(repo, base, head)
     if tidy:
         out += clang_tidy(tree or repo, changed)
     return sorted(out, key=lambda f: (f["path"], f["line"]))
