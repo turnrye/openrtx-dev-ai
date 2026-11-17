@@ -65,7 +65,7 @@ def gh(path, paginate=False):
 def git(work, *args, check=True):
     """Run git on the bare mirror and return the completed process; fetches retry."""
     for attempt in range(4 if args[0] == "fetch" else 1):
-        p = subprocess.run(["git", "--git-dir", work] + list(args), capture_output=True, text=True)
+        p = subprocess.run(["git", "--git-dir", work] + list(args), capture_output=True, text=True, encoding="utf-8", errors="replace")
         if not p.returncode or "unable to access" not in p.stderr:
             break
         time.sleep(5 * 2 ** attempt)

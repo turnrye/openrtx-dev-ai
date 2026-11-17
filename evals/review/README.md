@@ -66,6 +66,20 @@ review sees) whose lines changed by the merge.
 Compare two skill versions on the same cases and epochs. A difference smaller than about
 twice the standard error is noise.
 
+## Scoring the deterministic checks (no model)
+
+`lint_eval.py` runs the review skill's `lint.py` (house rules a tool can check) over every
+case's start and scores it with the same spot match, no model involved. It takes about a
+minute for the whole corpus, so it can run on every change to `lint.py`:
+
+```sh
+python3 evals/review/lint_eval.py --lint <plugin checkout>/skills/review/lint.py [--clang-tidy] [--show]
+```
+
+It prints, per rule, how many findings it raised, how many make the same point as a
+maintainer comment (its rule matches what the comment asks for, `RULE_TOPICS`), how many
+land at a comment at all, and how many are on lines that changed before the merge.
+
 ## What a case holds
 
 | Field | Meaning |

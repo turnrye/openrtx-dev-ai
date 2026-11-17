@@ -123,7 +123,7 @@ def parse_judgement(text, pairs):
 def changed_lines(work, start, end, path):
     """Old-side line ranges of start..end that changed in a file, as (first, last) pairs."""
     p = subprocess.run(["git", "--git-dir", work, "diff", "-U0", start, end, "--", path],
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
     out = []
     for m in re.finditer(r"^@@ -(\d+)(?:,(\d+))? ", p.stdout, re.M):
         first, count = int(m.group(1)), int(m.group(2) or 1)
@@ -166,7 +166,7 @@ def suggestion_landed(work, case, finding):
     if len(code) < 10:
         return False
     p = subprocess.run(["git", "--git-dir", work, "show", "%s:%s" % (case["end"]["sha"], norm_path(finding.get("path")))],
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
     return not p.returncode and code in squash(p.stdout)
 
 
