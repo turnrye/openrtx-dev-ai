@@ -46,6 +46,7 @@ The base isn't always `master`: hardware ports collect on long-running branches,
 - Read **AGENTS.md** and **CONTRIBUTING.md** as they are on `origin/master` after a fetch (`git show origin/master:AGENTS.md`), not from a local `master` that may be months behind — they change often. Use master's copy even when a PR targets a long-running branch such as `Retevis-c62`, whose copy can lag; the change will be held to the current rules when it reaches master. Also read `.github/pull_request_template.md` for PRs. These files are authoritative; [reference.md](reference.md) is a map of what is high-signal in them plus the correctness checks they don't spell out. If the two disagree, the base's AGENTS.md wins.
 - Other OpenRTX repos (`rtxlink`, `OpenRTX-Companion`, `openrtx.github.io`, …): use that repo's own AGENTS.md/CONTRIBUTING.md if it has them; the firmware's embedded rules don't apply.
 - Read the surrounding code, not just the hunks: the header a function is declared in, the callers, and the reference implementations AGENTS.md names (`adc_stm32f4.c`, `platform/targets/CS7000/`, `protocols/M17/Demodulator.hpp`, `audio_MDx.cpp`).
+- Compare with the siblings: other files of the same target family or driver kind, found by grepping for what the hunk uses (`git grep -n PLATFORM_CS7000P platform/`, `git grep -ln stm32adc_init`). Note how they handle the same thing. When the change picks a different idiom, it needs a reason; "the same file does it elsewhere" counts only if the two cases really are the same.
 
 ## 3. Gather the history
 
@@ -58,6 +59,13 @@ Use the `openrtx` CLI (the research skill; `openrtx_run` in Pi) — a review tha
   openrtx sql "SELECT repo||'#'||number, created_at, author, path, body FROM github.comments
                WHERE kind='review_comment' AND path='platform/drivers/baseband/BK4819.c'
                  AND author <> '<the PR author>'
+               ORDER BY created_at DESC LIMIT 30"
+  ```
+- **Prior reviews of the same construct**, in any file: maintainers repeat style requests across the codebase, so a rule they apply often may have been stated on a file this change doesn't touch. Search their review comments for the hunk's construct (`#ifdef PLATFORM`, `static constexpr`, `malloc`, the API being called):
+  ```sh
+  openrtx sql "SELECT repo||'#'||number, created_at, path, body FROM github.comments
+               WHERE kind='review_comment' AND author IN ('silseva','marcoSchr')
+                 AND body LIKE '%#ifdef PLATFORM%'
                ORDER BY created_at DESC LIMIT 30"
   ```
 
