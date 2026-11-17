@@ -210,12 +210,13 @@ def review_heuristics():
 
 
 @task
-def review_corpus(limit: int = 0, ids: str = "", plugin_dir: str = "", model: str = "claude-opus-5-5",
+def review_corpus(limit: int = 0, ids: str | list[str] = "", plugin_dir: str = "", model: str = "claude-opus-5-5",
                   builds: bool = False, time_limit: int = 1800, author: str = ""):
     """The review corpus as an Inspect task."""
     cases = json.load(open(os.path.join(HERE, "corpus.json")))["cases"]
     if ids:
-        want = set(ids.split(","))
+        # the inspect CLI turns `-T ids=a,b` into a list; the Python API passes the string
+        want = set(ids.split(",") if isinstance(ids, str) else ids)
         cases = [c for c in cases if c["id"] in want]
     if author.startswith("!"):
         cases = [c for c in cases if c["author"] != author[1:]]
