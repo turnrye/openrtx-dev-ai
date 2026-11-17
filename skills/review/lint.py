@@ -30,6 +30,7 @@ SKIP_DIRS = ("lib/", "subprojects/", "tests/", "scripts/")
 # voice-prompt tables are indexed by position (AGENTS.md § Persistent Data).
 APPEND_ONLY = re.compile(r"^openrtx/include/(ui/\w*Strings\.h|ui/ui_strings\.h|core/voicePrompts\.h|core/settings\.h)$")
 
+TIDY_PATHS = ("openrtx/", "platform/targets/linux/")  # what the Linux build compiles
 TIDY_CHECKS = ",".join([
     "-*",
     "readability-simplify-boolean-expr",
@@ -209,11 +210,16 @@ def tidy_flags(tree, path):
 
 
 def clang_tidy(tree, changed):
-    """clang-tidy's curated checks on the changed files, kept to the added lines."""
+    """clang-tidy's curated checks on the changed files the Linux build compiles, kept to the added lines.
+
+    Target and MCU sources need their cross build's headers and defines; without them
+    clang-tidy stops at the first missing header, so they are left to the review.
+    """
     exe = os.environ.get("CLANG_TIDY") or shutil.which("clang-tidy") or "/opt/homebrew/opt/llvm/bin/clang-tidy"
     out = []
     for path, added in changed.items():
-        if not path.endswith((".c", ".cpp", ".cc")) or not os.path.exists(os.path.join(tree, path)):
+        if not path.endswith((".c", ".cpp", ".cc")) or not path.startswith(TIDY_PATHS) \
+                or not os.path.exists(os.path.join(tree, path)):
             continue
         p = subprocess.run([exe, "--quiet", "--checks=" + TIDY_CHECKS, os.path.join(tree, path), "--"]
                            + tidy_flags(tree, path), capture_output=True, text=True, timeout=300)
