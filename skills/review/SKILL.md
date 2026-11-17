@@ -85,8 +85,15 @@ Read every hunk with these passes, in this order — correctness first, because 
 
 1. **Correctness on the radio.** Concurrency with the rtx/UI threads and ISRs, real-time behaviour, bounds and integer width, init/teardown order and error paths, memory (stack, heap, static RAM on CCM), persistent data layout, RF safety. Checklist in [reference.md](reference.md#correctness-on-embedded-targets).
 2. **Design and layering.** The layer rules, ownership of state, reuse of existing helpers, `CONFIG_` gating — AGENTS.md's *Layering and Ownership*, *Hardware Targets and Drivers*, *Reuse*, *Conditional Compilation*.
-3. **House style.** The rest of AGENTS.md's *Conventions*: naming, types, C++ class layout, documentation, readability, formatter pitfalls.
-4. **The PR as a unit.** Size and split, commit hygiene, the template's sections (testing performed is required), changelog line.
+3. **Simpler form.** For each changed function, ask what a maintainer asks first:
+   - Can it be shorter? A condition that boils down to one expression, a `bool` that can be returned directly, a helper that a designated initializer replaces, a variable whose scope can shrink into the loop that uses it, a step (`>> 0`, a cast, a copy) that does nothing.
+   - Is every behaviour change needed for what the PR sets out to do? An extra reset, guard or call that the fix doesn't need gets "Is this actually needed?".
+   - Does each piece sit where the structure says? A helper that serves one C++ class is a private member, a general helper goes to `core/` so others can reuse it, UI-only state lives in the UI state, a target's data in `platform/targets/<target>/`.
+   - Do new names follow their neighbours? The class's existing verbs (`init`/`update` → `reinit`, not a new verb or one that promises more than it does), the module prefix, the pattern of existing names of the same kind (`CONFIG_<FEATURE>` for hardware features), short rather than verbose.
+
+   These are small, and maintainers raise them on almost every PR. Report them, with a ```` ```suggestion ```` block when the fix is a line or two.
+4. **House rules, one at a time.** Walk the [rule map](reference.md#rule-map) over the added lines rule by rule: take each bold rule for the kinds of hunk in the change and look for it, instead of reading the hunks and waiting for a rule to come to mind. Trailing commas on the last enum or initializer element, `ARRAY_SIZE` instead of a count, module prefixes, `typedef`s, designated initializers, a `switch` with `default: return -ENOTSUP` for a mode or enum dispatch. Each violation is its own finding however small, at its line: maintainers send every one back, and a missing trailing comma also makes clang-format mangle the enum.
+5. **The PR as a unit.** Size and split, commit hygiene, the template's sections (testing performed is required), changelog line. Keep this to what matters; the code comes first.
 
 What to flag:
 
@@ -94,6 +101,7 @@ What to flag:
 - Only what you have verified: open the file, find the caller, check the type. If a concern rests on an assumption you couldn't check, put it under *Questions for the author*, not as a finding.
 - Each finding is one issue with one location, says why it matters on this hardware or for this project, and cites its rule where there is one (`AGENTS.md § Persistent Data, #340`). Don't paraphrase the rule at length; the citation is the authority.
 - Prefer the maintainers' form: a short sentence, a question when you suspect the author knows something you don't ("Can't these be set in `radio_setOpmode()`?"), a ```` ```suggestion ```` block when the fix is a few lines.
+- Anchor each code finding to the line it is about, so the author can find it, and keep findings about the PR text, commits and testing after the code findings.
 - Too big to review is itself the verdict. A PR of hundreds of files or many unrelated features gets "split it first" with a proposed split, not a line-by-line review (OpenRTX/OpenRTX#523, #396).
 
 Severities and verdicts are defined in [reference.md](reference.md#severity); the report layout is in [reference.md](reference.md#report-template).
