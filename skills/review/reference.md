@@ -95,6 +95,23 @@ Where to look in the base's AGENTS.md for each kind of hunk. The rules most ofte
 | new files | File Headers | SPDX header (the `reuse` job fails without it) |
 | CHANGELOG, PR text, comments | Commits and PRs | short: one changelog line, a few plain lines of commit body; maintainers trim long text (#513) |
 
+## Where code lives
+
+Check the base's tree before relying on this; CONTRIBUTING.md § Code Organization is the authority.
+
+| Kind of code | Where it goes |
+|---|---|
+| Helpers any module could use: macros, number and unit conversions, string handling | `openrtx/include/core/utils.h`, or the `core/` header of their topic (`crc.h`, `datetime.h`, `gps.h`, `dsp.h`, `fir.hpp`, `iir.hpp`), even with one caller today |
+| State shared between the UI and the rtx thread | `core/state.h`. State and tables only the UI uses live in the UI (`openrtx/src/ui/<theme>/`, its own state struct, `static const` in the file) |
+| A protocol's data format: fields, flags, enums, packing | the protocol's classes in `openrtx/include/protocols/<name>/`, as members and `enum`s of the frame type that carries them, not in the op mode or a free function |
+| Op mode behaviour | `openrtx/src/rtx/OpMode_*.cpp`: drives the radio; no wire formats, no UI or indicator handling of its own |
+| A chip's registers, fields and enums | the chip driver's header in `platform/drivers/<category>/`, not a target file or a shared header |
+| A new driver or a separable part of one | its own `platform/drivers/<category>/<peripheral>_<chip>.c/.h`, not added to an existing driver's file |
+| A target's pins, instances and data handling | `platform/targets/<target>/` (`pinmap.h`, `hwconfig.h/.c`, `platform.c`) |
+| Scripts, generators and host tools | `scripts/` at the repository root |
+| Tests and their helpers | `tests/unit/` (Catch2) and `tests/platform/` |
+| Text in the string table | only what the UI shows as words and voice prompts read; symbols and fixed labels stay in the UI code |
+
 ## Severity
 
 | Tag | Meaning | Examples |
