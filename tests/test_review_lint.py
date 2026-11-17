@@ -98,6 +98,12 @@ class FileLocal(unittest.TestCase):
         self.assertEqual(rules(found), [("file-local", 1)])
         self.assertEqual(found[0]["suggestion"], "static bool scanKeys(uint8_t k)")
 
+    def test_file_scope_variable(self):
+        lines = ["bool pressAllowed;", "static int ok;", "uint8_t buf[16] = { 0 };", "    int local;",
+                 "extern int x;", "int shared;"]
+        found = lint.check_file_local("input.c", lines, set(range(1, 7)), {"shared"})
+        self.assertEqual(rules(found), [("file-local", 1), ("file-local", 3)])
+
     def test_only_c_files(self):
         self.assertEqual(lint.check_file_local("a.cpp", ["void f(void)"], {1}, set()), [])
 
