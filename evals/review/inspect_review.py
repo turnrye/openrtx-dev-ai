@@ -144,14 +144,20 @@ def sealed_review(plugin_dir=None, model="claude-opus-5-5", builds=False, time_l
         res = await async_subprocess(cmd, cwd=checkout, env=env, timeout=time_limit)
         with open(os.path.join(root, "transcript.jsonl"), "w") as f:
             f.write(res.stdout or "")
-        report, cost = "", None
+        report, cost, result = "", None, None
         for line in (res.stdout or "").splitlines():
             try:
                 ev = json.loads(line)
             except ValueError:
                 continue
             if ev.get("type") == "result":
+                result = ev
                 report, cost = ev.get("result") or "", ev.get("total_cost_usd")
+        if result is None or result.get("is_error") or res.returncode:
+            # a usage limit, auth failure or crash is an error, not a review that found nothing:
+            # the sample errors, the eval stops, and `inspect eval-retry` reruns it later
+            raise RuntimeError("review run failed (exit %s): %s" % (res.returncode,
+                               (report or res.stderr or "no result")[-500:]))
         try:
             found = json.load(open(findings))
         except (OSError, ValueError):
@@ -199,9 +205,12 @@ async def judge(case, code, model, cwd):
                                   "--strict-mcp-config", "--mcp-config", '{"mcpServers":{}}', "--tools", ""],
                                  cwd=cwd, timeout=300)
     try:
-        answer = json.loads(res.stdout or "{}").get("result", "")
+        out = json.loads(res.stdout or "{}")
     except ValueError:
-        answer = res.stdout or res.stderr
+        out = {}
+    if res.returncode or out.get("is_error") or "result" not in out:
+        raise RuntimeError("judge failed (exit %s): %s" % (res.returncode, (res.stdout or res.stderr)[-500:]))
+    answer = out["result"]
     return sc.parse_judgement(answer, pairs), answer
 
 
