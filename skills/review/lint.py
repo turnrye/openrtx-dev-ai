@@ -52,26 +52,53 @@ def git(repo, *args):
     return p.stdout if p.returncode == 0 else ""
 
 
-def added_lines(repo, base, head):
-    """{path: set of new-side line numbers the change adds}, for files that exist at head."""
-    out, path = {}, None
+def flat(text):
+    """Text without any whitespace: what's left when only formatting changed."""
+    return re.sub(r"\s+", "", text)
+
+
+def changes(repo, base, head):
+    """What BASE..HEAD does to the sources.
+
+    Returns ({path: set of new-side line numbers added}, {path: its path at BASE when renamed},
+    the text of every line the change removes anywhere, so code moved between files is
+    recognised as moved).
+    """
+    added, renamed, removed, path = {}, {}, [], None
     specs = ["*" + e for e in SOURCE_EXT]
-    for line in git(repo, "diff", "-U0", "--no-color", "--diff-filter=AMR", base, head, "--", *specs).splitlines():
-        if line.startswith("+++ "):
+    # deleted files too: code moved out of a file the change deletes is moved, not new
+    for line in git(repo, "diff", "-U0", "-M", "--no-color", "--diff-filter=AMRD", base, head,
+                    "--", *specs).splitlines():
+        if line.startswith("rename from "):
+            old = line[len("rename from "):]
+        elif line.startswith("rename to "):
+            renamed[line[len("rename to "):]] = old
+        elif line.startswith("+++ "):
             path = line[6:] if line.startswith("+++ b/") else None
+        elif line.startswith("---"):
+            continue
         elif line.startswith("@@") and path:
             m = re.match(r"@@ -\S+ \+(\d+)(?:,(\d+))? @@", line)
             start, count = int(m.group(1)), int(m.group(2) if m.group(2) is not None else 1)
-            out.setdefault(path, set()).update(range(start, start + count))
-    return out
+            added.setdefault(path, set()).update(range(start, start + count))
+        elif line.startswith("-"):
+            removed.append(line[1:])
+    return added, renamed, "\n".join(removed)
 
 
-def new_content(lines, added, base_text):
-    """The added lines whose text (ignoring whitespace) isn't anywhere in the base version."""
-    def key(line):  # whitespace and brace placement don't make a line new
-        return re.sub(r"\s+", "", line).lstrip("}").rstrip("{")
-    seen = {key(l) for l in base_text.split("\n")}
-    return {n for n in added if n <= len(lines) and key(lines[n - 1]) not in seen}
+def added_lines(repo, base, head):
+    """{path: set of new-side line numbers the change adds}, for files that exist at head."""
+    return changes(repo, base, head)[0]
+
+
+def new_content(lines, added, base_text, removed_text=""):
+    """The added lines whose text isn't already in the file's base version or removed elsewhere.
+
+    Whitespace is ignored on both sides and the match can span lines, so re-indenting,
+    moving a brace or re-wrapping a statement doesn't make old code look new.
+    """
+    seen = flat(base_text) + "\0" + flat(removed_text)
+    return {n for n in added if n <= len(lines) and flat(lines[n - 1]) not in seen}
 
 
 def strip_comments(text):
@@ -145,8 +172,9 @@ def packed_enums(path, code, added):
     return out
 
 
-def check_lines(path, lines, added):
-    """Single-line rules on the added lines."""
+def check_lines(path, lines, added, existing=frozenset()):
+    """Single-line rules on the added lines. `existing` holds the names the base's headers
+    already declare: implementing an existing interface (`delayUs`) isn't new API."""
     out = []
     cpp = path.endswith(CPP_EXT)
     for n in sorted(added):
@@ -166,14 +194,17 @@ def check_lines(path, lines, added):
             out.append(finding("std-string", path, n, "P2", "std::string in firmware code",
                                "No `std::string` in the codebase: it allocates on the heap "
                                "(AGENTS.md § C++ Class Conventions)."))
-        if cpp and re.search(r"\bstatic\s+const\b(?!expr)", line) and "(" not in line.split("=")[0]:
+        # only constant definitions (with an initializer): `static const T *p;` is a pointer to const
+        if cpp and re.search(r"\bstatic\s+const\b(?!expr)", line) and "=" in line and "(" not in line.split("=")[0]:
             out.append(finding("static-constexpr", path, n, "P3", "static const instead of static constexpr",
                                "Constants and lookup tables are `static constexpr` (AGENTS.md § C++ Class Conventions).",
                                raw.replace("static const", "static constexpr", 1)))
         if path.endswith(C_EXT):
             m = re.match(r"(?!static\b|typedef\b|return\b|else\b|extern\s+\"C\")(?:extern\s+|inline\s+)*"
                          r"[A-Za-z_][\w\s\*]*?[\s\*]([a-z][A-Za-z0-9]*)\s*\([^;{]*\)?\s*[;{]?\s*$", line)
-            if m and m.group(1) not in ("main",) and not re.match(r"\s", raw):
+            prototype_in_c = path.endswith(".c") and line.rstrip().endswith(";")  # reported at the definition
+            if m and m.group(1) not in ("main",) and m.group(1) not in existing and not re.match(r"\s", raw) \
+                    and not prototype_in_c:
                 out.append(finding("module-prefix", path, n, "P2", "Public function without a module prefix",
                                    "`%s` is visible outside this file but has no `module_` prefix. Make it `static` "
                                    "if only this file uses it; otherwise prefix it with its module "
@@ -187,8 +218,12 @@ def declared_in_headers(repo, head):
     return set(out.split("\n")) - {""}
 
 
-def check_file_local(path, lines, added, declared):
-    """A new C function or file-scope variable no header mentions is used only in its file: make it static."""
+def check_file_local(path, lines, added, declared, used_elsewhere=lambda name: False):
+    """A new C function or file-scope variable nothing else mentions is used only in its file: make it static.
+
+    `declared` is every identifier in the headers; `used_elsewhere(name)` says whether another
+    source file names it, which catches the `extern` prototypes some modules keep in .c files.
+    """
     out = []
     if not path.endswith(".c"):
         return out
@@ -201,28 +236,51 @@ def check_file_local(path, lines, added, declared):
         var = re.match(not_decl + r"(?:volatile\s+|const\s+)*[A-Za-z_]\w*[\s\*]+([a-z_]\w*)\s*(\[[^\]]*\])?\s*(=[^;]*)?;\s*$",
                        line)
         m, kind = (fn, "Function") if fn else (var, "File-scope variable")
-        if m and m.group(1) not in declared and m.group(1) != "main" and "IRQ" not in m.group(1):
+        if m and m.group(1) not in declared and m.group(1) != "main" and "IRQ" not in m.group(1) \
+                and not used_elsewhere(m.group(1)):
             out.append(finding("file-local", path, n, "P2", "%s used only in this file is not static" % kind,
-                               "No header mentions `%s`, so nothing outside this file can use it: make it "
+                               "Nothing outside this file mentions `%s`, so it can't be used elsewhere: make it "
                                "`static` (AGENTS.md § Naming)." % m.group(1),
                                "static " + lines[n - 1].lstrip()))
     return out
+
+
+def inside_block(code, n):
+    """True when line n sits inside a { } block (a struct, enum or initializer), not at file level.
+
+    `extern "C" {` and `namespace x {` wrap whole headers, so they count as file level.
+    """
+    depth = 0
+    for j in range(n - 2, -1, -1):
+        for ch in reversed(code[j]):
+            if ch == "}":
+                depth += 1
+            elif ch == "{":
+                if depth > 0:
+                    depth -= 1
+                    continue
+                opener = code[j] if code[j].strip() != "{" else (code[j - 1] if j else "")
+                if re.search(r'extern\s+"C"|\bnamespace\b', opener):
+                    continue
+                return True
+    return False
 
 
 def check_append_only(path, lines, added):
     """New entries in a positional list go at its end, in every language."""
     out = []
     entry = re.compile(r"^\s*[^\s{}#/][^{}]*$")  # an element line, not a block's opening or closing line
+    code = strip_comments("\n".join(lines)).split("\n")  # across lines, so block comments are blanked too
     for n in sorted(added):
-        if n > len(lines) or not entry.match(strip_comments(lines[n - 1])) or (n - 1) in added:
+        if n > len(code) or not entry.match(code[n - 1]) or (n - 1) in added or not inside_block(code, n):
             continue
         # walk forward through the run of added lines, then look for an old entry before the block ends
         k = n
         while k + 1 in added:
             k += 1
         depth = 0
-        for j in range(k, len(lines)):
-            text = strip_comments(lines[j])
+        for j in range(k, len(code)):
+            text = code[j]
             depth += text.count("{") - text.count("}")
             if depth < 0 or text.strip().startswith("}"):
                 break
@@ -273,21 +331,32 @@ def clang_tidy(tree, changed):
 
 def lint(repo, base, head="HEAD", tidy=False, tree=None):
     """All findings for BASE..HEAD."""
-    changed = {p: a for p, a in added_lines(repo, base, head).items()
+    added_by_path, renamed, removed = changes(repo, base, head)
+    changed = {p: a for p, a in added_by_path.items()
                if p.endswith(SOURCE_EXT) and not p.startswith(SKIP_DIRS)}
-    out, declared = [], None
+    out, declared, existing = [], None, None
     for path, added in changed.items():
         text = git(repo, "show", "%s:%s" % (head, path))
         lines = text.split("\n")
-        new = new_content(lines, added, git(repo, "show", "%s:%s" % (base, path)))
+        # new content: not in the file's base version (at its old path if renamed), and not
+        # removed elsewhere in the change (moved between files)
+        base_text = git(repo, "show", "%s:%s" % (base, renamed.get(path, path)))
+        new = new_content(lines, added, base_text, removed)
+        if existing is None:
+            existing = declared_in_headers(repo, base)
         # a reformat touches a block, so the comma check looks at every touched line;
         # the other rules only at lines whose content is new, not moved or re-indented
         out += check_trailing_comma(path, text, added)
-        out += check_lines(path, lines, new)
+        out += check_lines(path, lines, new, existing)
         if path.endswith(".c"):
             if declared is None:
                 declared = declared_in_headers(repo, head)
-            out += check_file_local(path, lines, new, declared)
+
+            def used_elsewhere(name, path=path):
+                hits = git(repo, "grep", "-l", "-w", "-F", name, head, "--", *["*" + e for e in SOURCE_EXT])
+                return any(h.split(":", 1)[-1] != path for h in hits.split("\n") if h)
+
+            out += check_file_local(path, lines, new, declared, used_elsewhere)
         if APPEND_ONLY.match(path):
             out += check_append_only(path, lines, new)
     if tidy:
