@@ -4,7 +4,7 @@ A silver data set for evaluating `/openrtx:review`: merged OpenRTX PRs, each wit
 the code the maintainer first reviewed, what he said, and the code that was merged.
 
 ```sh
-python3 evals/review/build_corpus.py            # rebuild corpus.json (100 cases)
+python3 evals/review/build_corpus.py            # rebuild corpus.json (up to --limit 100; 64 qualify today)
 python3 evals/review/build_corpus.py --refresh  # refetch from GitHub first
 ```
 
