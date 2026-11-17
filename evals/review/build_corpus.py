@@ -84,22 +84,43 @@ def have(work, sha):
     return not git(work, "fetch", "-q", "origin", sha, check=False).returncode
 
 
+FORCE_PUSHES = """query($n: Int!) { repository(owner: "OpenRTX", name: "OpenRTX") { pullRequest(number: $n) {
+  timelineItems(first: 100, itemTypes: [HEAD_REF_FORCE_PUSHED_EVENT, BASE_REF_FORCE_PUSHED_EVENT]) { nodes {
+    __typename
+    ... on HeadRefForcePushedEvent { createdAt beforeCommit { oid } afterCommit { oid } }
+    ... on BaseRefForcePushedEvent { createdAt beforeCommit { oid } afterCommit { oid } } } } } } }"""
+
+
+def force_pushes(number):
+    """Head and base force pushes with their before and after commits (REST has only the after)."""
+    out = subprocess.run(["gh", "api", "graphql", "-F", "n=%d" % number, "-f", "query=" + FORCE_PUSHES],
+                         capture_output=True, text=True)
+    if out.returncode:
+        raise RuntimeError("gh api graphql #%d: %s" % (number, out.stderr.strip()))
+    nodes = json.loads(out.stdout)["data"]["repository"]["pullRequest"]["timelineItems"]["nodes"]
+    return [{"ref": "head" if n["__typename"].startswith("Head") else "base", "at": n["createdAt"],
+             "before": (n.get("beforeCommit") or {}).get("oid"), "after": (n.get("afterCommit") or {}).get("oid")}
+            for n in nodes]
+
+
 def raw_pr(raw_dir, number, refresh):
     """Fetch (or load) everything the corpus needs about one PR."""
     path = os.path.join(raw_dir, "pr-%d.json" % number)
-    if os.path.exists(path) and not refresh:
-        return json.load(open(path))
+    data = {} if refresh or not os.path.exists(path) else json.load(open(path))
     base = "repos/%s" % REPO
-    data = {
-        "pull": gh("%s/pulls/%d" % (base, number)),
-        "reviews": gh("%s/pulls/%d/reviews?per_page=100" % (base, number), True),
-        "review_comments": gh("%s/pulls/%d/comments?per_page=100" % (base, number), True),
-        "issue_comments": gh("%s/issues/%d/comments?per_page=100" % (base, number), True),
-        "timeline": gh("%s/issues/%d/timeline?per_page=100" % (base, number), True),
-    }
-    paths.ensure(raw_dir)
-    with open(path, "w") as f:
-        json.dump(data, f)
+    if "pull" not in data:
+        data = {
+            "pull": gh("%s/pulls/%d" % (base, number)),
+            "reviews": gh("%s/pulls/%d/reviews?per_page=100" % (base, number), True),
+            "review_comments": gh("%s/pulls/%d/comments?per_page=100" % (base, number), True),
+            "issue_comments": gh("%s/issues/%d/comments?per_page=100" % (base, number), True),
+            "timeline": gh("%s/issues/%d/timeline?per_page=100" % (base, number), True),
+        }
+    if "force_pushes" not in data:
+        data["force_pushes"] = force_pushes(number)
+        paths.ensure(raw_dir)
+        with open(path, "w") as f:
+            json.dump(data, f)
     return data
 
 
@@ -183,6 +204,34 @@ def outcome(work, item, end):
     return "unchanged"
 
 
+def base_tips(work, raw, cutoff):
+    """Commits the base branch may have pointed at while the PR was open."""
+    pr = raw["pull"]
+    tips = {pr["base"]["sha"]}
+    for fp in raw.get("force_pushes", []):
+        if fp["ref"] == "base":
+            tips |= {fp["before"], fp["after"]}
+    master = git(work, "rev-list", "-1", "--first-parent", "--before=" + cutoff, "master", check=False)
+    tips.add(master.stdout.strip())
+    return [t for t in tips if t and have(work, t)]
+
+
+def fork_point(work, sha, tips):
+    """The fork point that leaves the PR smallest: merge-base with the closest base tip.
+
+    A base branch rewritten after the merge (Retevis-c62) no longer contains the commits
+    the PR was built on; its pre-rewrite tip, from a base force push, still does.
+    """
+    best = None
+    for tip in tips:
+        n = git(work, "rev-list", "--count", "%s..%s" % (tip, sha), check=False).stdout.strip()
+        if n.isdigit() and int(n) > 0 and (best is None or int(n) < best[0]):
+            best = (int(n), tip)
+    if not best:
+        return None
+    return git(work, "merge-base", best[1], sha, check=False).stdout.strip() or None
+
+
 def build_case(work, raw, reviewer):
     """One corpus case, or (None, reason) when the PR doesn't qualify."""
     pr = raw["pull"]
@@ -203,10 +252,13 @@ def build_case(work, raw, reviewer):
     for it in items:
         it["available"] = bool(it["commit"]) and it["commit"] not in missing
         it["outcome"] = outcome(work, it, end) if it["available"] else None
+        # comments before the first one we can pin to a head were on code we can't recover;
+        # a reviewer of `start` would have seen them, so they are context, not targets or leaks
+        it["prior"] = it["at"] < first["at"]
+    tips = base_tips(work, raw, first["at"])
 
     def fork(sha):
-        p = git(work, "merge-base", sha, merge, check=False)
-        return p.stdout.strip() or None
+        return fork_point(work, sha, tips)
 
     return {
         "id": "OpenRTX-%d" % pr["number"],

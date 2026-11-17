@@ -40,22 +40,31 @@ Each sample's folder under `~/Library/Caches/openrtx/evals/review/runs/<run>/<ca
 holds the sealed checkout, the cut-down research cache, `transcript.jsonl` and
 `findings.json`. A crashed run resumes with `inspect eval-retry <log>`.
 
-### Metrics
+### Reading the results
 
-Counts are summed over cases, so the ratios are micro-averaged.
+Each case's score is a set of rates between 0 and 1, `None` where a rate doesn't apply
+(a case with no comments to catch has no catch rate; a leaked run has none at all).
+The run's metrics are the mean of each rate over the cases it applies to, with a
+standard error; `catch_rate` is the headline. In the viewer, a case's **Explanation**
+lists every maintainer comment with what the review did about it, and every code
+finding with whether its lines changed before the merge; raw counts are in its metadata.
+
+The "targets" are the maintainer's round-one inline comments (made on the head the
+review sees) whose lines changed by the merge.
 
 | Metric | Meaning |
 |---|---|
-| `recall_acted` | Share of the maintainer's round-one inline comments whose lines changed by the end that a finding lands on (same file, ±5 lines). The headline. |
-| `recall_round1` | The same over all round-one inline comments |
-| `recall_acted_same_file` | Looser: a finding anywhere in the comment's file |
-| `precision_on_changed` | Share of located findings whose lines changed between start and end (±2), a stand-in for precision |
-| `cases_flagged` | Share of cases with at least one P0–P2 finding; every case had feedback that changed the code |
-| `suggestions_landed` | Share of findings whose suggested code is in the merged file |
-| `total_findings`, `total_leaked`, `total_no_findings_file` | Volume; runs that quoted the maintainer verbatim (the seal failed); runs that wrote no findings file |
+| `catch_rate` | Share of targets where a finding made **the same point**: in the same file within 5 lines, and judged by a small model (Haiku, through the `claude` CLI, so no API key) to ask for the same change or name the same problem. Only same-spot pairs go to the judge; its answer is in the score's metadata. The headline. |
+| `catch_rate_spot` | Looser: a finding within 5 lines, whatever it says |
+| `catch_rate_file` | Loosest: a finding anywhere in the file |
+| `precision` | Share of code findings on lines that changed before the merge (±2), a stand-in for precision |
+| `flagged` | Share of cases with at least one P0–P2 finding; every case had feedback that changed the code |
+| `code_findings`, `meta_findings` | Findings per case about the code, and about the PR text or commits (not scored) |
+| `leaked` | Share of runs that quoted a maintainer comment they shouldn't have seen; those cases are left out of the rates |
+| `*_stderr`, `catch_rate_cases` | Standard error of a mean, and how many cases it is over |
 
-Compare two skill versions on the same cases and epochs; with this many cases a few
-points of difference is within the noise.
+Compare two skill versions on the same cases and epochs. A difference smaller than about
+twice the standard error is noise.
 
 ## What a case holds
 
@@ -64,6 +73,8 @@ points of difference is within the noise.
 | `start.sha`, `start.base` | The PR head at the maintainer's first substantive comment, and its fork point. Review that range. |
 | `start.anchor` | `exact` when the comment is pinned to a commit (inline or review), `reconstructed` when it was a conversation comment and the head is worked out from the push history |
 | `cutoff` | Time of that first comment. Anything a reviewer reads (PR thread, research cache) must be from before it. |
+| `feedback[].prior` | A comment from before the cutoff, on a version of the PR that no longer exists. A reviewer of `start` would have seen it, so it is context: neither a target nor a leak. |
+| `start.base`, `end.base` | Fork point from whichever known base tip leaves the PR smallest: the base before and after each force push (GraphQL), the PR's base, and master at the cutoff. Handles base branches rewritten after the merge. |
 | `feedback[]` | Every comment the maintainer left before the merge, oldest first: `inline` (path, line, diff hunk, author's replies), `review` (a review body), `conversation` |
 | `feedback[].commit` | The head the comment was made on. Later rounds point at later heads. |
 | `feedback[].trivial` | Thanks, LGTM and the like; not something a review should raise |

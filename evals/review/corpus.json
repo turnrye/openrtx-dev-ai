@@ -22,6 +22,7 @@
      "id": 5934793162,
      "kind": "review",
      "outcome": null,
+     "prior": false,
      "state": "CHANGES_REQUESTED",
      "trivial": false
     },
@@ -36,6 +37,7 @@
      "id": 6950436689,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -77,6 +79,7 @@
      "line": 176,
      "outcome": "changed",
      "path": "platform/targets/MD-9600/platform.c",
+     "prior": false,
      "replies": [],
      "review_id": 5905687592,
      "side": "RIGHT",
@@ -98,6 +101,7 @@
      "line": 160,
      "outcome": "changed",
      "path": "platform/targets/MD-9600/platform.c",
+     "prior": false,
      "replies": [],
      "review_id": 5905701335,
      "side": "RIGHT",
@@ -143,6 +147,7 @@
      "line": 382,
      "outcome": "changed",
      "path": "platform/drivers/baseband/BK4819.c",
+     "prior": false,
      "replies": [],
      "review_id": 5696957141,
      "side": "RIGHT",
@@ -164,6 +169,7 @@
      "line": 37,
      "outcome": "changed",
      "path": "platform/drivers/audio/audio_c62.c",
+     "prior": false,
      "replies": [],
      "review_id": 5722421728,
      "side": "RIGHT",
@@ -185,6 +191,7 @@
      "line": 91,
      "outcome": "changed",
      "path": "platform/drivers/audio/audio_c62.c",
+     "prior": false,
      "replies": [],
      "review_id": 5722433553,
      "side": "RIGHT",
@@ -206,6 +213,7 @@
      "line": 117,
      "outcome": "changed",
      "path": "platform/drivers/audio/audio_c62.c",
+     "prior": false,
      "replies": [],
      "review_id": 5722435801,
      "side": "RIGHT",
@@ -227,6 +235,7 @@
      "line": 130,
      "outcome": "changed",
      "path": "platform/drivers/audio/audio_c62.c",
+     "prior": false,
      "replies": [],
      "review_id": 5722436264,
      "side": "RIGHT",
@@ -248,6 +257,7 @@
      "line": 284,
      "outcome": "changed",
      "path": "platform/drivers/audio/csk6_codec.c",
+     "prior": false,
      "replies": [],
      "review_id": 5722452814,
      "side": "RIGHT",
@@ -269,6 +279,7 @@
      "line": 351,
      "outcome": "changed",
      "path": "platform/drivers/audio/csk6_codec.c",
+     "prior": false,
      "replies": [],
      "review_id": 5722457770,
      "side": "RIGHT",
@@ -290,6 +301,7 @@
      "line": 407,
      "outcome": "changed",
      "path": "platform/drivers/audio/csk6_codec.c",
+     "prior": false,
      "replies": [],
      "review_id": 5722461358,
      "side": "RIGHT",
@@ -311,6 +323,7 @@
      "line": 29,
      "outcome": "changed",
      "path": "platform/drivers/audio/csk6_codec.h",
+     "prior": false,
      "replies": [],
      "review_id": 5722467501,
      "side": "RIGHT",
@@ -332,6 +345,7 @@
      "line": 340,
      "outcome": "changed",
      "path": "platform/drivers/baseband/BK4819.c",
+     "prior": false,
      "replies": [],
      "review_id": 5722470077,
      "side": "RIGHT",
@@ -353,6 +367,7 @@
      "line": 350,
      "outcome": "changed",
      "path": "platform/drivers/baseband/BK4819.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-11-07T03:40:47Z",
@@ -380,6 +395,7 @@
      "line": 363,
      "outcome": "changed",
      "path": "platform/drivers/baseband/BK4819.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-11-07T03:40:50Z",
@@ -407,6 +423,7 @@
      "line": 373,
      "outcome": "changed",
      "path": "platform/drivers/baseband/BK4819.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-11-07T03:40:51Z",
@@ -434,6 +451,7 @@
      "line": 381,
      "outcome": "changed",
      "path": "platform/drivers/baseband/BK4819.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-11-07T03:40:53Z",
@@ -461,6 +479,7 @@
      "line": 38,
      "outcome": "changed",
      "path": "platform/drivers/baseband/radio_C62.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-11-07T03:40:55Z",
@@ -488,6 +507,7 @@
      "line": 135,
      "outcome": "changed",
      "path": "platform/drivers/baseband/radio_C62.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-11-07T03:40:59Z",
@@ -515,6 +535,7 @@
      "line": 120,
      "outcome": "changed",
      "path": "platform/drivers/baseband/radio_C62.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-11-07T03:41:01Z",
@@ -542,6 +563,7 @@
      "line": 179,
      "outcome": "changed",
      "path": "platform/drivers/baseband/radio_C62.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-11-07T03:41:03Z",
@@ -569,6 +591,7 @@
      "line": 209,
      "outcome": "changed",
      "path": "platform/drivers/baseband/radio_C62.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-11-07T03:41:05Z",
@@ -596,6 +619,7 @@
      "line": 148,
      "outcome": "changed",
      "path": "platform/drivers/baseband/radio_C62.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-11-07T03:41:06Z",
@@ -619,6 +643,7 @@
      "id": 6542726653,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -636,6 +661,7 @@
      "line": 327,
      "outcome": "changed",
      "path": "platform/drivers/baseband/BK4819.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-11-07T03:40:35Z",
@@ -663,6 +689,7 @@
      "line": 336,
      "outcome": "changed",
      "path": "platform/drivers/audio/csk6_codec.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-11-07T03:40:37Z",
@@ -690,6 +717,7 @@
      "line": 356,
      "outcome": "changed",
      "path": "platform/drivers/audio/csk6_codec.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-11-07T03:40:39Z",
@@ -717,6 +745,7 @@
      "line": 792,
      "outcome": "changed",
      "path": "platform/drivers/audio/csk6_codec.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-11-07T03:40:41Z",
@@ -744,6 +773,7 @@
      "line": 828,
      "outcome": "changed",
      "path": "platform/drivers/audio/csk6_codec.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-11-07T03:40:43Z",
@@ -767,6 +797,7 @@
      "id": 6693427946,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -784,6 +815,7 @@
      "line": 88,
      "outcome": "changed",
      "path": "platform/drivers/audio/audio_c62.c",
+     "prior": false,
      "replies": [],
      "review_id": 5827492566,
      "side": "RIGHT",
@@ -805,6 +837,7 @@
      "line": 98,
      "outcome": "changed",
      "path": "platform/drivers/audio/audio_c62.c",
+     "prior": false,
      "replies": [],
      "review_id": 5827565098,
      "side": "RIGHT",
@@ -826,6 +859,7 @@
      "line": 308,
      "outcome": "changed",
      "path": "platform/drivers/audio/csk6_codec.c",
+     "prior": false,
      "replies": [],
      "review_id": 5827738325,
      "side": "RIGHT",
@@ -847,6 +881,7 @@
      "line": 316,
      "outcome": "changed",
      "path": "platform/drivers/audio/csk6_codec.c",
+     "prior": false,
      "replies": [],
      "review_id": 5827752858,
      "side": "RIGHT",
@@ -868,6 +903,7 @@
      "line": 883,
      "outcome": "changed",
      "path": "platform/drivers/audio/csk6_codec.c",
+     "prior": false,
      "replies": [],
      "review_id": 5827878492,
      "side": "RIGHT",
@@ -889,6 +925,7 @@
      "line": 874,
      "outcome": "changed",
      "path": "platform/drivers/audio/csk6_codec.c",
+     "prior": false,
      "replies": [],
      "review_id": 5827894667,
      "side": "RIGHT",
@@ -910,6 +947,7 @@
      "line": 921,
      "outcome": "changed",
      "path": "platform/drivers/audio/csk6_codec.c",
+     "prior": false,
      "replies": [],
      "review_id": 5827922370,
      "side": "RIGHT",
@@ -951,6 +989,7 @@
      "id": 6542375171,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -968,6 +1007,7 @@
      "line": 9,
      "outcome": "changed",
      "path": "openrtx/src/ui/default/ui_messages.c",
+     "prior": false,
      "replies": [],
      "review_id": 5741679384,
      "side": "RIGHT",
@@ -989,6 +1029,7 @@
      "line": 38,
      "outcome": "changed",
      "path": "openrtx/src/ui/default/ui_messages.c",
+     "prior": false,
      "replies": [],
      "review_id": 5741684983,
      "side": "RIGHT",
@@ -1010,6 +1051,7 @@
      "line": 310,
      "outcome": "unchanged",
      "path": "openrtx/src/ui/default/ui_messages.c",
+     "prior": false,
      "replies": [],
      "review_id": 5741814047,
      "side": "RIGHT",
@@ -1023,7 +1065,7 @@
    "number": 549,
    "start": {
     "anchor": "reconstructed",
-    "base": "8157e21530f2cf05ba7ddc979d6ca58b368d6e18",
+    "base": "d27a1e09cdd47b0fbd32c241121816d438330562",
     "sha": "259e512fb6ac33b30050dabf7d5ae5c988a1d09c"
    },
    "title": "M17 SMS UI",
@@ -1051,6 +1093,7 @@
      "id": 6585378993,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -1064,6 +1107,7 @@
      "id": 6640875103,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -1105,6 +1149,7 @@
      "line": 10,
      "outcome": "changed",
      "path": "AGENTS.md",
+     "prior": false,
      "replies": [],
      "review_id": 5721965862,
      "side": "RIGHT",
@@ -1126,6 +1171,7 @@
      "line": 138,
      "outcome": "changed",
      "path": "AGENTS.md",
+     "prior": false,
      "replies": [],
      "review_id": 5721981428,
      "side": "RIGHT",
@@ -1147,6 +1193,7 @@
      "line": 222,
      "outcome": "changed",
      "path": "AGENTS.md",
+     "prior": false,
      "replies": [],
      "review_id": 5722001795,
      "side": "RIGHT",
@@ -1168,6 +1215,7 @@
      "line": 228,
      "outcome": "changed",
      "path": "AGENTS.md",
+     "prior": false,
      "replies": [],
      "review_id": 5722004617,
      "side": "RIGHT",
@@ -1185,6 +1233,7 @@
      "id": 6541273686,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -1226,6 +1275,7 @@
      "line": 189,
      "outcome": "file_gone",
      "path": "platform/drivers/NVM/calib_C62.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-22T00:30:28Z",
@@ -1253,6 +1303,7 @@
      "line": 28,
      "outcome": "file_gone",
      "path": "openrtx/include/calibration/calibInfo_C62.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-22T00:30:54Z",
@@ -1280,6 +1331,7 @@
      "line": 86,
      "outcome": "changed",
      "path": "platform/drivers/baseband/radio_C62.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-22T00:32:46Z",
@@ -1307,6 +1359,7 @@
      "line": 75,
      "outcome": "file_gone",
      "path": "platform/drivers/NVM/calib_C62.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-22T00:31:26Z",
@@ -1334,6 +1387,7 @@
      "line": 160,
      "outcome": "file_gone",
      "path": "platform/drivers/NVM/calib_C62.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-22T00:31:43Z",
@@ -1357,6 +1411,7 @@
      "id": 6323915696,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -1374,6 +1429,7 @@
      "line": 1,
      "outcome": "changed",
      "path": "openrtx/include/calibration/calib_C62.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-22T13:08:16Z",
@@ -1401,6 +1457,7 @@
      "line": 1,
      "outcome": "changed",
      "path": "platform/targets/c62/calib_C62.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-22T13:14:26Z",
@@ -1428,6 +1485,7 @@
      "line": 18,
      "outcome": "changed",
      "path": "platform/targets/c62/calib_C62.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-27T01:31:56Z",
@@ -1455,6 +1513,7 @@
      "line": 58,
      "outcome": "changed",
      "path": "platform/targets/c62/calib_C62.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-27T01:32:12Z",
@@ -1482,6 +1541,7 @@
      "line": 133,
      "outcome": "changed",
      "path": "platform/targets/c62/calib_C62.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-27T01:33:14Z",
@@ -1509,6 +1569,7 @@
      "line": 161,
      "outcome": "changed",
      "path": "platform/targets/c62/calib_C62.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-27T01:33:21Z",
@@ -1536,6 +1597,7 @@
      "line": 141,
      "outcome": "changed",
      "path": "platform/targets/c62/calib_C62.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-27T01:33:28Z",
@@ -1563,6 +1625,7 @@
      "line": 70,
      "outcome": "changed",
      "path": "platform/drivers/baseband/radio_C62.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-27T01:33:40Z",
@@ -1582,7 +1645,7 @@
    "number": 539,
    "start": {
     "anchor": "exact",
-    "base": "999f4dad2d7a735771d8e7de644b871471ea98fd",
+    "base": "5ff2ac3467c59c0c9d3a927ef7becc4f34a0d77c",
     "sha": "0a7c7492a5b2b1a8bbceb159b1e3ca89e86a340f"
    },
    "title": "c62: set TX power from the factory calibration",
@@ -1610,6 +1673,7 @@
      "id": 6335028199,
      "kind": "conversation",
      "outcome": null,
+     "prior": true,
      "trivial": false
     },
     {
@@ -1627,6 +1691,7 @@
      "line": 32,
      "outcome": "changed",
      "path": "openrtx/src/core/m17_sms.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-23T12:18:21Z",
@@ -1654,6 +1719,7 @@
      "line": 43,
      "outcome": "changed",
      "path": "openrtx/src/core/m17_sms.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 5624897861,
      "side": "RIGHT",
@@ -1675,6 +1741,7 @@
      "line": 52,
      "outcome": "unchanged",
      "path": "openrtx/src/core/threads.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-23T12:44:52Z",
@@ -1707,6 +1774,7 @@
      "line": 52,
      "outcome": "unchanged",
      "path": "openrtx/src/core/threads.c",
+     "prior": false,
      "replies": [],
      "review_id": 5657789349,
      "side": "RIGHT",
@@ -1728,6 +1796,7 @@
      "line": 52,
      "outcome": "unchanged",
      "path": "openrtx/src/core/threads.c",
+     "prior": false,
      "replies": [],
      "review_id": 5663573960,
      "side": "RIGHT",
@@ -1749,6 +1818,7 @@
      "line": 77,
      "outcome": "changed",
      "path": "openrtx/src/core/m17_sms.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 5663699964,
      "side": "RIGHT",
@@ -1790,6 +1860,7 @@
      "id": 5227760126,
      "kind": "review",
      "outcome": null,
+     "prior": false,
      "state": "CHANGES_REQUESTED",
      "trivial": false
     },
@@ -1804,6 +1875,7 @@
      "id": 5703982845,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -1821,6 +1893,7 @@
      "line": 53,
      "outcome": "changed",
      "path": "openrtx/src/core/messages.c",
+     "prior": false,
      "replies": [],
      "review_id": 5255337539,
      "side": "RIGHT",
@@ -1842,6 +1915,7 @@
      "line": 26,
      "outcome": "changed",
      "path": "openrtx/src/core/messages.c",
+     "prior": false,
      "replies": [],
      "review_id": 5255342438,
      "side": "RIGHT",
@@ -1863,6 +1937,7 @@
      "line": 160,
      "outcome": "changed",
      "path": "openrtx/src/core/messages.c",
+     "prior": false,
      "replies": [],
      "review_id": 5255361150,
      "side": "RIGHT",
@@ -1884,6 +1959,7 @@
      "line": 147,
      "outcome": "changed",
      "path": "openrtx/src/core/messages.c",
+     "prior": false,
      "replies": [],
      "review_id": 5255372504,
      "side": "RIGHT",
@@ -1905,6 +1981,7 @@
      "line": 45,
      "outcome": "changed",
      "path": "openrtx/include/core/messages.h",
+     "prior": false,
      "replies": [],
      "review_id": 5255374960,
      "side": "RIGHT",
@@ -1922,6 +1999,7 @@
      "id": 5741108586,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -1935,6 +2013,7 @@
      "id": 5341770496,
      "kind": "review",
      "outcome": null,
+     "prior": false,
      "state": "CHANGES_REQUESTED",
      "trivial": false
     },
@@ -1953,6 +2032,7 @@
      "line": 457,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 5604090254,
      "side": "RIGHT",
@@ -1974,6 +2054,7 @@
      "line": 111,
      "outcome": "changed",
      "path": "openrtx/src/core/messages.c",
+     "prior": false,
      "replies": [],
      "review_id": 5604149974,
      "side": "RIGHT",
@@ -1995,6 +2076,7 @@
      "line": 134,
      "outcome": "changed",
      "path": "openrtx/src/core/messages.c",
+     "prior": false,
      "replies": [],
      "review_id": 5604193602,
      "side": "RIGHT",
@@ -2016,6 +2098,7 @@
      "line": 208,
      "outcome": "changed",
      "path": "openrtx/src/core/messages.c",
+     "prior": false,
      "replies": [],
      "review_id": 5604226321,
      "side": "RIGHT",
@@ -2037,6 +2120,7 @@
      "line": 475,
      "outcome": "changed",
      "path": "openrtx/src/core/messages.c",
+     "prior": false,
      "replies": [],
      "review_id": 5604284886,
      "side": "RIGHT",
@@ -2054,6 +2138,7 @@
      "id": 5604301679,
      "kind": "review",
      "outcome": null,
+     "prior": false,
      "state": "CHANGES_REQUESTED",
      "trivial": false
     }
@@ -2064,7 +2149,7 @@
    "number": 509,
    "start": {
     "anchor": "exact",
-    "base": "6b8ef00b4dadfcc54c832867a2c4c9c9aea04fdf",
+    "base": "97e6d467207eba8498da866f6d2bf2417864e550",
     "sha": "b47d4ae580026374c3935e1fcd05902b51959e66"
    },
    "title": "core: add message registry and dispatcher",
@@ -2092,6 +2177,7 @@
      "id": 6200071418,
      "kind": "conversation",
      "outcome": null,
+     "prior": true,
      "trivial": false
     },
     {
@@ -2105,6 +2191,7 @@
      "id": 6210039469,
      "kind": "conversation",
      "outcome": null,
+     "prior": true,
      "trivial": false
     },
     {
@@ -2122,6 +2209,7 @@
      "line": 210,
      "outcome": "changed",
      "path": "platform/drivers/baseband/BK4819.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-20T17:09:04Z",
@@ -2149,6 +2237,7 @@
      "line": 230,
      "outcome": "changed",
      "path": "platform/drivers/baseband/BK4819.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-20T17:10:00Z",
@@ -2176,6 +2265,7 @@
      "line": 208,
      "outcome": "changed",
      "path": "platform/drivers/baseband/BK4819.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-20T17:10:19Z",
@@ -2203,6 +2293,7 @@
      "line": 37,
      "outcome": "changed",
      "path": "platform/drivers/GPIO/gpio_bk4819.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-20T17:10:32Z",
@@ -2230,6 +2321,7 @@
      "line": 210,
      "outcome": "changed",
      "path": "platform/drivers/baseband/BK4819.h",
+     "prior": false,
      "replies": [],
      "review_id": 5589468553,
      "side": "RIGHT",
@@ -2243,7 +2335,7 @@
    "number": 534,
    "start": {
     "anchor": "exact",
-    "base": "34052ea7119339641ce64429cc3cf2626302a12a",
+    "base": "d3ae36530c99434e07f6b4f687c92d4f801654ac",
     "sha": "bbad4a3d19a5531732b9e17a5122d8b2b53ea023"
    },
    "title": "c62: fix bad reception",
@@ -2275,6 +2367,7 @@
      "line": 177,
      "outcome": "changed",
      "path": "tests/platform/M17Replay.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-14T01:54:43Z",
@@ -2326,6 +2419,7 @@
      "line": 97,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/DevEstimator.hpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-13T11:29:18Z",
@@ -2353,6 +2447,7 @@
      "line": 82,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/DevEstimator.hpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-13T11:29:12Z",
@@ -2380,6 +2475,7 @@
      "line": 23,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/Demodulator.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-13T11:29:00Z",
@@ -2403,6 +2499,7 @@
      "id": 6144607531,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -2444,6 +2541,7 @@
      "line": 1,
      "outcome": "file_gone",
      "path": "tests/platform/Channel.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 5482603904,
      "side": "RIGHT",
@@ -2465,6 +2563,7 @@
      "line": 424,
      "outcome": "unchanged",
      "path": "openrtx/src/protocols/M17/Demodulator.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-12T23:46:37Z",
@@ -2492,6 +2591,7 @@
      "line": 424,
      "outcome": "unchanged",
      "path": "openrtx/src/protocols/M17/Demodulator.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 5495117294,
      "side": "RIGHT",
@@ -2509,6 +2609,7 @@
      "id": 6131152043,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -2526,6 +2627,7 @@
      "line": 424,
      "outcome": "unchanged",
      "path": "openrtx/src/protocols/M17/Demodulator.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 5498947019,
      "side": "RIGHT",
@@ -2571,6 +2673,7 @@
      "line": 20,
      "outcome": "changed",
      "path": "west.yml",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:13:38Z",
@@ -2598,6 +2701,7 @@
      "line": 22,
      "outcome": "changed",
      "path": "openrtx/include/core/threads.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:14:27Z",
@@ -2625,6 +2729,7 @@
      "line": 1,
      "outcome": "unchanged",
      "path": "platform/targets/c62/c62_defconfig",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:19:57Z",
@@ -2652,6 +2757,7 @@
      "line": 55,
      "outcome": "changed",
      "path": "platform/targets/c62/c62_defconfig",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:21:44Z",
@@ -2679,6 +2785,7 @@
      "line": 57,
      "outcome": "changed",
      "path": "platform/targets/c62/c62_defconfig",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:21:57Z",
@@ -2706,6 +2813,7 @@
      "line": 167,
      "outcome": "changed",
      "path": "platform/targets/c62/c62.dts",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:22:21Z",
@@ -2733,6 +2841,7 @@
      "line": 175,
      "outcome": "changed",
      "path": "platform/targets/c62/c62.dts",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:22:28Z",
@@ -2760,6 +2869,7 @@
      "line": 1,
      "outcome": "unchanged",
      "path": "platform/targets/c62/c62_pinctrl.dtsi",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:23:00Z",
@@ -2787,6 +2897,7 @@
      "line": 42,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:23:46Z",
@@ -2814,6 +2925,7 @@
      "line": 40,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:24:41Z",
@@ -2841,6 +2953,7 @@
      "line": 41,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:25:57Z",
@@ -2868,6 +2981,7 @@
      "line": 76,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:26:57Z",
@@ -2895,6 +3009,7 @@
      "line": 107,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:28:24Z",
@@ -2922,6 +3037,7 @@
      "line": 129,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:29:14Z",
@@ -2949,6 +3065,7 @@
      "line": 145,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:30:24Z",
@@ -2976,6 +3093,7 @@
      "line": 162,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-04T12:45:41Z",
@@ -3003,6 +3121,7 @@
      "line": 207,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-14T18:01:54Z",
@@ -3035,6 +3154,7 @@
      "line": 66,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-25T19:10:21Z",
@@ -3062,6 +3182,7 @@
      "line": 233,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-14T17:59:51Z",
@@ -3099,6 +3220,7 @@
      "line": 96,
      "outcome": "changed",
      "path": "platform/drivers/display/display_c62.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-04T12:46:36Z",
@@ -3126,6 +3248,7 @@
      "line": 102,
      "outcome": "changed",
      "path": "platform/drivers/display/display_c62.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-18T11:31:04Z",
@@ -3153,6 +3276,7 @@
      "line": 53,
      "outcome": "changed",
      "path": "platform/drivers/keyboard/keyboard_c62.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-04T12:47:00Z",
@@ -3180,6 +3304,7 @@
      "line": 95,
      "outcome": "changed",
      "path": "platform/drivers/keyboard/keyboard_c62.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-04T12:47:10Z",
@@ -3207,6 +3332,7 @@
      "line": 42,
      "outcome": "changed",
      "path": "platform/drivers/baseband/radio_C62.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-04T12:48:24Z",
@@ -3234,6 +3360,7 @@
      "line": 147,
      "outcome": "changed",
      "path": "platform/drivers/baseband/radio_C62.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-04T12:58:49Z",
@@ -3261,6 +3388,7 @@
      "line": 160,
      "outcome": "changed",
      "path": "platform/drivers/baseband/radio_C62.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-04T12:59:02Z",
@@ -3288,6 +3416,7 @@
      "line": 244,
      "outcome": "changed",
      "path": "platform/drivers/baseband/radio_C62.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-04T12:59:55Z",
@@ -3315,6 +3444,7 @@
      "line": 1,
      "outcome": "unchanged",
      "path": "platform/targets/c62/audio_c62.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-09-26T16:22:26Z",
@@ -3343,6 +3473,7 @@
      "id": 5668146368,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -3360,6 +3491,7 @@
      "line": 182,
      "outcome": "changed",
      "path": "platform/drivers/baseband/radio_C62.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 5201496369,
      "side": "RIGHT",
@@ -3381,6 +3513,7 @@
      "line": 235,
      "outcome": "changed",
      "path": "platform/drivers/baseband/radio_C62.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 5201507427,
      "side": "RIGHT",
@@ -3402,6 +3535,7 @@
      "line": 207,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [],
      "review_id": 5201543075,
      "side": "RIGHT",
@@ -3423,6 +3557,7 @@
      "line": 233,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [],
      "review_id": 5201559382,
      "side": "RIGHT",
@@ -3444,6 +3579,7 @@
      "line": 207,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [],
      "review_id": 5250230116,
      "side": "RIGHT",
@@ -3465,6 +3601,7 @@
      "line": 216,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [],
      "review_id": 5283568866,
      "side": "RIGHT",
@@ -3486,6 +3623,7 @@
      "line": 235,
      "outcome": "changed",
      "path": "platform/drivers/baseband/radio_C62.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 5329793231,
      "side": "RIGHT",
@@ -3507,6 +3645,7 @@
      "line": 66,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [],
      "review_id": 5329795563,
      "side": "RIGHT",
@@ -3528,6 +3667,7 @@
      "line": 233,
      "outcome": "changed",
      "path": "platform/targets/c62/platform.c",
+     "prior": false,
      "replies": [],
      "review_id": 5329809271,
      "side": "RIGHT",
@@ -3549,6 +3689,7 @@
      "line": 1,
      "outcome": "unchanged",
      "path": "platform/targets/c62/audio_c62.c",
+     "prior": false,
      "replies": [],
      "review_id": 5329813569,
      "side": "RIGHT",
@@ -3566,6 +3707,7 @@
      "id": 6010993528,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -3583,6 +3725,7 @@
      "line": 1,
      "outcome": "unchanged",
      "path": "platform/drivers/baseband/BK4819.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-08T07:31:48Z",
@@ -3615,6 +3758,7 @@
      "line": 1,
      "outcome": "unchanged",
      "path": "platform/drivers/baseband/BK1080.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-08T07:24:28Z",
@@ -3647,6 +3791,7 @@
      "line": 1,
      "outcome": "unchanged",
      "path": "platform/drivers/baseband/BK4819.h",
+     "prior": false,
      "replies": [],
      "review_id": 5452960508,
      "side": "RIGHT",
@@ -3668,6 +3813,7 @@
      "line": 1,
      "outcome": "unchanged",
      "path": "platform/drivers/baseband/BK1080.h",
+     "prior": false,
      "replies": [],
      "review_id": 5460842057,
      "side": "RIGHT",
@@ -3689,6 +3835,7 @@
      "line": 1,
      "outcome": "unchanged",
      "path": "platform/drivers/baseband/BK4819.h",
+     "prior": false,
      "replies": [],
      "review_id": 5460939900,
      "side": "RIGHT",
@@ -3710,6 +3857,7 @@
      "line": 1,
      "outcome": "unchanged",
      "path": "platform/drivers/baseband/BK4819.h",
+     "prior": false,
      "replies": [],
      "review_id": 5466475876,
      "side": "RIGHT",
@@ -3727,6 +3875,7 @@
      "id": 6095586812,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -3768,6 +3917,7 @@
      "line": 42,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/Correlator.hpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-09T12:27:02Z",
@@ -3795,6 +3945,7 @@
      "line": 1,
      "outcome": "unchanged",
      "path": "openrtx/include/protocols/M17/Correlator.hpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-10-09T12:27:10Z",
@@ -3846,6 +3997,7 @@
      "line": 15,
      "outcome": "changed",
      "path": "CHANGELOG.rst",
+     "prior": false,
      "replies": [],
      "review_id": 5307059054,
      "side": "RIGHT",
@@ -3867,6 +4019,7 @@
      "line": 24,
      "outcome": "changed",
      "path": "CHANGELOG.rst",
+     "prior": false,
      "replies": [],
      "review_id": 5307069710,
      "side": "RIGHT",
@@ -3888,6 +4041,7 @@
      "line": 26,
      "outcome": "changed",
      "path": "CHANGELOG.rst",
+     "prior": false,
      "replies": [],
      "review_id": 5307102050,
      "side": "RIGHT",
@@ -3905,6 +4059,7 @@
      "id": 5817901014,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -3918,6 +4073,7 @@
      "id": 5874414772,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -3959,6 +4115,7 @@
      "line": 102,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/Demodulator.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 5390631549,
      "side": "RIGHT",
@@ -3980,6 +4137,7 @@
      "line": 54,
      "outcome": "file_gone",
      "path": "tests/platform/m17_replay.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 5390676083,
      "side": "RIGHT",
@@ -4001,6 +4159,7 @@
      "line": 1,
      "outcome": "file_gone",
      "path": "tests/platform/m17_replay.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 5390718017,
      "side": "RIGHT",
@@ -4046,6 +4205,7 @@
      "line": 171,
      "outcome": "changed",
      "path": ".github/workflows/main.yml",
+     "prior": false,
      "replies": [],
      "review_id": 5255397317,
      "side": "RIGHT",
@@ -4091,6 +4251,7 @@
      "line": 80,
      "outcome": "changed",
      "path": "platform/targets/RT-4D/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-05-29T15:54:54Z",
@@ -4118,6 +4279,7 @@
      "line": 85,
      "outcome": "unchanged",
      "path": "platform/targets/RT-4D/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-05-29T15:15:04Z",
@@ -4141,6 +4303,7 @@
      "id": 4567870790,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -4158,6 +4321,7 @@
      "line": 15,
      "outcome": "changed",
      "path": "platform/drivers/backlight/backlight_RT4D.c",
+     "prior": false,
      "replies": [],
      "review_id": 4780017575,
      "side": "RIGHT",
@@ -4179,6 +4343,7 @@
      "line": 14,
      "outcome": "changed",
      "path": "platform/drivers/CPS/cps_data_RT4D.h",
+     "prior": false,
      "replies": [],
      "review_id": 4780018889,
      "side": "RIGHT",
@@ -4200,6 +4365,7 @@
      "line": 17,
      "outcome": "changed",
      "path": "platform/drivers/CPS/cps_data_RT4D.h",
+     "prior": false,
      "replies": [],
      "review_id": 4780019554,
      "side": "RIGHT",
@@ -4221,6 +4387,7 @@
      "line": 20,
      "outcome": "changed",
      "path": "platform/drivers/CPS/cps_data_RT4D.h",
+     "prior": false,
      "replies": [],
      "review_id": 4780019836,
      "side": "RIGHT",
@@ -4242,6 +4409,7 @@
      "line": 21,
      "outcome": "changed",
      "path": "platform/drivers/CPS/cps_data_RT4D.h",
+     "prior": false,
      "replies": [],
      "review_id": 4780020121,
      "side": "RIGHT",
@@ -4263,6 +4431,7 @@
      "line": 38,
      "outcome": "changed",
      "path": "platform/drivers/CPS/cps_data_RT4D.h",
+     "prior": false,
      "replies": [],
      "review_id": 4780020456,
      "side": "RIGHT",
@@ -4284,6 +4453,7 @@
      "line": 39,
      "outcome": "changed",
      "path": "platform/drivers/CPS/cps_data_RT4D.h",
+     "prior": false,
      "replies": [],
      "review_id": 4780020655,
      "side": "RIGHT",
@@ -4305,6 +4475,7 @@
      "line": 17,
      "outcome": "changed",
      "path": "platform/drivers/CPS/cps_io_native_RT4D.c",
+     "prior": false,
      "replies": [],
      "review_id": 4780021311,
      "side": "RIGHT",
@@ -4326,6 +4497,7 @@
      "line": 33,
      "outcome": "changed",
      "path": "platform/drivers/display/display_rt4d.c",
+     "prior": false,
      "replies": [],
      "review_id": 4780022354,
      "side": "RIGHT",
@@ -4347,6 +4519,7 @@
      "line": 90,
      "outcome": "changed",
      "path": "platform/drivers/display/display_rt4d.c",
+     "prior": false,
      "replies": [],
      "review_id": 4780024914,
      "side": "RIGHT",
@@ -4368,6 +4541,7 @@
      "line": 110,
      "outcome": "changed",
      "path": "platform/drivers/display/display_rt4d.c",
+     "prior": false,
      "replies": [],
      "review_id": 4780026262,
      "side": "RIGHT",
@@ -4389,6 +4563,7 @@
      "line": 28,
      "outcome": "changed",
      "path": "platform/drivers/keyboard/keyboard_rt4d.c",
+     "prior": false,
      "replies": [],
      "review_id": 4780027055,
      "side": "RIGHT",
@@ -4410,6 +4585,7 @@
      "line": 20,
      "outcome": "changed",
      "path": "platform/drivers/NVM/nvmem_rt4d.c",
+     "prior": false,
      "replies": [],
      "review_id": 4780029078,
      "side": "RIGHT",
@@ -4431,6 +4607,7 @@
      "line": 53,
      "outcome": "changed",
      "path": "platform/drivers/NVM/nvmem_rt4d.c",
+     "prior": false,
      "replies": [],
      "review_id": 4780029616,
      "side": "RIGHT",
@@ -4452,6 +4629,7 @@
      "line": 15,
      "outcome": "changed",
      "path": "platform/targets/RT-4D/hwconfig.c",
+     "prior": false,
      "replies": [],
      "review_id": 4780030270,
      "side": "RIGHT",
@@ -4473,6 +4651,7 @@
      "line": 21,
      "outcome": "changed",
      "path": "platform/targets/RT-4D/hwconfig.c",
+     "prior": false,
      "replies": [],
      "review_id": 4780030571,
      "side": "RIGHT",
@@ -4494,6 +4673,7 @@
      "line": 28,
      "outcome": "changed",
      "path": "platform/targets/RT-4D/platform.c",
+     "prior": false,
      "replies": [],
      "review_id": 4780031128,
      "side": "RIGHT",
@@ -4515,6 +4695,7 @@
      "line": 18,
      "outcome": "changed",
      "path": "platform/targets/RT-4D/platform.c",
+     "prior": false,
      "replies": [],
      "review_id": 4780033150,
      "side": "RIGHT",
@@ -4536,6 +4717,7 @@
      "line": 85,
      "outcome": "unchanged",
      "path": "platform/targets/RT-4D/platform.c",
+     "prior": false,
      "replies": [],
      "review_id": 4780034905,
      "side": "RIGHT",
@@ -4557,6 +4739,7 @@
      "line": 49,
      "outcome": "unchanged",
      "path": "platform/drivers/keyboard/keyboard_rt4d.c",
+     "prior": false,
      "replies": [],
      "review_id": 4780039469,
      "side": "RIGHT",
@@ -4578,6 +4761,7 @@
      "line": 49,
      "outcome": "unchanged",
      "path": "platform/drivers/keyboard/keyboard_rt4d.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-08-02T20:12:32Z",
@@ -4601,6 +4785,7 @@
      "id": 5080307740,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -4638,6 +4823,7 @@
      "id": 5031065786,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -4655,6 +4841,7 @@
      "line": 31,
      "outcome": "changed",
      "path": "platform/drivers/keyboard/keyboard_HD2.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-24T00:00:38Z",
@@ -4682,6 +4869,7 @@
      "line": 1,
      "outcome": "changed",
      "path": "platform/targets/HD2/hd2_core_stubs.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-22T22:52:40Z",
@@ -4754,6 +4942,7 @@
      "line": 1,
      "outcome": "changed",
      "path": "platform/targets/HD2/hd2_core_stubs.c",
+     "prior": false,
      "replies": [],
      "review_id": 4761845673,
      "side": "RIGHT",
@@ -4775,6 +4964,7 @@
      "line": 1,
      "outcome": "changed",
      "path": "platform/targets/HD2/hd2_core_stubs.c",
+     "prior": false,
      "replies": [],
      "review_id": 4762273655,
      "side": "RIGHT",
@@ -4792,6 +4982,7 @@
      "id": 5056262573,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -4809,6 +5000,7 @@
      "line": 64,
      "outcome": "changed",
      "path": "platform/drivers/backlight/backlight_HD2.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-24T00:00:39Z",
@@ -4836,6 +5028,7 @@
      "line": 70,
      "outcome": "changed",
      "path": "platform/drivers/backlight/backlight_HD2.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-24T00:00:40Z",
@@ -4863,6 +5056,7 @@
      "line": 75,
      "outcome": "changed",
      "path": "platform/drivers/backlight/backlight_HD2.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-24T00:00:41Z",
@@ -4890,6 +5084,7 @@
      "line": 29,
      "outcome": "changed",
      "path": "platform/drivers/display/ST7735S_HD2.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-24T00:00:42Z",
@@ -4917,6 +5112,7 @@
      "line": 102,
      "outcome": "changed",
      "path": "platform/mcu/HR_C7000/registers.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-24T00:00:44Z",
@@ -4944,6 +5140,7 @@
      "line": 158,
      "outcome": "changed",
      "path": "platform/drivers/display/ST7735S_HD2.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-24T00:00:45Z",
@@ -4971,6 +5168,7 @@
      "line": 196,
      "outcome": "changed",
      "path": "platform/drivers/display/ST7735S_HD2.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-24T00:00:46Z",
@@ -4998,6 +5196,7 @@
      "line": 114,
      "outcome": "changed",
      "path": "platform/drivers/keyboard/keyboard_HD2.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-24T00:00:47Z",
@@ -5021,6 +5220,7 @@
      "id": 5062792151,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -5038,6 +5238,7 @@
      "line": 62,
      "outcome": "changed",
      "path": "platform/mcu/HR_C7000/registers.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-24T00:00:48Z",
@@ -5065,6 +5266,7 @@
      "line": 1,
      "outcome": "changed",
      "path": "platform/drivers/ADC/adcHrc7000.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-24T00:00:50Z",
@@ -5092,6 +5294,7 @@
      "line": 61,
      "outcome": "changed",
      "path": "platform/targets/HD2/hd2_glue.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-24T00:00:51Z",
@@ -5115,6 +5318,7 @@
      "id": 5063264938,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -5132,6 +5336,7 @@
      "line": 26,
      "outcome": "changed",
      "path": "platform/drivers/ADC/adcHrc7000.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-25T22:22:28Z",
@@ -5159,6 +5364,7 @@
      "line": 76,
      "outcome": "unchanged",
      "path": "platform/drivers/ADC/adcHrc7000.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-25T22:22:29Z",
@@ -5186,6 +5392,7 @@
      "line": 34,
      "outcome": "changed",
      "path": "platform/drivers/ADC/adcHrc7000.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-25T22:22:31Z",
@@ -5213,6 +5420,7 @@
      "line": 34,
      "outcome": "changed",
      "path": "platform/drivers/display/ST7735S_HD2.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-25T22:22:32Z",
@@ -5240,6 +5448,7 @@
      "line": 85,
      "outcome": "unchanged",
      "path": "platform/drivers/GPIO/gpio_hrc7000.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-25T22:22:33Z",
@@ -5267,6 +5476,7 @@
      "line": 35,
      "outcome": "changed",
      "path": "platform/mcu/HR_C7000/drivers/rtc_hd2.c",
+     "prior": false,
      "replies": [],
      "review_id": 4776256990,
      "side": "RIGHT",
@@ -5288,6 +5498,7 @@
      "line": 59,
      "outcome": "changed",
      "path": "platform/mcu/HR_C7000/drivers/rtc_hd2.c",
+     "prior": false,
      "replies": [],
      "review_id": 4776284289,
      "side": "RIGHT",
@@ -5309,6 +5520,7 @@
      "line": 144,
      "outcome": "changed",
      "path": "platform/mcu/HR_C7000/drivers/rtc_hd2.c",
+     "prior": false,
      "replies": [],
      "review_id": 4776309409,
      "side": "RIGHT",
@@ -5330,6 +5542,7 @@
      "line": 154,
      "outcome": "changed",
      "path": "platform/mcu/HR_C7000/drivers/rtc_hd2.c",
+     "prior": false,
      "replies": [],
      "review_id": 4776311569,
      "side": "RIGHT",
@@ -5351,6 +5564,7 @@
      "line": 19,
      "outcome": "changed",
      "path": "platform/targets/HD2/CMakeLists.txt",
+     "prior": false,
      "replies": [],
      "review_id": 4776332663,
      "side": "RIGHT",
@@ -5372,6 +5586,7 @@
      "line": 71,
      "outcome": "unchanged",
      "path": "platform/targets/HD2/hd2_core_stubs.c",
+     "prior": false,
      "replies": [],
      "review_id": 4776360108,
      "side": "RIGHT",
@@ -5393,6 +5608,7 @@
      "line": 1,
      "outcome": "file_gone",
      "path": "platform/targets/HD2/main.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4776375016,
      "side": "RIGHT",
@@ -5414,6 +5630,7 @@
      "line": 23,
      "outcome": "changed",
      "path": "platform/targets/HD2/platform.c",
+     "prior": false,
      "replies": [],
      "review_id": 4776381062,
      "side": "RIGHT",
@@ -5435,6 +5652,7 @@
      "line": 24,
      "outcome": "changed",
      "path": "platform/targets/HD2/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-27T09:20:36Z",
@@ -5462,6 +5680,7 @@
      "line": 49,
      "outcome": "changed",
      "path": "platform/targets/HD2/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-27T09:20:39Z",
@@ -5489,6 +5708,7 @@
      "line": 57,
      "outcome": "changed",
      "path": "platform/targets/HD2/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-27T09:20:40Z",
@@ -5516,6 +5736,7 @@
      "line": 52,
      "outcome": "changed",
      "path": "platform/targets/HD2/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-27T09:20:38Z",
@@ -5543,6 +5764,7 @@
      "line": 1,
      "outcome": "changed",
      "path": "platform/targets/HD2/hd2_core_stubs.c",
+     "prior": false,
      "replies": [],
      "review_id": 4776421758,
      "side": "RIGHT",
@@ -5560,6 +5782,7 @@
      "id": 5074031022,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -5577,6 +5800,7 @@
      "line": 1,
      "outcome": "changed",
      "path": "platform/targets/HD2/hd2_core_stubs.c",
+     "prior": false,
      "replies": [],
      "review_id": 4781302146,
      "side": "RIGHT",
@@ -5598,6 +5822,7 @@
      "line": 26,
      "outcome": "changed",
      "path": "platform/drivers/ADC/adcHrc7000.c",
+     "prior": false,
      "replies": [],
      "review_id": 4781303421,
      "side": "RIGHT",
@@ -5619,6 +5844,7 @@
      "line": 76,
      "outcome": "unchanged",
      "path": "platform/drivers/ADC/adcHrc7000.c",
+     "prior": false,
      "replies": [],
      "review_id": 4781308520,
      "side": "RIGHT",
@@ -5640,6 +5866,7 @@
      "line": 85,
      "outcome": "unchanged",
      "path": "platform/drivers/GPIO/gpio_hrc7000.h",
+     "prior": false,
      "replies": [],
      "review_id": 4781309931,
      "side": "RIGHT",
@@ -5657,6 +5884,7 @@
      "id": 5082815534,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -5674,6 +5902,7 @@
      "line": 32,
      "outcome": "changed",
      "path": "platform/mcu/HR_C7000/drivers/i2c_hrc7000.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-27T16:05:29Z",
@@ -5701,6 +5930,7 @@
      "line": 54,
      "outcome": "changed",
      "path": "platform/mcu/HR_C7000/drivers/i2c_hrc7000.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-27T16:05:31Z",
@@ -5728,6 +5958,7 @@
      "line": 59,
      "outcome": "changed",
      "path": "platform/mcu/HR_C7000/drivers/i2c_hrc7000.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-27T16:05:32Z",
@@ -5755,6 +5986,7 @@
      "line": 150,
      "outcome": "unchanged",
      "path": "platform/mcu/HR_C7000/drivers/i2c_hrc7000.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-07-27T16:05:34Z",
@@ -5778,6 +6010,7 @@
      "id": 5095796248,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -5819,6 +6052,7 @@
      "line": 43,
      "outcome": "changed",
      "path": "platform/drivers/audio/audio_sdl.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4747662259,
      "side": "RIGHT",
@@ -5840,6 +6074,7 @@
      "line": 206,
      "outcome": "changed",
      "path": "platform/drivers/audio/audio_sdl.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4747695464,
      "side": "RIGHT",
@@ -5881,6 +6116,7 @@
      "id": 4548345551,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -5894,6 +6130,7 @@
      "id": 4637750128,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -5903,7 +6140,7 @@
    "number": 463,
    "start": {
     "anchor": "reconstructed",
-    "base": "8895b268317e516674637812d570176f674a36b8",
+    "base": "7603cd658c6329be256149c1c4538c38fdb8f3c6",
     "sha": "a54b320b8a8c21cbafc1493f037145b7a693fd02"
    },
    "title": "NVM: switch to new APIs",
@@ -5935,6 +6172,7 @@
      "line": 50,
      "outcome": "changed",
      "path": "openrtx/include/core/settings.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-10T12:16:54Z",
@@ -5962,6 +6200,7 @@
      "line": 141,
      "outcome": "changed",
      "path": "openrtx/include/rtx/OpMode_M17.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 4094915250,
      "side": "RIGHT",
@@ -5983,6 +6222,7 @@
      "line": 143,
      "outcome": "changed",
      "path": "openrtx/include/rtx/OpMode_M17.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 4094915481,
      "side": "RIGHT",
@@ -6004,6 +6244,7 @@
      "line": 32,
      "outcome": "file_gone",
      "path": "openrtx/src/protocols/M17/PacketAssembler.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4094922559,
      "side": "RIGHT",
@@ -6025,6 +6266,7 @@
      "line": 35,
      "outcome": "file_gone",
      "path": "openrtx/src/protocols/M17/PacketAssembler.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-14T02:49:13Z",
@@ -6052,6 +6294,7 @@
      "line": 194,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4094925071,
      "side": "RIGHT",
@@ -6073,6 +6316,7 @@
      "line": 323,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4094926767,
      "side": "RIGHT",
@@ -6094,6 +6338,7 @@
      "line": 499,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4094930662,
      "side": "RIGHT",
@@ -6115,6 +6360,7 @@
      "line": 586,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4094931192,
      "side": "RIGHT",
@@ -6132,6 +6378,7 @@
      "id": 4231408850,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -6145,6 +6392,7 @@
      "id": 4260962898,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -6158,6 +6406,7 @@
      "id": 4266085534,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -6171,6 +6420,7 @@
      "id": 4266089626,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -6188,6 +6438,7 @@
      "line": 90,
      "outcome": "changed",
      "path": "openrtx/include/rtx/rtx.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-05-09T12:57:15Z",
@@ -6215,6 +6466,7 @@
      "line": 49,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/PacketDeframer.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4259170168,
      "side": "RIGHT",
@@ -6236,6 +6488,7 @@
      "line": 65,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/PacketDeframer.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4259172135,
      "side": "RIGHT",
@@ -6257,6 +6510,7 @@
      "line": 40,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/PacketDeframer.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 4259176838,
      "side": "RIGHT",
@@ -6278,6 +6532,7 @@
      "line": 148,
      "outcome": "changed",
      "path": "openrtx/include/rtx/OpMode_M17.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 4259179041,
      "side": "RIGHT",
@@ -6299,6 +6554,7 @@
      "line": 39,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/PacketFramer.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4259186334,
      "side": "RIGHT",
@@ -6320,6 +6576,7 @@
      "line": 21,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/SmsPacket.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4259190025,
      "side": "RIGHT",
@@ -6341,6 +6598,7 @@
      "line": 170,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-06-06T14:42:39Z",
@@ -6368,6 +6626,7 @@
      "line": 287,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4259196340,
      "side": "RIGHT",
@@ -6389,6 +6648,7 @@
      "line": 471,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4259197663,
      "side": "RIGHT",
@@ -6410,6 +6670,7 @@
      "line": 476,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4259199171,
      "side": "RIGHT",
@@ -6431,6 +6692,7 @@
      "line": 512,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-06-06T14:32:14Z",
@@ -6454,6 +6716,7 @@
      "id": 4637734038,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -6467,6 +6730,7 @@
      "id": 4637747324,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -6484,6 +6748,7 @@
      "line": 107,
      "outcome": "changed",
      "path": "openrtx/include/rtx/rtx.h",
+     "prior": false,
      "replies": [],
      "review_id": 4445544527,
      "side": "RIGHT",
@@ -6505,6 +6770,7 @@
      "line": 145,
      "outcome": "unchanged",
      "path": "openrtx/include/rtx/rtx.h",
+     "prior": false,
      "replies": [],
      "review_id": 4445547925,
      "side": "RIGHT",
@@ -6526,6 +6792,7 @@
      "line": 96,
      "outcome": "changed",
      "path": "openrtx/src/rtx/rtx.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4453188145,
      "side": "RIGHT",
@@ -6547,6 +6814,7 @@
      "line": 96,
      "outcome": "changed",
      "path": "openrtx/src/rtx/rtx.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4483475187,
      "side": "RIGHT",
@@ -6568,6 +6836,7 @@
      "line": 200,
      "outcome": "changed",
      "path": "openrtx/include/rtx/rtx.h",
+     "prior": false,
      "replies": [],
      "review_id": 4503879570,
      "side": "RIGHT",
@@ -6589,6 +6858,7 @@
      "line": 309,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4503884822,
      "side": "RIGHT",
@@ -6610,6 +6880,7 @@
      "line": 241,
      "outcome": "changed",
      "path": "openrtx/src/rtx/rtx.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4503896625,
      "side": "RIGHT",
@@ -6631,6 +6902,7 @@
      "line": 163,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/PacketFrame.hpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-06-19T11:52:02Z",
@@ -6658,6 +6930,7 @@
      "line": 180,
      "outcome": "changed",
      "path": "openrtx/include/rtx/rtx.h",
+     "prior": false,
      "replies": [],
      "review_id": 4532605356,
      "side": "RIGHT",
@@ -6679,6 +6952,7 @@
      "line": 28,
      "outcome": "unchanged",
      "path": "openrtx/src/protocols/M17/PacketDeframer.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-06-19T20:40:30Z",
@@ -6706,6 +6980,7 @@
      "line": 68,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/PacketDeframer.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4532650380,
      "side": "RIGHT",
@@ -6727,6 +7002,7 @@
      "line": 28,
      "outcome": "unchanged",
      "path": "openrtx/src/protocols/M17/PacketDeframer.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4535777587,
      "side": "RIGHT",
@@ -6752,7 +7028,7 @@
    "created_at": "2026-01-29T19:22:24Z",
    "cutoff": "2026-02-02T20:47:25Z",
    "end": {
-    "base": "7ffd4e6b12a9d832eaadf317470952442d782687",
+    "base": "75bf2fee175443f136c8e63381d5256511fe42ec",
     "merge_commit": "b6f4a875acf82520e062de3eed3c8e95d3c068af",
     "sha": "812083aeba85459dbc16c15fd5428f621971c687"
    },
@@ -6768,6 +7044,7 @@
      "id": 3837392172,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -6781,6 +7058,7 @@
      "id": 3849068333,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": true
     },
     {
@@ -6798,6 +7076,7 @@
      "line": 83,
      "outcome": "changed",
      "path": "openrtx/src/core/state.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-02-13T01:34:57Z",
@@ -6825,6 +7104,7 @@
      "line": 112,
      "outcome": "changed",
      "path": "openrtx/src/protocols/APRS/Demodulator.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-02-13T02:04:39Z",
@@ -6852,6 +7132,7 @@
      "line": 111,
      "outcome": "changed",
      "path": "openrtx/src/protocols/APRS/Demodulator.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-02-13T01:35:25Z",
@@ -6879,6 +7160,7 @@
      "line": 88,
      "outcome": "file_gone",
      "path": "openrtx/src/protocols/APRS/HDLC.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-02-13T14:49:44Z",
@@ -6906,6 +7188,7 @@
      "line": 16,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/Demodulator.hpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-02-13T15:04:29Z",
@@ -6939,6 +7222,7 @@
      "id": 3880606187,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -6952,6 +7236,7 @@
      "id": 3895337033,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -6969,6 +7254,7 @@
      "line": 88,
      "outcome": "file_gone",
      "path": "openrtx/src/protocols/APRS/HDLC.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3802632591,
      "side": "RIGHT",
@@ -6990,6 +7276,7 @@
      "line": 16,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/Demodulator.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3802639106,
      "side": "RIGHT",
@@ -7011,6 +7298,7 @@
      "line": 72,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_APRS.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-03-04T21:01:59Z",
@@ -7058,6 +7346,7 @@
      "line": 53,
      "outcome": "unchanged",
      "path": "openrtx/src/rtx/OpMode_APRS.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3885102073,
      "side": "RIGHT",
@@ -7079,6 +7368,7 @@
      "line": 154,
      "outcome": "changed",
      "path": "openrtx/src/rtx/rtx.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3885103958,
      "side": "RIGHT",
@@ -7100,6 +7390,7 @@
      "line": 72,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_APRS.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3891971246,
      "side": "RIGHT",
@@ -7121,6 +7412,7 @@
      "line": 72,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_APRS.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3894465877,
      "side": "RIGHT",
@@ -7142,6 +7434,7 @@
      "line": 29,
      "outcome": "file_gone",
      "path": "openrtx/src/protocols/APRS/HDLC.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-03-12T20:41:26Z",
@@ -7169,6 +7462,7 @@
      "line": 46,
      "outcome": "file_gone",
      "path": "openrtx/src/protocols/APRS/HDLC.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-03-12T20:43:02Z",
@@ -7196,6 +7490,7 @@
      "line": 52,
      "outcome": "file_gone",
      "path": "openrtx/src/protocols/APRS/HDLC.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-03-12T20:44:09Z",
@@ -7223,6 +7518,7 @@
      "line": 10,
      "outcome": "changed",
      "path": "openrtx/src/protocols/APRS/packet.c",
+     "prior": false,
      "replies": [],
      "review_id": 3898453870,
      "side": "RIGHT",
@@ -7244,6 +7540,7 @@
      "line": 19,
      "outcome": "changed",
      "path": "openrtx/src/protocols/APRS/Slicer.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-03-12T20:50:49Z",
@@ -7271,6 +7568,7 @@
      "line": 2710,
      "outcome": "changed",
      "path": "openrtx/src/ui/default/ui.c",
+     "prior": false,
      "replies": [],
      "review_id": 3898476587,
      "side": "RIGHT",
@@ -7292,6 +7590,7 @@
      "line": 18,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/packet.h",
+     "prior": false,
      "replies": [],
      "review_id": 3899307486,
      "side": "RIGHT",
@@ -7313,6 +7612,7 @@
      "line": 19,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/packet.h",
+     "prior": false,
      "replies": [],
      "review_id": 3899334119,
      "side": "RIGHT",
@@ -7334,6 +7634,7 @@
      "line": 26,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/packet.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-03-12T21:04:11Z",
@@ -7366,6 +7667,7 @@
      "line": 25,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/packet.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-03-13T12:11:11Z",
@@ -7393,6 +7695,7 @@
      "line": 33,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/packet.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-03-17T18:46:08Z",
@@ -7420,6 +7723,7 @@
      "line": 85,
      "outcome": "changed",
      "path": "openrtx/src/core/state.c",
+     "prior": false,
      "replies": [],
      "review_id": 3899460588,
      "side": "RIGHT",
@@ -7441,6 +7745,7 @@
      "line": 68,
      "outcome": "changed",
      "path": "openrtx/src/core/threads.c",
+     "prior": false,
      "replies": [],
      "review_id": 3899472884,
      "side": "RIGHT",
@@ -7462,6 +7767,7 @@
      "line": 72,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_APRS.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3911197805,
      "side": "RIGHT",
@@ -7483,6 +7789,7 @@
      "line": 72,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_APRS.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3932320450,
      "side": "RIGHT",
@@ -7504,6 +7811,7 @@
      "line": 72,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_APRS.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3948607464,
      "side": "RIGHT",
@@ -7525,6 +7833,7 @@
      "line": 25,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/packet.h",
+     "prior": false,
      "replies": [],
      "review_id": 3948613722,
      "side": "RIGHT",
@@ -7546,6 +7855,7 @@
      "line": 26,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/packet.h",
+     "prior": false,
      "replies": [],
      "review_id": 3948627317,
      "side": "RIGHT",
@@ -7567,6 +7877,7 @@
      "line": 26,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/packet.h",
+     "prior": false,
      "replies": [],
      "review_id": 3963570763,
      "side": "RIGHT",
@@ -7588,6 +7899,7 @@
      "line": 15,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/Decoder.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 4050402626,
      "side": "RIGHT",
@@ -7609,6 +7921,7 @@
      "line": 84,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/Decoder.hpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-03T23:13:05Z",
@@ -7636,6 +7949,7 @@
      "line": 124,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/Decoder.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 4050415350,
      "side": "RIGHT",
@@ -7657,6 +7971,7 @@
      "line": 13,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/constants.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-05T01:19:52Z",
@@ -7684,6 +7999,7 @@
      "line": 16,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/frame.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-04T00:11:51Z",
@@ -7711,6 +8027,7 @@
      "line": 22,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/packet.h",
+     "prior": false,
      "replies": [],
      "review_id": 4050439271,
      "side": "RIGHT",
@@ -7732,6 +8049,7 @@
      "line": 33,
      "outcome": "unchanged",
      "path": "openrtx/include/protocols/APRS/packet.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-04T01:13:07Z",
@@ -7759,6 +8077,7 @@
      "line": 32,
      "outcome": "unchanged",
      "path": "openrtx/include/protocols/APRS/packet.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-04T01:18:49Z",
@@ -7786,6 +8105,7 @@
      "line": 78,
      "outcome": "changed",
      "path": "openrtx/src/core/state.c",
+     "prior": false,
      "replies": [],
      "review_id": 4050473462,
      "side": "RIGHT",
@@ -7807,6 +8127,7 @@
      "line": 67,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/packet_list.h",
+     "prior": false,
      "replies": [],
      "review_id": 4050516261,
      "side": "RIGHT",
@@ -7828,6 +8149,7 @@
      "line": 101,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_APRS.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4050543403,
      "side": "RIGHT",
@@ -7849,6 +8171,7 @@
      "line": 62,
      "outcome": "changed",
      "path": "openrtx/src/rtx/rtx.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-04T13:54:37Z",
@@ -7886,6 +8209,7 @@
      "line": 33,
      "outcome": "unchanged",
      "path": "openrtx/include/protocols/APRS/packet.h",
+     "prior": false,
      "replies": [],
      "review_id": 4058203877,
      "side": "RIGHT",
@@ -7907,6 +8231,7 @@
      "line": 32,
      "outcome": "unchanged",
      "path": "openrtx/include/protocols/APRS/packet.h",
+     "prior": false,
      "replies": [],
      "review_id": 4058204683,
      "side": "RIGHT",
@@ -7928,6 +8253,7 @@
      "line": 62,
      "outcome": "changed",
      "path": "openrtx/src/rtx/rtx.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 4058661287,
      "side": "RIGHT",
@@ -7949,6 +8275,7 @@
      "line": 16,
      "outcome": "changed",
      "path": "openrtx/include/protocols/APRS/frame.h",
+     "prior": false,
      "replies": [],
      "review_id": 4093525447,
      "side": "RIGHT",
@@ -7990,6 +8317,7 @@
      "id": 4294161610,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -8011,7 +8339,7 @@
    "created_at": "2026-04-28T22:10:08Z",
    "cutoff": "2026-05-05T18:17:45Z",
    "end": {
-    "base": "8895b268317e516674637812d570176f674a36b8",
+    "base": "0a497ff7831f5ec615148af33393f19af91ef0b7",
     "merge_commit": "0bfcde8a10c4ebcc35a9e5bf81a57fee0951a1d4",
     "sha": "435eca9dfaae2e5080451c20c608b086c937aae7"
    },
@@ -8031,6 +8359,7 @@
      "line": 21,
      "outcome": "changed",
      "path": "openrtx/src/core/struct_slicer.c",
+     "prior": false,
      "replies": [],
      "review_id": 4230577966,
      "side": "RIGHT",
@@ -8052,6 +8381,7 @@
      "line": 38,
      "outcome": "changed",
      "path": "openrtx/src/core/struct_slicer.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-05-11T19:50:28Z",
@@ -8079,6 +8409,7 @@
      "line": 17,
      "outcome": "changed",
      "path": "openrtx/src/core/struct_slicer.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-05-11T21:19:17Z",
@@ -8106,6 +8437,7 @@
      "line": 23,
      "outcome": "unchanged",
      "path": "openrtx/include/core/vfo.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-05-14T17:34:51Z",
@@ -8133,6 +8465,7 @@
      "line": 1,
      "outcome": "unchanged",
      "path": "openrtx/include/core/vfo.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-05-14T17:36:29Z",
@@ -8165,6 +8498,7 @@
      "line": 65,
      "outcome": "changed",
      "path": "openrtx/src/core/struct_slicer.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-05-14T18:50:00Z",
@@ -8192,6 +8526,7 @@
      "line": 101,
      "outcome": "changed",
      "path": "openrtx/src/core/struct_slicer.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-05-14T18:50:05Z",
@@ -8219,6 +8554,7 @@
      "line": 1,
      "outcome": "unchanged",
      "path": "openrtx/include/core/vfo.h",
+     "prior": false,
      "replies": [],
      "review_id": 4292665328,
      "side": "RIGHT",
@@ -8236,6 +8572,7 @@
      "id": 4480880892,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -8249,6 +8586,7 @@
      "id": 4481162328,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -8258,7 +8596,7 @@
    "number": 456,
    "start": {
     "anchor": "exact",
-    "base": "c28110a5a7aca6616088d8a41eb9d9b503bb0802",
+    "base": "0bfab1f3621c536b1a9caa0e3505ad28277f9fda",
     "sha": "b9fab09a93cc95ac2dda86cd0b134c95630c7b3f"
    },
    "title": "NVM: Sliced VFO storage API",
@@ -8270,7 +8608,7 @@
    "created_at": "2026-03-02T22:25:24Z",
    "cutoff": "2026-03-05T17:30:46Z",
    "end": {
-    "base": "c28110a5a7aca6616088d8a41eb9d9b503bb0802",
+    "base": "cb91b064315d3f529742a11f66e85a9a35a6d0c1",
     "merge_commit": "8658b985c116cd58d71e82df69e8d3ce4d6feb72",
     "sha": "fc7471d2adbc12228f1efb06a2f906680a6c5bfe"
    },
@@ -8286,6 +8624,7 @@
      "id": 4006562446,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -8303,6 +8642,7 @@
      "line": 59,
      "outcome": "changed",
      "path": "openrtx/include/core/settings.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-05-04T19:43:54Z",
@@ -8330,6 +8670,7 @@
      "line": 232,
      "outcome": "changed",
      "path": "openrtx/include/core/cps.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-05-03T21:01:43Z",
@@ -8362,6 +8703,7 @@
      "line": 248,
      "outcome": "changed",
      "path": "openrtx/include/core/cps.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-05-04T19:38:19Z",
@@ -8385,6 +8727,7 @@
      "id": 4367123299,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -8402,6 +8745,7 @@
      "line": 232,
      "outcome": "changed",
      "path": "openrtx/include/core/cps.h",
+     "prior": false,
      "replies": [],
      "review_id": 4223437049,
      "side": "RIGHT",
@@ -8419,6 +8763,7 @@
      "id": 4374525076,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -8432,6 +8777,7 @@
      "id": 4382383840,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -8445,6 +8791,7 @@
      "id": 4382436620,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -8462,6 +8809,7 @@
      "line": 1120,
      "outcome": "unchanged",
      "path": "meson.build",
+     "prior": false,
      "replies": [
       {
        "at": "2026-05-14T17:31:22Z",
@@ -8513,6 +8861,7 @@
      "line": 112,
      "outcome": "changed",
      "path": "openrtx/include/core/settings.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-03-25T19:40:32Z",
@@ -8541,6 +8890,7 @@
      "id": 4102980982,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -8558,6 +8908,7 @@
      "line": 112,
      "outcome": "changed",
      "path": "openrtx/include/core/settings.h",
+     "prior": false,
      "replies": [],
      "review_id": 4009620541,
      "side": "RIGHT",
@@ -8579,6 +8930,7 @@
      "line": 120,
      "outcome": "changed",
      "path": "openrtx/src/core/settings.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-06T18:53:06Z",
@@ -8606,6 +8958,7 @@
      "line": 121,
      "outcome": "changed",
      "path": "openrtx/src/core/settings.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-06T19:00:45Z",
@@ -8633,6 +8986,7 @@
      "line": 137,
      "outcome": "changed",
      "path": "openrtx/src/core/settings.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-06T18:54:56Z",
@@ -8665,6 +9019,7 @@
      "line": 174,
      "outcome": "changed",
      "path": "openrtx/src/core/settings.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-06T19:05:18Z",
@@ -8692,6 +9047,7 @@
      "line": 274,
      "outcome": "changed",
      "path": "openrtx/src/core/settings.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-06T19:04:11Z",
@@ -8719,6 +9075,7 @@
      "line": 174,
      "outcome": "changed",
      "path": "openrtx/src/core/settings.c",
+     "prior": false,
      "replies": [],
      "review_id": 4076468954,
      "side": "RIGHT",
@@ -8740,6 +9097,7 @@
      "line": 137,
      "outcome": "changed",
      "path": "openrtx/src/core/settings.c",
+     "prior": false,
      "replies": [],
      "review_id": 4077603317,
      "side": "RIGHT",
@@ -8761,6 +9119,7 @@
      "line": 137,
      "outcome": "changed",
      "path": "openrtx/src/core/settings.c",
+     "prior": false,
      "replies": [],
      "review_id": 4094837211,
      "side": "RIGHT",
@@ -8778,6 +9137,7 @@
      "id": 4286179444,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -8819,6 +9179,7 @@
      "line": 31,
      "outcome": "changed",
      "path": "openrtx/include/core/input.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-21T12:49:23Z",
@@ -8846,6 +9207,7 @@
      "line": 59,
      "outcome": "changed",
      "path": "openrtx/include/core/state.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-21T12:49:37Z",
@@ -8873,6 +9235,7 @@
      "line": 61,
      "outcome": "changed",
      "path": "openrtx/include/core/state.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-21T12:50:05Z",
@@ -8900,6 +9263,7 @@
      "line": 63,
      "outcome": "changed",
      "path": "openrtx/include/core/state.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-21T12:49:43Z",
@@ -8927,6 +9291,7 @@
      "line": 208,
      "outcome": "changed",
      "path": "openrtx/include/core/voicePrompts.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-21T12:49:50Z",
@@ -8978,6 +9343,7 @@
      "line": 57,
      "outcome": "changed",
      "path": "platform/targets/MD-9600/platform.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-22T15:52:51Z",
@@ -9005,6 +9371,7 @@
      "line": 154,
      "outcome": "changed",
      "path": "platform/drivers/NVM/nvmem_MDx.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-22T15:54:04Z",
@@ -9032,6 +9399,7 @@
      "line": 169,
      "outcome": "changed",
      "path": "platform/drivers/NVM/nvmem_MDx.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-22T15:54:05Z",
@@ -9079,6 +9447,7 @@
      "id": 4260968995,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -9096,6 +9465,7 @@
      "line": 67,
      "outcome": "unchanged",
      "path": "openrtx/include/core/dsp.h",
+     "prior": false,
      "replies": [],
      "review_id": 4130463356,
      "side": "RIGHT",
@@ -9117,6 +9487,7 @@
      "line": 68,
      "outcome": "unchanged",
      "path": "openrtx/include/core/dsp.h",
+     "prior": false,
      "replies": [],
      "review_id": 4130465082,
      "side": "RIGHT",
@@ -9138,6 +9509,7 @@
      "line": 88,
      "outcome": "unchanged",
      "path": "openrtx/include/core/dsp.h",
+     "prior": false,
      "replies": [],
      "review_id": 4130480493,
      "side": "RIGHT",
@@ -9159,6 +9531,7 @@
      "line": 178,
      "outcome": "unchanged",
      "path": "openrtx/src/core/audio_codec.c",
+     "prior": false,
      "replies": [],
      "review_id": 4130488995,
      "side": "RIGHT",
@@ -9180,6 +9553,7 @@
      "line": 211,
      "outcome": "changed",
      "path": "openrtx/src/core/audio_codec.c",
+     "prior": false,
      "replies": [],
      "review_id": 4130522860,
      "side": "RIGHT",
@@ -9201,6 +9575,7 @@
      "line": 73,
      "outcome": "changed",
      "path": "platform/targets/CS7000-PLUS/hwconfig.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-17T22:18:00Z",
@@ -9228,6 +9603,7 @@
      "line": 27,
      "outcome": "changed",
      "path": "openrtx/src/core/audio_codec.c",
+     "prior": false,
      "replies": [],
      "review_id": 4130560443,
      "side": "RIGHT",
@@ -9249,6 +9625,7 @@
      "line": 14,
      "outcome": "unchanged",
      "path": "openrtx/include/core/dsp.h",
+     "prior": false,
      "replies": [],
      "review_id": 4130579848,
      "side": "RIGHT",
@@ -9270,6 +9647,7 @@
      "line": 73,
      "outcome": "changed",
      "path": "platform/targets/CS7000-PLUS/hwconfig.h",
+     "prior": false,
      "replies": [],
      "review_id": 4134176750,
      "side": "RIGHT",
@@ -9287,6 +9665,7 @@
      "id": 4273444062,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -9300,6 +9679,7 @@
      "id": 4274193506,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -9337,6 +9717,7 @@
      "id": 4140785812,
      "kind": "conversation",
      "outcome": null,
+     "prior": true,
      "trivial": false
     },
     {
@@ -9350,6 +9731,7 @@
      "id": 4164967036,
      "kind": "conversation",
      "outcome": null,
+     "prior": true,
      "trivial": false
     },
     {
@@ -9363,6 +9745,7 @@
      "id": 4165080320,
      "kind": "conversation",
      "outcome": null,
+     "prior": true,
      "trivial": false
     },
     {
@@ -9380,6 +9763,7 @@
      "line": 177,
      "outcome": "changed",
      "path": "openrtx/include/interfaces/platform.h",
+     "prior": false,
      "replies": [],
      "review_id": 4050242328,
      "side": "RIGHT",
@@ -9401,6 +9785,7 @@
      "line": 167,
      "outcome": "changed",
      "path": "openrtx/include/interfaces/platform.h",
+     "prior": false,
      "replies": [],
      "review_id": 4050242328,
      "side": "RIGHT",
@@ -9446,6 +9831,7 @@
      "line": 7,
      "outcome": "changed",
      "path": "README.md",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-02T13:20:50Z",
@@ -9473,6 +9859,7 @@
      "line": 10,
      "outcome": "changed",
      "path": "README.md",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-02T14:25:46Z",
@@ -9500,6 +9887,7 @@
      "line": 7,
      "outcome": "changed",
      "path": "README.md",
+     "prior": false,
      "replies": [
       {
        "at": "2026-04-06T19:34:23Z",
@@ -9551,6 +9939,7 @@
      "line": 51,
      "outcome": "changed",
      "path": "openrtx/include/core/state.h",
+     "prior": false,
      "replies": [],
      "review_id": 4039659805,
      "side": "RIGHT",
@@ -9572,6 +9961,7 @@
      "line": 30,
      "outcome": "changed",
      "path": "openrtx/src/core/state.c",
+     "prior": false,
      "replies": [],
      "review_id": 4039668376,
      "side": "RIGHT",
@@ -9593,6 +9983,7 @@
      "line": 31,
      "outcome": "changed",
      "path": "openrtx/src/core/state.c",
+     "prior": false,
      "replies": [],
      "review_id": 4039677014,
      "side": "RIGHT",
@@ -9614,6 +10005,7 @@
      "line": 1011,
      "outcome": "changed",
      "path": "openrtx/src/ui/default/ui.c",
+     "prior": false,
      "replies": [],
      "review_id": 4039685277,
      "side": "RIGHT",
@@ -9631,6 +10023,7 @@
      "id": 4165072645,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -9644,6 +10037,7 @@
      "id": 4177301410,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -9685,6 +10079,7 @@
      "line": 22,
      "outcome": "file_gone",
      "path": "openrtx/include/protocols/M17/M17Datatypes.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3963526820,
      "side": "RIGHT",
@@ -9706,6 +10101,7 @@
      "line": 30,
      "outcome": "file_gone",
      "path": "openrtx/include/protocols/M17/M17PacketFrame.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3963553491,
      "side": "RIGHT",
@@ -9723,6 +10119,7 @@
      "id": 4080442713,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -9740,6 +10137,7 @@
      "line": 22,
      "outcome": "file_gone",
      "path": "openrtx/include/protocols/M17/M17Datatypes.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3979995316,
      "side": "RIGHT",
@@ -9761,6 +10159,7 @@
      "line": 137,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/PacketFrame.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3980012353,
      "side": "RIGHT",
@@ -9782,6 +10181,7 @@
      "line": 341,
      "outcome": "unchanged",
      "path": "openrtx/src/protocols/M17/Demodulator.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3980023583,
      "side": "RIGHT",
@@ -9803,6 +10203,7 @@
      "line": 93,
      "outcome": "unchanged",
      "path": "openrtx/include/protocols/M17/Demodulator.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3985834438,
      "side": "RIGHT",
@@ -9824,6 +10225,7 @@
      "line": 157,
      "outcome": "file_gone",
      "path": "openrtx/include/protocols/M17/M17Demodulator.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3985840507,
      "side": "RIGHT",
@@ -9845,6 +10247,7 @@
      "line": 366,
      "outcome": "unchanged",
      "path": "openrtx/src/protocols/M17/Demodulator.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3985844636,
      "side": "RIGHT",
@@ -9866,6 +10269,7 @@
      "line": 363,
      "outcome": "file_gone",
      "path": "openrtx/src/protocols/M17/M17Demodulator.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3985858656,
      "side": "RIGHT",
@@ -9887,6 +10291,7 @@
      "line": 341,
      "outcome": "unchanged",
      "path": "openrtx/src/protocols/M17/Demodulator.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3986025729,
      "side": "RIGHT",
@@ -9928,6 +10333,7 @@
      "id": 3992592509,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -9941,6 +10347,7 @@
      "id": 4009824166,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -9954,6 +10361,7 @@
      "id": 4010224777,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -9967,6 +10375,7 @@
      "id": 4015805919,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -9980,6 +10389,7 @@
      "id": 4026064918,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -9997,6 +10407,7 @@
      "line": 24,
      "outcome": "file_gone",
      "path": "platform/drivers/NVM/flash_stm32.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-03-10T20:25:06Z",
@@ -10029,6 +10440,7 @@
      "line": 82,
      "outcome": "file_gone",
      "path": "platform/drivers/NVM/flash_stm32.c",
+     "prior": false,
      "replies": [
       {
        "at": "2026-03-10T20:26:00Z",
@@ -10056,6 +10468,7 @@
      "line": 82,
      "outcome": "file_gone",
      "path": "platform/drivers/NVM/flash_stm32.c",
+     "prior": false,
      "replies": [],
      "review_id": 3925313814,
      "side": "RIGHT",
@@ -10077,6 +10490,7 @@
      "line": 24,
      "outcome": "file_gone",
      "path": "platform/drivers/NVM/flash_stm32.h",
+     "prior": false,
      "replies": [],
      "review_id": 3931738040,
      "side": "RIGHT",
@@ -10094,6 +10508,7 @@
      "id": 4041830230,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -10107,6 +10522,7 @@
      "id": 4053433888,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -10120,6 +10536,7 @@
      "id": 4057822115,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -10133,6 +10550,7 @@
      "id": 4058053996,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -10146,6 +10564,7 @@
      "id": 4060040051,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -10159,6 +10578,7 @@
      "id": 4060042179,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -10168,7 +10588,7 @@
    "number": 403,
    "start": {
     "anchor": "reconstructed",
-    "base": "bac77956d280316a23077144948f00ecc7ac9543",
+    "base": "49e8df9c0da7f9bbe5b8e4783854309691fe727d",
     "sha": "6e78341cc482311eb9c30e6bb5c6330d8e227e27"
    },
    "title": "Implement an nvmDevice for STM32 internal flash",
@@ -10196,6 +10616,7 @@
      "id": 3525884296,
      "kind": "conversation",
      "outcome": null,
+     "prior": true,
      "trivial": false
     },
     {
@@ -10213,6 +10634,7 @@
      "line": 1,
      "outcome": "unchanged",
      "path": "openrtx/include/protocols/M17/MetaText.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3764916415,
      "side": "RIGHT",
@@ -10234,6 +10656,7 @@
      "line": 238,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3764951853,
      "side": "RIGHT",
@@ -10255,6 +10678,7 @@
      "line": 210,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3764955718,
      "side": "RIGHT",
@@ -10276,6 +10700,7 @@
      "line": 173,
      "outcome": "changed",
      "path": "openrtx/src/ui/default/ui_main.c",
+     "prior": false,
      "replies": [],
      "review_id": 3764984909,
      "side": "RIGHT",
@@ -10297,6 +10722,7 @@
      "line": 76,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/MetaText.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3774697786,
      "side": "RIGHT",
@@ -10318,6 +10744,7 @@
      "line": 93,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/MetaText.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3774698907,
      "side": "RIGHT",
@@ -10339,6 +10766,7 @@
      "line": 53,
      "outcome": "unchanged",
      "path": "openrtx/include/core/settings.h",
+     "prior": false,
      "replies": [
       {
        "at": "2026-02-15T13:19:12Z",
@@ -10386,6 +10814,7 @@
      "line": 97,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/M17Datatypes.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3802552130,
      "side": "RIGHT",
@@ -10407,6 +10836,7 @@
      "line": 29,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/MetaText.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3802555927,
      "side": "RIGHT",
@@ -10428,6 +10858,7 @@
      "line": 1,
      "outcome": "unchanged",
      "path": "openrtx/include/protocols/M17/MetaText.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3802588899,
      "side": "RIGHT",
@@ -10449,6 +10880,7 @@
      "line": 72,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/MetaText.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3802596862,
      "side": "RIGHT",
@@ -10470,6 +10902,7 @@
      "line": 76,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/MetaText.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3802601522,
      "side": "RIGHT",
@@ -10491,6 +10924,7 @@
      "line": 53,
      "outcome": "unchanged",
      "path": "openrtx/include/core/settings.h",
+     "prior": false,
      "replies": [],
      "review_id": 3815904272,
      "side": "RIGHT",
@@ -10512,6 +10946,7 @@
      "line": 79,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/MetaText.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3828144928,
      "side": "RIGHT",
@@ -10533,6 +10968,7 @@
      "line": 53,
      "outcome": "unchanged",
      "path": "openrtx/include/core/settings.h",
+     "prior": false,
      "replies": [],
      "review_id": 3828179353,
      "side": "RIGHT",
@@ -10554,6 +10990,7 @@
      "line": 53,
      "outcome": "unchanged",
      "path": "openrtx/include/core/settings.h",
+     "prior": false,
      "replies": [],
      "review_id": 3828534782,
      "side": "RIGHT",
@@ -10571,6 +11008,7 @@
      "id": 3986719113,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -10588,6 +11026,7 @@
      "line": 69,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/MetaText.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3884859229,
      "side": "RIGHT",
@@ -10609,6 +11048,7 @@
      "line": 22,
      "outcome": "changed",
      "path": "openrtx/include/ui/utils.h",
+     "prior": false,
      "replies": [],
      "review_id": 3884871954,
      "side": "RIGHT",
@@ -10630,6 +11070,7 @@
      "line": 53,
      "outcome": "changed",
      "path": "openrtx/include/ui/utils.h",
+     "prior": false,
      "replies": [],
      "review_id": 3884884087,
      "side": "RIGHT",
@@ -10651,6 +11092,7 @@
      "line": 61,
      "outcome": "changed",
      "path": "openrtx/include/ui/utils.h",
+     "prior": false,
      "replies": [],
      "review_id": 3884892125,
      "side": "RIGHT",
@@ -10672,6 +11114,7 @@
      "line": 71,
      "outcome": "changed",
      "path": "openrtx/include/ui/utils.h",
+     "prior": false,
      "replies": [],
      "review_id": 3884898326,
      "side": "RIGHT",
@@ -10693,6 +11136,7 @@
      "line": 77,
      "outcome": "changed",
      "path": "openrtx/include/ui/utils.h",
+     "prior": false,
      "replies": [],
      "review_id": 3884906899,
      "side": "RIGHT",
@@ -10714,6 +11158,7 @@
      "line": 110,
      "outcome": "changed",
      "path": "openrtx/include/ui/utils.h",
+     "prior": false,
      "replies": [],
      "review_id": 3884913703,
      "side": "RIGHT",
@@ -10735,6 +11180,7 @@
      "line": 16,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/MetaText.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3884923475,
      "side": "RIGHT",
@@ -10756,6 +11202,7 @@
      "line": 76,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/MetaText.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3884975254,
      "side": "RIGHT",
@@ -10777,6 +11224,7 @@
      "line": 85,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/MetaText.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3884981097,
      "side": "RIGHT",
@@ -10798,6 +11246,7 @@
      "line": 77,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/MetaText.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3884989310,
      "side": "RIGHT",
@@ -10819,6 +11268,7 @@
      "line": 120,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/MetaText.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3885016125,
      "side": "RIGHT",
@@ -10840,6 +11290,7 @@
      "line": 1735,
      "outcome": "changed",
      "path": "openrtx/src/ui/default/ui.c",
+     "prior": false,
      "replies": [],
      "review_id": 3885045088,
      "side": "RIGHT",
@@ -10857,6 +11308,7 @@
      "id": 3995734585,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -10874,6 +11326,7 @@
      "line": 53,
      "outcome": "changed",
      "path": "openrtx/include/ui/utils.h",
+     "prior": false,
      "replies": [],
      "review_id": 3932204670,
      "side": "RIGHT",
@@ -10895,6 +11348,7 @@
      "line": 104,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/MetaText.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3932237515,
      "side": "RIGHT",
@@ -10916,6 +11370,7 @@
      "line": 327,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3932249429,
      "side": "RIGHT",
@@ -10933,6 +11388,7 @@
      "id": 4041906862,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -10946,6 +11402,7 @@
      "id": 4053298131,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -10987,6 +11444,7 @@
      "line": 17,
      "outcome": "changed",
      "path": "openrtx/src/core/crc.c",
+     "prior": false,
      "replies": [],
      "review_id": 3902002694,
      "side": "RIGHT",
@@ -11004,6 +11462,7 @@
      "id": 4010119508,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -11021,6 +11480,7 @@
      "line": 22,
      "outcome": "changed",
      "path": "openrtx/src/core/crc.c",
+     "prior": false,
      "replies": [],
      "review_id": 3902038718,
      "side": "RIGHT",
@@ -11062,6 +11522,7 @@
      "id": 3989179765,
      "kind": "conversation",
      "outcome": null,
+     "prior": true,
      "trivial": false
     },
     {
@@ -11075,6 +11536,7 @@
      "id": 3992571257,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -11088,6 +11550,7 @@
      "id": 3992581536,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -11105,6 +11568,7 @@
      "line": 23,
      "outcome": "changed",
      "path": ".github/workflows/build-devcontainer.yml",
+     "prior": false,
      "replies": [
       {
        "at": "2026-03-04T03:14:49Z",
@@ -11128,6 +11592,7 @@
      "id": 3996648657,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -11169,6 +11634,7 @@
      "line": 1082,
      "outcome": "changed",
      "path": "meson.build",
+     "prior": false,
      "replies": [
       {
        "at": "2026-03-04T03:26:55Z",
@@ -11196,6 +11662,7 @@
      "line": 13,
      "outcome": "changed",
      "path": "tests/unit/ui_check_standby.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2026-03-04T03:39:57Z",
@@ -11223,6 +11690,7 @@
      "line": 13,
      "outcome": "changed",
      "path": "tests/unit/ui_check_standby.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3887561032,
      "side": "RIGHT",
@@ -11268,6 +11736,7 @@
      "line": 215,
      "outcome": "changed",
      "path": "openrtx/src/core/graphics.c",
+     "prior": false,
      "replies": [],
      "review_id": 3177818053,
      "side": "RIGHT",
@@ -11289,6 +11758,7 @@
      "line": 219,
      "outcome": "changed",
      "path": "openrtx/src/core/graphics.c",
+     "prior": false,
      "replies": [],
      "review_id": 3177818053,
      "side": "RIGHT",
@@ -11310,6 +11780,7 @@
      "line": 96,
      "outcome": "changed",
      "path": "openrtx/include/core/state.h",
+     "prior": false,
      "replies": [],
      "review_id": 3177818053,
      "side": "RIGHT",
@@ -11331,6 +11802,7 @@
      "line": 35,
      "outcome": "changed",
      "path": "openrtx/include/ui/EnglishStrings.h",
+     "prior": false,
      "replies": [],
      "review_id": 3177818053,
      "side": "RIGHT",
@@ -11352,6 +11824,7 @@
      "line": 84,
      "outcome": "changed",
      "path": "openrtx/src/core/state.c",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-03T23:36:00Z",
@@ -11379,6 +11852,7 @@
      "line": 145,
      "outcome": "unchanged",
      "path": "openrtx/src/core/state.c",
+     "prior": false,
      "replies": [],
      "review_id": 3177818053,
      "side": "RIGHT",
@@ -11400,6 +11874,7 @@
      "line": 29,
      "outcome": "changed",
      "path": "openrtx/src/rtx/rtx.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3177818053,
      "side": "RIGHT",
@@ -11421,6 +11896,7 @@
      "line": 68,
      "outcome": "changed",
      "path": "openrtx/include/core/state.h",
+     "prior": false,
      "replies": [],
      "review_id": 3177818053,
      "side": "RIGHT",
@@ -11442,6 +11918,7 @@
      "line": 143,
      "outcome": "changed",
      "path": "openrtx/src/rtx/rtx.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3177818053,
      "side": "RIGHT",
@@ -11463,6 +11940,7 @@
      "line": 150,
      "outcome": "changed",
      "path": "openrtx/src/rtx/rtx.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3177818053,
      "side": "RIGHT",
@@ -11484,6 +11962,7 @@
      "line": 169,
      "outcome": "changed",
      "path": "openrtx/src/rtx/rtx.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-03T23:19:01Z",
@@ -11511,6 +11990,7 @@
      "line": 188,
      "outcome": null,
      "path": "openrtx/src/rtx/rtx.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3177818053,
      "side": "LEFT",
@@ -11532,6 +12012,7 @@
      "line": 1938,
      "outcome": "changed",
      "path": "openrtx/src/ui/default/ui.c",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-03T23:41:33Z",
@@ -11559,6 +12040,7 @@
      "line": 1944,
      "outcome": "changed",
      "path": "openrtx/src/ui/default/ui.c",
+     "prior": false,
      "replies": [],
      "review_id": 3177818053,
      "side": "RIGHT",
@@ -11580,6 +12062,7 @@
      "line": 2255,
      "outcome": "changed",
      "path": "openrtx/src/ui/default/ui.c",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-05T16:56:20Z",
@@ -11607,6 +12090,7 @@
      "line": 771,
      "outcome": "changed",
      "path": "openrtx/src/ui/default/ui_menu.c",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-03T23:48:26Z",
@@ -11634,6 +12118,7 @@
      "line": 883,
      "outcome": "changed",
      "path": "openrtx/src/ui/default/ui_menu.c",
+     "prior": false,
      "replies": [],
      "review_id": 3177818053,
      "side": "RIGHT",
@@ -11655,6 +12140,7 @@
      "line": 165,
      "outcome": "unchanged",
      "path": "openrtx/src/rtx/rtx.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2025-10-04T23:27:08Z",
@@ -11682,6 +12168,7 @@
      "line": 165,
      "outcome": "unchanged",
      "path": "openrtx/src/rtx/rtx.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3306981397,
      "side": "RIGHT",
@@ -11699,6 +12186,7 @@
      "id": 3430627076,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -11712,6 +12200,7 @@
      "id": 3925084349,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -11749,6 +12238,7 @@
      "id": 3038604684,
      "kind": "conversation",
      "outcome": null,
+     "prior": true,
      "trivial": false
     },
     {
@@ -11762,6 +12252,7 @@
      "id": 3232183240,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -11775,6 +12266,7 @@
      "id": 3252186612,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -11788,6 +12280,7 @@
      "id": 3430684698,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -11825,6 +12318,7 @@
      "id": 3867746942,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -11838,6 +12332,7 @@
      "id": 3887012883,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -11851,6 +12346,7 @@
      "id": 3901967260,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -11888,6 +12384,7 @@
      "id": 3396035416,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -11901,6 +12398,7 @@
      "id": 3409389709,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -11914,6 +12412,7 @@
      "id": 3430761453,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -11927,6 +12426,7 @@
      "id": 3554558914,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -11940,6 +12440,7 @@
      "id": 3708381774,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -11977,6 +12478,7 @@
      "id": 3423574245,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -11994,6 +12496,7 @@
      "line": 185,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/Callsign.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3363892752,
      "side": "RIGHT",
@@ -12015,6 +12518,7 @@
      "line": 70,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/Callsign.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3363894184,
      "side": "RIGHT",
@@ -12036,6 +12540,7 @@
      "line": 80,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/Callsign.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3363895900,
      "side": "RIGHT",
@@ -12057,6 +12562,7 @@
      "line": 71,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/Callsign.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3363902535,
      "side": "RIGHT",
@@ -12078,6 +12584,7 @@
      "line": 112,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/Callsign.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3363904420,
      "side": "RIGHT",
@@ -12099,6 +12606,7 @@
      "line": 36,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/Callsign.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3363906493,
      "side": "RIGHT",
@@ -12120,6 +12628,7 @@
      "line": 38,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/Callsign.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3363908026,
      "side": "RIGHT",
@@ -12141,6 +12650,7 @@
      "line": 52,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/Callsign.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3363908569,
      "side": "RIGHT",
@@ -12186,6 +12696,7 @@
      "line": 28,
      "outcome": null,
      "path": ".github/workflows/main.yml",
+     "prior": false,
      "replies": [
       {
        "at": "2025-11-02T18:43:35Z",
@@ -12209,6 +12720,7 @@
      "id": 3478179733,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -12222,6 +12734,7 @@
      "id": 3478181100,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -12239,6 +12752,7 @@
      "line": 28,
      "outcome": null,
      "path": ".github/workflows/main.yml",
+     "prior": false,
      "replies": [],
      "review_id": 3408926619,
      "side": "LEFT",
@@ -12284,6 +12798,7 @@
      "line": 168,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/M17Demodulator.hpp",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-22T17:58:54Z",
@@ -12311,6 +12826,7 @@
      "line": 19,
      "outcome": "changed",
      "path": "openrtx/include/rtx/OpMode_M17.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3254067310,
      "side": "RIGHT",
@@ -12332,6 +12848,7 @@
      "line": 34,
      "outcome": "changed",
      "path": "openrtx/include/rtx/OpMode_M17.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3254073168,
      "side": "RIGHT",
@@ -12353,6 +12870,7 @@
      "line": 149,
      "outcome": "changed",
      "path": "openrtx/include/rtx/OpMode_M17.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3254082816,
      "side": "RIGHT",
@@ -12374,6 +12892,7 @@
      "line": 268,
      "outcome": null,
      "path": "openrtx/src/protocols/M17/M17Demodulator.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-22T18:06:43Z",
@@ -12401,6 +12920,7 @@
      "line": 303,
      "outcome": null,
      "path": "openrtx/src/protocols/M17/M17Demodulator.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-22T18:06:51Z",
@@ -12428,6 +12948,7 @@
      "line": 79,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/M17LinkSetupFrame.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-22T18:07:20Z",
@@ -12455,6 +12976,7 @@
      "line": 33,
      "outcome": null,
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3254093826,
      "side": "LEFT",
@@ -12476,6 +12998,7 @@
      "line": 383,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3254100997,
      "side": "RIGHT",
@@ -12497,6 +13020,7 @@
      "line": 389,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3254102503,
      "side": "RIGHT",
@@ -12518,6 +13042,7 @@
      "line": 392,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3254111040,
      "side": "RIGHT",
@@ -12539,6 +13064,7 @@
      "line": 165,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/M17LinkSetupFrame.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3262347874,
      "side": "RIGHT",
@@ -12560,6 +13086,7 @@
      "line": 31,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/M17Datatypes.hpp",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-25T17:01:00Z",
@@ -12592,6 +13119,7 @@
      "line": 98,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/M17Datatypes.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3268682349,
      "side": "RIGHT",
@@ -12613,6 +13141,7 @@
      "line": 151,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/M17LinkSetupFrame.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3268684700,
      "side": "RIGHT",
@@ -12634,6 +13163,7 @@
      "line": 357,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-25T19:43:41Z",
@@ -12666,6 +13196,7 @@
      "line": 31,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/M17Datatypes.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3268717523,
      "side": "RIGHT",
@@ -12687,6 +13218,7 @@
      "line": 357,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3270364640,
      "side": "RIGHT",
@@ -12708,6 +13240,7 @@
      "line": 357,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3273110258,
      "side": "RIGHT",
@@ -12729,6 +13262,7 @@
      "line": 31,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/M17Datatypes.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3273122903,
      "side": "RIGHT",
@@ -12746,6 +13280,7 @@
      "id": 3339702758,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -12759,6 +13294,7 @@
      "id": 3350160338,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -12776,6 +13312,7 @@
      "line": 318,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3313139633,
      "side": "RIGHT",
@@ -12797,6 +13334,7 @@
      "line": 354,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3313182509,
      "side": "RIGHT",
@@ -12818,6 +13356,7 @@
      "line": 359,
      "outcome": "changed",
      "path": "openrtx/src/rtx/OpMode_M17.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3313206096,
      "side": "RIGHT",
@@ -12839,6 +13378,7 @@
      "line": 197,
      "outcome": "changed",
      "path": "openrtx/src/protocols/M17/M17LinkSetupFrame.cpp",
+     "prior": false,
      "replies": [],
      "review_id": 3313215063,
      "side": "RIGHT",
@@ -12860,6 +13400,7 @@
      "line": 155,
      "outcome": "changed",
      "path": "openrtx/include/rtx/OpMode_M17.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 3313222164,
      "side": "RIGHT",
@@ -12905,6 +13446,7 @@
      "line": 95,
      "outcome": "changed",
      "path": "platform/drivers/baseband/HR_C6000.h",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-28T14:14:18Z",
@@ -12956,6 +13498,7 @@
      "line": 107,
      "outcome": "changed",
      "path": "openrtx/include/ui/EnglishStrings.h",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-19T11:06:19Z",
@@ -12988,6 +13531,7 @@
      "line": 107,
      "outcome": "changed",
      "path": "openrtx/include/ui/EnglishStrings.h",
+     "prior": false,
      "replies": [],
      "review_id": 3245865851,
      "side": "RIGHT",
@@ -13009,6 +13553,7 @@
      "line": 81,
      "outcome": "changed",
      "path": "openrtx/src/ui/default/ui_main.c",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-20T02:13:53Z",
@@ -13060,6 +13605,7 @@
      "line": 69,
      "outcome": "changed",
      "path": "openrtx/include/rtx/rtx.h",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-13T16:01:53Z",
@@ -13087,6 +13633,7 @@
      "line": 38,
      "outcome": "changed",
      "path": "openrtx/include/ui/ui_strings.h",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-13T16:02:04Z",
@@ -13114,6 +13661,7 @@
      "line": 35,
      "outcome": "changed",
      "path": "openrtx/include/ui/SpanishStrings.h",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-13T16:02:29Z",
@@ -13141,6 +13689,7 @@
      "line": 34,
      "outcome": "changed",
      "path": "openrtx/include/ui/EnglishStrings.h",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-13T16:02:13Z",
@@ -13172,7 +13721,7 @@
    "created_at": "2025-09-02T20:18:23Z",
    "cutoff": "2025-09-04T09:25:04Z",
    "end": {
-    "base": "12dc81aef2fdb283adbd98283706638b5faa4f4e",
+    "base": "74e89450b735dd021aba526e6d72e68cae072c02",
     "merge_commit": "d8f16d694535693a83fe91bc6f041380f42e4cd5",
     "sha": "b370e5f2eb0daaf690f74f2bd986b174f8f1e17e"
    },
@@ -13188,6 +13737,7 @@
      "id": 3252743227,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -13225,6 +13775,7 @@
      "id": 1680617665,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -13238,6 +13789,7 @@
      "id": 1680951171,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -13255,6 +13807,7 @@
      "line": 82,
      "outcome": "changed",
      "path": "openrtx/include/calibration/calibInfo_GDx.h",
+     "prior": false,
      "replies": [],
      "review_id": 1582053651,
      "side": "RIGHT",
@@ -13276,6 +13829,7 @@
      "line": 36,
      "outcome": "changed",
      "path": "openrtx/include/calibration/calibInfo_Mod17.h",
+     "prior": false,
      "replies": [
       {
        "at": "2023-08-17T12:59:15Z",
@@ -13303,6 +13857,7 @@
      "line": 60,
      "outcome": "changed",
      "path": "openrtx/include/core/cps.h",
+     "prior": false,
      "replies": [
       {
        "at": "2023-08-17T12:09:07Z",
@@ -13335,6 +13890,7 @@
      "line": 224,
      "outcome": "changed",
      "path": "openrtx/include/core/graphics.h",
+     "prior": false,
      "replies": [],
      "review_id": 1582204052,
      "side": "RIGHT",
@@ -13356,6 +13912,7 @@
      "line": 38,
      "outcome": null,
      "path": "openrtx/include/core/ringbuf.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 1582207391,
      "side": "LEFT",
@@ -13377,6 +13934,7 @@
      "line": 42,
      "outcome": "changed",
      "path": "openrtx/include/core/gps.h",
+     "prior": false,
      "replies": [],
      "review_id": 1582233550,
      "side": "RIGHT",
@@ -13398,6 +13956,7 @@
      "line": 37,
      "outcome": "changed",
      "path": "openrtx/include/core/state.h",
+     "prior": false,
      "replies": [],
      "review_id": 1582241091,
      "side": "RIGHT",
@@ -13419,6 +13978,7 @@
      "line": 209,
      "outcome": "changed",
      "path": "openrtx/include/core/voicePrompts.h",
+     "prior": false,
      "replies": [],
      "review_id": 1582247122,
      "side": "RIGHT",
@@ -13440,6 +14000,7 @@
      "line": 39,
      "outcome": null,
      "path": "openrtx/include/protocols/M17/M17CodePuncturing.hpp",
+     "prior": false,
      "replies": [
       {
        "at": "2023-08-17T13:19:57Z",
@@ -13467,6 +14028,7 @@
      "line": 42,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/M17Constants.hpp",
+     "prior": false,
      "replies": [
       {
        "at": "2023-08-17T13:20:45Z",
@@ -13494,6 +14056,7 @@
      "line": 124,
      "outcome": "changed",
      "path": "openrtx/include/protocols/M17/M17Demodulator.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 1582252722,
      "side": "RIGHT",
@@ -13515,6 +14078,7 @@
      "line": 148,
      "outcome": null,
      "path": "openrtx/include/protocols/M17/M17Demodulator.hpp",
+     "prior": false,
      "replies": [],
      "review_id": 1582253820,
      "side": "LEFT",
@@ -13532,6 +14096,7 @@
      "id": 1681999158,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -13549,6 +14114,7 @@
      "line": 60,
      "outcome": "changed",
      "path": "openrtx/include/core/cps.h",
+     "prior": false,
      "replies": [],
      "review_id": 1582484376,
      "side": "RIGHT",
@@ -13570,6 +14136,7 @@
      "line": 74,
      "outcome": "changed",
      "path": ".clang-format",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-06T19:54:57Z",
@@ -13593,6 +14160,7 @@
      "id": 3275884398,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -13610,6 +14178,7 @@
      "line": 25,
      "outcome": "changed",
      "path": ".clang-format",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-10T19:53:05Z",
@@ -13637,6 +14206,7 @@
      "line": 125,
      "outcome": "changed",
      "path": ".clang-format",
+     "prior": false,
      "replies": [
       {
        "at": "2025-09-10T19:53:38Z",
@@ -13660,6 +14230,7 @@
      "id": 3276281916,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -13673,6 +14244,7 @@
      "id": 3276288687,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -13686,6 +14258,7 @@
      "id": 3284441159,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -13727,6 +14300,7 @@
      "line": 52,
      "outcome": "changed",
      "path": "platform/drivers/NVM/flash_zephyr.c",
+     "prior": false,
      "replies": [
       {
        "at": "2025-01-06T21:33:04Z",
@@ -13759,6 +14333,7 @@
      "line": 52,
      "outcome": "changed",
      "path": "platform/drivers/NVM/flash_zephyr.c",
+     "prior": false,
      "replies": [],
      "review_id": 2534934721,
      "side": "RIGHT",
@@ -13804,6 +14379,7 @@
      "line": 85,
      "outcome": "changed",
      "path": "openrtx/include/core/input.h",
+     "prior": false,
      "replies": [
       {
        "at": "2025-01-07T22:50:34Z",
@@ -13831,6 +14407,7 @@
      "line": 95,
      "outcome": "changed",
      "path": "openrtx/include/core/input.h",
+     "prior": false,
      "replies": [
       {
        "at": "2025-01-07T22:50:44Z",
@@ -13858,6 +14435,7 @@
      "line": 27,
      "outcome": "changed",
      "path": "openrtx/src/core/input.c",
+     "prior": false,
      "replies": [
       {
        "at": "2025-01-07T22:50:50Z",
@@ -13885,6 +14463,7 @@
      "line": 36,
      "outcome": "changed",
      "path": "openrtx/src/core/input.c",
+     "prior": false,
      "replies": [
       {
        "at": "2025-01-06T21:00:54Z",
@@ -13917,6 +14496,7 @@
      "line": 58,
      "outcome": "changed",
      "path": "openrtx/src/core/input.c",
+     "prior": false,
      "replies": [
       {
        "at": "2025-01-06T20:59:24Z",
@@ -13945,6 +14525,7 @@
      "id": 2575805257,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -13982,6 +14563,7 @@
      "id": 2562377848,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -13995,6 +14577,7 @@
      "id": 2562892592,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -14008,6 +14591,7 @@
      "id": 2564337169,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -14045,6 +14629,7 @@
      "id": 1979280421,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -14082,6 +14667,7 @@
      "id": 1872986373,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -14119,6 +14705,7 @@
      "id": 1776549381,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -14132,6 +14719,7 @@
      "id": 1806744155,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -14169,6 +14757,7 @@
      "id": 1776540606,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -14210,6 +14799,7 @@
      "line": 1,
      "outcome": "file_gone",
      "path": "openrtx/include/fonts/symbols/scripts/generate_symbols.py",
+     "prior": false,
      "replies": [],
      "review_id": 1589131332,
      "side": "RIGHT",
@@ -14231,6 +14821,7 @@
      "line": 94,
      "outcome": "changed",
      "path": "openrtx/src/core/graphics.c",
+     "prior": false,
      "replies": [],
      "review_id": 1589132131,
      "side": "RIGHT",
@@ -14252,6 +14843,7 @@
      "line": 254,
      "outcome": "changed",
      "path": "openrtx/include/core/graphics.h",
+     "prior": false,
      "replies": [],
      "review_id": 1589137795,
      "side": "RIGHT",
@@ -14293,6 +14885,7 @@
      "id": 1518635682,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -14306,6 +14899,7 @@
      "id": 1519647227,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -14343,6 +14937,7 @@
      "id": 1152087698,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -14380,6 +14975,7 @@
      "id": 975331679,
      "kind": "conversation",
      "outcome": null,
+     "prior": true,
      "trivial": false
     },
     {
@@ -14393,6 +14989,7 @@
      "id": 975878308,
      "kind": "conversation",
      "outcome": null,
+     "prior": true,
      "trivial": false
     },
     {
@@ -14406,6 +15003,7 @@
      "id": 987711559,
      "kind": "conversation",
      "outcome": null,
+     "prior": true,
      "trivial": false
     },
     {
@@ -14423,6 +15021,7 @@
      "line": 701,
      "outcome": "unchanged",
      "path": "openrtx/src/ui/ui.c",
+     "prior": false,
      "replies": [],
      "review_id": 826144186,
      "side": "RIGHT",
@@ -14440,6 +15039,7 @@
      "id": 988607926,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],
@@ -14449,7 +15049,7 @@
    "number": 55,
    "start": {
     "anchor": "exact",
-    "base": "e7444db281fb99283cc7a2454fe98e6517209c9f",
+    "base": "1605f5a29c18e302f2392181f71929e62d77f755",
     "sha": "4bae088dfc28fec853d30ea4bb729785ec4576ad"
    },
    "title": "Screen backlight timer",
@@ -14477,6 +15077,7 @@
      "id": 981126534,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -14490,6 +15091,7 @@
      "id": 981131390,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     },
     {
@@ -14503,6 +15105,7 @@
      "id": 986031495,
      "kind": "conversation",
      "outcome": null,
+     "prior": false,
      "trivial": false
     }
    ],

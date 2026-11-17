@@ -24,6 +24,7 @@ import time
 
 from inspect_ai import Task, task
 from inspect_ai.dataset import MemoryDataset, Sample
+from inspect_ai.log import HeadlineMetric
 from inspect_ai.scorer import SampleScore, Score, metric, scorer
 from inspect_ai.solver import Generate, TaskState, solver
 from inspect_ai.util import subprocess as async_subprocess
@@ -162,49 +163,78 @@ def sealed_review(plugin_dir=None, model="claude-opus-5-5", builds=False, time_l
     return solve
 
 
-def ratio(name, num, den):
-    """A metric: sum of `num` over sum of `den` across samples (micro average)."""
+def over_cases(key, stat="mean"):
+    """A metric over the cases where a per-case value applies (Inspect's mean() counts None as 0).
 
-    @metric(name=name)
-    def _ratio():
+    stat is "mean", "stderr" (of that mean) or "cases" (how many cases it is over).
+    """
+
+    @metric(name=key if stat == "mean" else "%s_%s" % (key, stat))
+    def _metric():
         def compute(scores: list[SampleScore]) -> float:
-            n = sum(s.score.value.get(num, 0) for s in scores)
-            d = sum(s.score.value.get(den, 0) for s in scores)
-            return n / d if d else 0.0
+            v = [float(x) for s in scores if (x := (s.score.value or {}).get(key)) is not None]
+            if stat == "cases":
+                return float(len(v))
+            if not v or (stat == "stderr" and len(v) < 2):
+                return float("nan")
+            mu = sum(v) / len(v)
+            return mu if stat == "mean" else (sum((x - mu) ** 2 for x in v) / (len(v) - 1) / len(v)) ** 0.5
         return compute
 
-    return _ratio()
+    return _metric()
 
 
-def total(key):
-    """A metric: the sum of one count across samples."""
+async def judge(case, code, model, cwd):
+    """Ask a model which findings make the same point as the maintainer's comments.
 
-    @metric(name="total_" + key)
-    def _total():
-        def compute(scores: list[SampleScore]) -> float:
-            return float(sum(s.score.value.get(key, 0) for s in scores))
-        return compute
+    Only comments with findings at their spot are asked about. Runs through the claude CLI
+    so it needs no API key. Returns (judged, raw answer).
+    """
+    pairs = sc.spot_pairs(case, code)
+    prompt = sc.judge_prompt(pairs, code)
+    if not prompt:
+        return {}, None
+    res = await async_subprocess(["claude", "-p", prompt, "--model", model, "--output-format", "json",
+                                  "--strict-mcp-config", "--mcp-config", '{"mcpServers":{}}', "--tools", ""],
+                                 cwd=cwd, timeout=300)
+    try:
+        answer = json.loads(res.stdout or "{}").get("result", "")
+    except ValueError:
+        answer = res.stdout or res.stderr
+    return sc.parse_judgement(answer, pairs), answer
 
-    return _total()
 
+@scorer(metrics=[over_cases("catch_rate"), over_cases("catch_rate", "stderr"), over_cases("catch_rate", "cases"),
+                 over_cases("catch_rate_spot"), over_cases("catch_rate_file"),
+                 over_cases("precision"), over_cases("precision", "stderr"),
+                 over_cases("flagged"), over_cases("code_findings"), over_cases("meta_findings"),
+                 over_cases("leaked")])
+def review_vs_maintainer(judge_model="claude-haiku-5-5"):
+    """Compare a run's findings with the maintainer's comments and with what changed before merge.
 
-@scorer(metrics=[ratio("recall_acted", "acted_hits", "acted"),
-                 ratio("recall_round1", "target_hits", "targets"),
-                 ratio("recall_acted_same_file", "acted_file_hits", "acted"),
-                 ratio("precision_on_changed", "findings_on_changed", "findings_located"),
-                 ratio("cases_flagged", "flagged_case", "samples"),
-                 ratio("suggestions_landed", "suggestions_landed", "findings"),
-                 total("findings"), total("leaked"), total("no_findings_file")])
-def review_heuristics():
-    """Score a run's findings against the maintainer's comments and the end state."""
+    The value holds per-case rates (0..1, None where they don't apply); the run's metrics
+    are their means across cases. The explanation lists each maintainer comment with what
+    the review did about it. Raw counts and the judge's answer are in the metadata.
+    """
 
     async def do_score(state: TaskState, target) -> Score:
         case, found = state.metadata["case"], state.metadata.get("findings")
-        value = sc.score_case(MIRROR, case, found or [], state.metadata.get("transcript", ""))
-        value.update(samples=1, no_findings_file=int(found is None))
-        return Score(value=value, answer="%d findings" % len(found or []),
-                     metadata={"cost": state.metadata.get("cost"), "seconds": state.metadata.get("seconds"),
-                               "run_dir": state.metadata.get("root")})
+        code = [x for x in (found or []) if not sc.is_meta(x)]
+        judged, answer = await judge(case, code, judge_model, state.metadata.get("root") or HERE)
+        counts, rows, flagged_code = sc.assess(MIRROR, case, found or [], state.metadata.get("transcript", ""),
+                                               judged)
+        meta = [x for x in (found or []) if sc.is_meta(x)]
+        explanation = sc.explain(case, counts, rows, flagged_code, meta)
+        if found is None:
+            explanation = "**The run wrote no findings file**; it is scored as finding nothing.\n\n" + explanation
+        caught = counts["acted_point_hits"]
+        return Score(value=sc.rates(counts),
+                     answer="caught %d of %d acted-on comments; %d code findings" % (caught, counts["acted"],
+                                                                                     counts["code_findings"]),
+                     explanation=explanation,
+                     metadata=dict(counts, cost=state.metadata.get("cost"), seconds=state.metadata.get("seconds"),
+                                   run_dir=state.metadata.get("root"), no_findings_file=found is None,
+                                   judge_answer=answer))
 
     return do_score
 
@@ -228,4 +258,5 @@ def review_corpus(limit: int = 0, ids: str | list[str] = "", plugin_dir: str = "
     samples = [Sample(input=c["title"], id=c["id"], metadata={"case": c, "run": run}) for c in cases]
     return Task(dataset=MemoryDataset(samples),
                 solver=sealed_review(plugin_dir or None, model, builds, time_limit),
-                scorer=review_heuristics(), time_limit=time_limit + 300)
+                scorer=review_vs_maintainer(), time_limit=time_limit + 300,
+                headline_metric=HeadlineMetric(metric="catch_rate"))
