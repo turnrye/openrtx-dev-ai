@@ -52,6 +52,14 @@ class TrailingComma(unittest.TestCase):
         base = "typedef struct\n{\nint a;\n"
         self.assertEqual(lint.new_content(["  typedef struct {", "int b;"], {1, 2}, base), {2})
 
+    def test_new_content_ignores_lines_moved_from_another_file(self):
+        moved = "static const int t[] = { 1, 2 };"
+        self.assertEqual(lint.new_content(["static const int t[] = { 1, 2 };", "int c;"], {1, 2}, "", moved), {2})
+
+    def test_new_content_ignores_rewrapped_statements(self):
+        base = 'static const char *sym[] =\n{\n    " 0", ",.?1",\n    "abc2"\n};\n'
+        self.assertEqual(lint.new_content(['static const char *sym[] = { " 0", ",.?1",', "int x;"], {1, 2}, base), {2})
+
     def test_multiline_lists_are_off_by_default(self):
         self.assertFalse(self.default)
         lint.MULTILINE_LISTS = False
@@ -83,6 +91,18 @@ class Lines(unittest.TestCase):
         self.assertEqual(self.check("a.hpp", "    static const uint8_t TABLE[] = {"), [("static-constexpr", 1)])
         self.assertEqual(self.check("a.hpp", "    static constexpr uint8_t N = 4;"), [])
 
+    def test_pointer_to_const_is_not_a_constant(self):
+        self.assertEqual(self.check("a.cpp", "static const rtxStatus_t *config;"), [])
+        self.assertEqual(self.check("a.cpp", 'static const char charMap[] = " AB";'), [("static-constexpr", 1)])
+
+    def test_module_prefix_once_per_function(self):
+        self.assertEqual(self.check("ui_menu.c", "color_t getColorFromLevel(uint16_t Level);"), [])
+        self.assertEqual(self.check("ui.h", "color_t getColorFromLevel(uint16_t Level);"), [("module-prefix", 1)])
+
+    def test_module_prefix_skips_existing_interfaces(self):
+        found = lint.check_lines("delays.c", ["void delayUs(unsigned int us)"], {1}, existing={"delayUs"})
+        self.assertEqual(found, [])
+
     def test_module_prefix(self):
         self.assertEqual(self.check("input.c", "bool handleKnobEvents(uint8_t k)"), [("module-prefix", 1)])
         self.assertEqual(self.check("input.c", "bool input_handleKnob(uint8_t k)", "static bool helper(void)",
@@ -104,6 +124,12 @@ class FileLocal(unittest.TestCase):
         found = lint.check_file_local("input.c", lines, set(range(1, 7)), {"shared"})
         self.assertEqual(rules(found), [("file-local", 1), ("file-local", 3)])
 
+    def test_extern_in_another_c_file_counts(self):
+        lines = ["int _ui_getSpectrumValueName(char *buf)"]
+        found = lint.check_file_local("ui_menu.c", lines, {1}, set(),
+                                      used_elsewhere=lambda name: name == "_ui_getSpectrumValueName")
+        self.assertEqual(found, [])
+
     def test_only_c_files(self):
         self.assertEqual(lint.check_file_local("a.cpp", ["void f(void)"], {1}, set()), [])
 
@@ -119,6 +145,19 @@ class AppendOnly(unittest.TestCase):
     def test_appended_at_the_end(self):
         lines = ["struct t {", "    const char *a;", "    const char *b;", "    const char *new;", "};"]
         self.assertEqual(lint.check_append_only("x.h", lines, {4}), [])
+
+    def test_comment_lines_are_not_entries(self):
+        lines = ["/*", " * OpenRTX is distributed in the hope that it will be useful,", " */", "struct t {",
+                 "    int a;", "};"]
+        self.assertEqual(lint.check_append_only("x.h", lines, {2}), [])
+
+    def test_file_level_lines_are_not_entries(self):
+        lines = ["int settings_load(struct settings_storage *s);", "", "int settings_save(void);"]
+        self.assertEqual(lint.check_append_only("x.h", lines, {1}), [])
+
+    def test_extern_c_block_is_file_level(self):
+        lines = ['extern "C" {', "int settings_load(struct settings_storage *s);", "", "int settings_save(void);", "}"]
+        self.assertEqual(lint.check_append_only("x.h", lines, {2}), [])
 
     def test_path_filter(self):
         self.assertTrue(lint.APPEND_ONLY.match("openrtx/include/ui/SpanishStrings.h"))
