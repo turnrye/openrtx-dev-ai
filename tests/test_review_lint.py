@@ -165,5 +165,65 @@ class AppendOnly(unittest.TestCase):
         self.assertFalse(lint.APPEND_ONLY.match("openrtx/include/core/state.h"))
 
 
+class MoreRules(unittest.TestCase):
+    """Layering, unused code, docs and readability rules."""
+
+    def all_added(self, lines):
+        return set(range(1, len(lines) + 1))
+
+    def test_layering(self):
+        lines = ["void f()", "{", "    radio_setOpmode(OPMODE_FM);", "    display_init();", "}"]
+        self.assertEqual(rules(lint.check_calls("openrtx/src/ui/default/ui.c", lines, {3, 4})),
+                         [("layering", 3), ("layering", 4)])
+        self.assertEqual(lint.check_calls("openrtx/src/rtx/rtx.cpp", lines, {3}), [])
+        mutex = ["    pthread_mutex_lock(&state_mutex);"]
+        self.assertEqual(rules(lint.check_calls("openrtx/src/rtx/OpMode_M17.cpp", mutex, {1})), [("layering", 1)])
+        self.assertEqual(lint.check_calls("openrtx/src/ui/default/ui.c", mutex, {1}), [])
+
+    def test_unused(self):
+        lines = ["struct rtxStatus {", "    uint8_t used;", "    uint8_t spare;", "};", "#define MAX_X 4"]
+        refs = {"used": 3, "spare": 1, "MAX_X": 1}.get
+        found = lint.check_unused("openrtx/include/rtx/rtx.h", lines, {2, 3, 5}, refs)
+        self.assertEqual(rules(found), [("unused", 3), ("unused", 5)])
+        self.assertEqual(lint.check_unused("platform/mcu/regs.h", lines, {5}, refs), [])
+
+    def test_doxygen(self):
+        lines = ["/**", " * Documented.", " */", "void input_a(void);", "", "void input_b(void);"]
+        self.assertEqual(rules(lint.check_doxygen("openrtx/include/core/input.h", lines, {4, 6})), [("doxygen", 6)])
+
+    def test_doxygen_cpp_declarations_not_calls(self):
+        lines = ["class S {", "public:", "    S()", "    {", "        reset();", "    }", "    void reset();", "};"]
+        self.assertEqual(rules(lint.check_doxygen("openrtx/include/S.hpp", lines, {5, 7})), [("doxygen", 7)])
+
+    def test_static_local(self):
+        lines = ["static int fileState;", "void f(void)", "{", "    static int count;", "    static const int t[] = {1};", "}"]
+        self.assertEqual(rules(lint.check_static_locals("a.c", lines, self.all_added(lines))), [("static-local", 4)])
+
+    def test_define_location(self):
+        lines = ["#define TOP 1", "", "void f(void)", "{", "}", "#define LATE 2"]
+        self.assertEqual(rules(lint.check_define_location("a.c", lines, {1, 6})), [("define-location", 6)])
+
+    def test_parentheses(self):
+        check = lambda *l: rules(lint.check_parentheses("a.c", list(l), set(range(1, len(l) + 1))))
+        self.assertEqual(check("    if (pos.x >= W || pos.y >= H ||"), [("parentheses", 1)])
+        self.assertEqual(check("    if ((pos.x >= W) || (pos.y >= H))"), [])
+        self.assertEqual(check("    bool b = ok && (x == y);"), [])
+        self.assertEqual(check("    x = (a << 2) && p->q;"), [])
+
+    def test_switch_chain(self):
+        lines = ["if (mode == A)", "    f();", "else if (mode == B)", "    g();", "else if (mode == C)", "    h();"]
+        self.assertEqual(rules(lint.check_switch_chain("a.c", lines, {1})), [("switch", 1)])
+        self.assertEqual(lint.check_switch_chain("a.c", lines[:4], {1}), [])
+
+    def test_std_array(self):
+        lines = ["class Correlator {", "private:", "    int16_t samples[SIZE];", "    char name[8];", "};"]
+        self.assertEqual(rules(lint.check_std_array("a.hpp", lines, {3, 4})), [("std-array", 3)])
+
+    def test_hw_literal(self):
+        lines = ["    state.channel.rx_frequency = 430000000;", "    x = 1000;"]
+        self.assertEqual(rules(lint.check_hw_literals("openrtx/src/core/state.c", lines, {1, 2})), [("hw-literal", 1)])
+        self.assertEqual(lint.check_hw_literals("platform/targets/MD-UV3x0/hwconfig.c", lines, {1}), [])
+
+
 if __name__ == "__main__":
     unittest.main()
