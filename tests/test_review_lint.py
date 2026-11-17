@@ -19,6 +19,13 @@ class TrailingComma(unittest.TestCase):
 
     ENUM = "enum mode {\n    MODE_A,\n    MODE_B\n};\n"
 
+    def setUp(self):
+        self.default = lint.MULTILINE_LISTS
+        lint.MULTILINE_LISTS = True  # these tests cover the optional multi-line check
+
+    def tearDown(self):
+        lint.MULTILINE_LISTS = self.default
+
     def test_enum(self):
         self.assertEqual(rules(lint.check_trailing_comma("a.h", self.ENUM, {3})), [("trailing-comma", 3)])
 
@@ -44,6 +51,11 @@ class TrailingComma(unittest.TestCase):
     def test_new_content_ignores_moved_and_reindented_lines(self):
         base = "typedef struct\n{\nint a;\n"
         self.assertEqual(lint.new_content(["  typedef struct {", "int b;"], {1, 2}, base), {2})
+
+    def test_multiline_lists_are_off_by_default(self):
+        self.assertFalse(self.default)
+        lint.MULTILINE_LISTS = False
+        self.assertEqual(lint.check_trailing_comma("a.h", self.ENUM, {3}), [])
 
     def test_function_bodies_are_not_lists(self):
         text = "int f(void)\n{\n    return 1\n}\n"
@@ -75,6 +87,19 @@ class Lines(unittest.TestCase):
         self.assertEqual(self.check("input.c", "bool handleKnobEvents(uint8_t k)"), [("module-prefix", 1)])
         self.assertEqual(self.check("input.c", "bool input_handleKnob(uint8_t k)", "static bool helper(void)",
                                     "int main(void)", "    foo(bar);", "void DMA2_IRQHandler(void)"), [])
+
+
+class FileLocal(unittest.TestCase):
+    """A new C function no header declares should be static."""
+
+    def test_undeclared_function(self):
+        lines = ["bool scanKeys(uint8_t k)", "{", "static int helper(void)", "void input_init(void)", "int main(void)"]
+        found = lint.check_file_local("input.c", lines, {1, 3, 4, 5}, {"input_init"})
+        self.assertEqual(rules(found), [("file-local", 1)])
+        self.assertEqual(found[0]["suggestion"], "static bool scanKeys(uint8_t k)")
+
+    def test_only_c_files(self):
+        self.assertEqual(lint.check_file_local("a.cpp", ["void f(void)"], {1}, set()), [])
 
 
 class AppendOnly(unittest.TestCase):
