@@ -98,6 +98,13 @@ class ScoreCase(unittest.TestCase):
         v = sc.score_case("/nonexistent.git", dict(CASE, feedback=[prior]), [], "y " * 50)
         self.assertEqual((v["targets"], v["leaked"]), (0, 0))
 
+    def test_quotes_and_code_are_not_leaks(self):
+        seen = "Peter was trying to prebuild the image so that devs wouldn't have to build it locally, really."
+        code = "int8_t syncStatus = lsfSync.update(correlator, syncThresh, -syncThresh); // the line in the diff"
+        body = "> %s\n\nDoes it make sense?\n```suggestion\n%s\n```" % (seen, code)
+        case = dict(CASE, feedback=[dict(CASE["feedback"][0], body=body)])
+        self.assertEqual(sc.score_case("/nonexistent.git", case, [], seen + " " + code)["leaked"], 0)
+
     def test_leak(self):
         quoted = "the report said: I'd cut it short and put the ifdef on the call. as asked"
         self.assertEqual(sc.score_case("/nonexistent.git", CASE, [], quoted)["leaked"], 0)

@@ -136,13 +136,24 @@ def squash(text):
     return re.sub(r"\s+", " ", (text or "").lower()).strip()
 
 
+def own_prose(body):
+    """A comment's own words: without code blocks, inline code, or `>` quotes of earlier comments.
+
+    Code in a suggestion is often a line of the diff itself, and a quote repeats a comment the
+    reviewer could already see, so neither shows that the run saw this comment.
+    """
+    body = re.sub(r"```.*?```", " ", body or "", flags=re.S)
+    body = re.sub(r"`[^`]*`", " ", body)
+    return "\n".join(line for line in body.splitlines() if not line.lstrip().startswith(">"))
+
+
 def leaked(case, transcript):
     """True when the run quoted a maintainer comment it shouldn't have seen (not earlier context)."""
     t = squash(transcript)
     for f in case["feedback"]:
         if f.get("prior"):
             continue
-        for sentence in re.split(r"(?<=[.!?])\s+|\n+", f["body"] or ""):
+        for sentence in re.split(r"(?<=[.!?])\s+|\n+", own_prose(f["body"])):
             s = squash(sentence)
             if len(s) >= LEAK_MIN and s in t:
                 return True
