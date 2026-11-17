@@ -38,11 +38,15 @@ def norm_path(p):
 
 
 def targets(case):
-    """Round-one inline comments made on the start head, the ones a review of start can catch."""
+    """Round-one inline comments made on the start head, the ones a review of start can catch.
+
+    Replies in a thread ("Ow, sorry!", answers to the author) follow up on a discussion
+    rather than raise something new, so they aren't targets.
+    """
     start = case["start"]["sha"]
     return [f for f in case["feedback"]
             if f["kind"] == "inline" and not f["trivial"] and f["commit"] == start and f.get("line")
-            and not f.get("prior")]
+            and not f.get("prior") and not f.get("in_reply_to")]
 
 
 def acted(f):

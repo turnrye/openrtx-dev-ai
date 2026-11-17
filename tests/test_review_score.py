@@ -32,6 +32,10 @@ class Matching(unittest.TestCase):
     def test_targets_are_round_one_inline(self):
         self.assertEqual([f["line"] for f in sc.targets(CASE)], [100, 300])
 
+    def test_replies_are_not_targets(self):
+        reply = dict(CASE["feedback"][0], in_reply_to=123, body="Ow, sorry!")
+        self.assertEqual(sc.targets(dict(CASE, feedback=[reply])), [])
+
     def test_window(self):
         f = CASE["feedback"][0]
         self.assertTrue(sc.hits(f, {"path": "./a/radio.c", "line": 104}))
