@@ -40,6 +40,11 @@ TRIVIAL = re.compile(r"^\W*(thanks?( you)?|merged|lgtm|ok(ay)?|done|great|nice|p
                      re.I | re.S)
 CONTEXT = 2  # lines either side of an inline comment that count as "its" lines
 
+# PRs whose feedback a code review can't be expected to give, with the reason.
+EXCLUDE = {
+    547: "the feedback is the maintainer deciding project policy in AGENTS.md/CONTRIBUTING.md, not reviewing code",
+}
+
 
 def gh(path, paginate=False):
     """Return the JSON of a GitHub API GET; paginated lists come back as one list."""
@@ -299,6 +304,9 @@ def main():
     for pr in candidates(a.reviewer):
         if len(cases) >= a.limit:
             break
+        if pr["number"] in EXCLUDE:
+            skipped[pr["number"]] = "excluded: " + EXCLUDE[pr["number"]]
+            continue
         raw = raw_pr(raw_dir, pr["number"], a.refresh)
         case, why = build_case(a.work, raw, a.reviewer)
         if case:

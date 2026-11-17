@@ -1,7 +1,7 @@
 # Held-out half for the 2026-11-17 skill change (review-rule-sweep): excludes the ten cases
 # studied to write it, PRs the skill cites, and PRs whose feedback seeded its rules.
-# All 17 cases with acted-on comments, then the 15 most recent without (precision only).
-OpenRTX-547
+# All 16 cases with acted-on comments (#547, policy text, was dropped from the corpus), then
+# the 15 most recent without (precision only).
 OpenRTX-541
 OpenRTX-529
 OpenRTX-525
