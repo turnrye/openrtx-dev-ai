@@ -30,13 +30,15 @@ SKIP_DIRS = ("lib/", "subprojects/", "tests/", "scripts/")
 # voice-prompt tables are indexed by position (AGENTS.md § Persistent Data).
 APPEND_ONLY = re.compile(r"^openrtx/include/(ui/\w*Strings\.h|ui/ui_strings\.h|core/voicePrompts\.h|core/settings\.h)$")
 
+MULTILINE_LISTS = False  # also flag multi-line lists without a final comma (noisy: see packed_enums)
+
 TIDY_PATHS = ("openrtx/", "platform/targets/linux/")  # what the Linux build compiles
+# Scored against maintainer comments on 63 merged PRs (evals/review/lint_eval.py), the
+# generic checks (simplify-boolean-expr, switch-missing-default-case, use-internal-linkage)
+# raised 240 findings for 2 matches; what maintainers ask for is mostly OpenRTX-specific,
+# so the default keeps only checks that flag outright redundancy.
 TIDY_CHECKS = ",".join([
     "-*",
-    "readability-simplify-boolean-expr",
-    "misc-use-internal-linkage",
-    "modernize-use-designated-initializers",
-    "bugprone-switch-missing-default-case",
     "misc-redundant-expression",
     "readability-redundant-control-flow",
     "readability-redundant-declaration",
@@ -102,6 +104,8 @@ def check_trailing_comma(path, text, added):
     """Multi-line enums and initializer lists need a comma after the last element."""
     code = strip_comments(text)
     out = []
+    if not MULTILINE_LISTS:
+        return out + packed_enums(path, code, added)
     for m in re.finditer(r"(\benum\b[^;{}()]*|=\s*)\{", code):
         open_i = m.end() - 1
         close_i = matching_brace(code, open_i)
@@ -121,8 +125,16 @@ def check_trailing_comma(path, text, added):
                            "Add a comma after the last element, so clang-format keeps one element per line and "
                            "the next addition is a one-line diff (AGENTS.md § Readability).",
                            rows[idx].rstrip() + ","))
-    # Without the comma clang-format packs a whole enum onto one line, which is how a
-    # reformatted enum usually shows up in a diff.
+    return out + packed_enums(path, code, added)
+
+
+def packed_enums(path, code, added):
+    """Enums clang-format packed onto one line because the last enumerator has no comma.
+
+    This is the case maintainers raise (a reformat collapses the enum); a missing comma
+    in a list that stays one element per line rarely gets a comment.
+    """
+    out = []
     for n in sorted(added):
         line = code.split("\n")[n - 1] if n <= code.count("\n") + 1 else ""
         m = re.search(r"\benum\b[^{;]*\{([^{}]*)\}", line)
@@ -166,6 +178,32 @@ def check_lines(path, lines, added):
                                    "`%s` is visible outside this file but has no `module_` prefix. Make it `static` "
                                    "if only this file uses it; otherwise prefix it with its module "
                                    "(AGENTS.md § Naming)." % m.group(1)))
+    return out
+
+
+def declared_in_headers(repo, head):
+    """Every identifier followed by `(` in the tree's headers at HEAD: what other files can call."""
+    out = git(repo, "grep", "-h", "-o", "-E", r"[A-Za-z_][A-Za-z0-9_]*[[:space:]]*\(", head,
+              "--", "*.h", "*.hpp")
+    return {re.sub(r"[\s(]", "", m) for m in out.split("\n") if m}
+
+
+def check_file_local(path, lines, added, declared):
+    """A new C function no header declares is used only in its file, so it should be static."""
+    out = []
+    if not path.endswith(".c"):
+        return out
+    for n in sorted(added):
+        if n > len(lines):
+            continue
+        line = strip_comments(lines[n - 1])
+        m = re.match(r"(?!static\b|typedef\b|extern\b|return\b|else\b|#)(?:inline\s+)?"
+                     r"[A-Za-z_][\w\s\*]*?[\s\*]([a-z_]\w*)\s*\([^;]*$", line)
+        if m and m.group(1) not in declared and m.group(1) != "main" and "IRQ" not in m.group(1):
+            out.append(finding("file-local", path, n, "P2", "Function used only in this file is not static",
+                               "No header declares `%s`, so nothing outside this file can call it: make it "
+                               "`static` (AGENTS.md § Naming)." % m.group(1),
+                               "static " + lines[n - 1].lstrip()))
     return out
 
 
@@ -235,7 +273,7 @@ def lint(repo, base, head="HEAD", tidy=False, tree=None):
     """All findings for BASE..HEAD."""
     changed = {p: a for p, a in added_lines(repo, base, head).items()
                if p.endswith(SOURCE_EXT) and not p.startswith(SKIP_DIRS)}
-    out = []
+    out, declared = [], None
     for path, added in changed.items():
         text = git(repo, "show", "%s:%s" % (head, path))
         lines = text.split("\n")
@@ -244,6 +282,10 @@ def lint(repo, base, head="HEAD", tidy=False, tree=None):
         # the other rules only at lines whose content is new, not moved or re-indented
         out += check_trailing_comma(path, text, added)
         out += check_lines(path, lines, new)
+        if path.endswith(".c"):
+            if declared is None:
+                declared = declared_in_headers(repo, head)
+            out += check_file_local(path, lines, new, declared)
         if APPEND_ONLY.match(path):
             out += check_append_only(path, lines, new)
     if tidy:
