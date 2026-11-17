@@ -44,14 +44,16 @@ TIDY_CHECKS = ",".join([
 
 def git(repo, *args):
     """Run git on the repository and return stdout ('' on failure)."""
-    p = subprocess.run(["git", "-C", repo] + list(args), capture_output=True, text=True)
+    p = subprocess.run(["git", "-C", repo] + list(args), capture_output=True, text=True,
+                       encoding="utf-8", errors="replace")  # old files aren't all UTF-8
     return p.stdout if p.returncode == 0 else ""
 
 
 def added_lines(repo, base, head):
     """{path: set of new-side line numbers the change adds}, for files that exist at head."""
     out, path = {}, None
-    for line in git(repo, "diff", "-U0", "--no-color", "--diff-filter=AMR", base, head).splitlines():
+    specs = ["*" + e for e in SOURCE_EXT]
+    for line in git(repo, "diff", "-U0", "--no-color", "--diff-filter=AMR", base, head, "--", *specs).splitlines():
         if line.startswith("+++ "):
             path = line[6:] if line.startswith("+++ b/") else None
         elif line.startswith("@@") and path:
