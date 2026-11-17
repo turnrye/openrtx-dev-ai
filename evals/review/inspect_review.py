@@ -6,7 +6,8 @@
 Task options (-T name=value): limit, ids (comma-separated case ids), plugin_dir (a
 checkout of this plugin to test instead of the installed one), model (for the review
 run), builds (let the review build and run tests; off by default), time_limit (seconds),
-author (only that author's cases, or !name to leave them out).
+author (only that author's cases, or !name to leave them out), split (a file
+under evals/review/splits, e.g. split=heldout-a.txt).
 
 Each sample gets its own folder under the openrtx cache (evals/review/runs): a local
 origin with master as it stood at the cutoff and the PR's start head, a clone of it,
@@ -241,12 +242,17 @@ def review_vs_maintainer(judge_model="claude-haiku-5-5"):
 
 @task
 def review_corpus(limit: int = 0, ids: str | list[str] = "", plugin_dir: str = "", model: str = "claude-opus-5-5",
-                  builds: bool = False, time_limit: int = 1800, author: str = ""):
+                  builds: bool = False, time_limit: int = 1800, author: str = "", split: str = ""):
     """The review corpus as an Inspect task."""
     cases = json.load(open(os.path.join(HERE, "corpus.json")))["cases"]
     if ids:
         # the inspect CLI turns `-T ids=a,b` into a list; the Python API passes the string
         want = set(ids.split(",") if isinstance(ids, str) else ids)
+        cases = [c for c in cases if c["id"] in want]
+    if split:
+        # a file under splits/ with one case id per line; # starts a comment
+        path = split if os.path.isabs(split) else os.path.join(HERE, "splits", split)
+        want = {line.split("#")[0].strip() for line in open(path)} - {""}
         cases = [c for c in cases if c["id"] in want]
     if author.startswith("!"):
         cases = [c for c in cases if c["author"] != author[1:]]

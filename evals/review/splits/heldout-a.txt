@@ -1,0 +1,35 @@
+# Held-out half for the 2026-11-17 skill change (review-rule-sweep): excludes the ten cases
+# studied to write it, PRs the skill cites, and PRs whose feedback seeded its rules.
+# All 17 cases with acted-on comments, then the 15 most recent without (precision only).
+OpenRTX-547
+OpenRTX-541
+OpenRTX-529
+OpenRTX-525
+OpenRTX-507
+OpenRTX-467
+OpenRTX-494
+OpenRTX-410
+OpenRTX-434
+OpenRTX-417
+OpenRTX-411
+OpenRTX-398
+OpenRTX-360
+OpenRTX-362
+OpenRTX-353
+OpenRTX-304
+OpenRTX-165
+OpenRTX-581
+OpenRTX-551
+OpenRTX-463
+OpenRTX-451
+OpenRTX-409
+OpenRTX-403
+OpenRTX-324
+OpenRTX-399
+OpenRTX-371
+OpenRTX-363
+OpenRTX-389
+OpenRTX-336
+OpenRTX-166
+OpenRTX-299
+OpenRTX-252
