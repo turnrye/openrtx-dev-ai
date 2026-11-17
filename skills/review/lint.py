@@ -182,26 +182,28 @@ def check_lines(path, lines, added):
 
 
 def declared_in_headers(repo, head):
-    """Every identifier followed by `(` in the tree's headers at HEAD: what other files can call."""
-    out = git(repo, "grep", "-h", "-o", "-E", r"[A-Za-z_][A-Za-z0-9_]*[[:space:]]*\(", head,
-              "--", "*.h", "*.hpp")
-    return {re.sub(r"[\s(]", "", m) for m in out.split("\n") if m}
+    """Every identifier in the tree's headers at HEAD: what other files can name."""
+    out = git(repo, "grep", "-h", "-o", "-w", "-E", r"[A-Za-z_][A-Za-z0-9_]*", head, "--", "*.h", "*.hpp")
+    return set(out.split("\n")) - {""}
 
 
 def check_file_local(path, lines, added, declared):
-    """A new C function no header declares is used only in its file, so it should be static."""
+    """A new C function or file-scope variable no header mentions is used only in its file: make it static."""
     out = []
     if not path.endswith(".c"):
         return out
+    not_decl = r"(?!static\b|typedef\b|extern\b|return\b|else\b|const\s+struct\b|#)"
     for n in sorted(added):
         if n > len(lines):
             continue
         line = strip_comments(lines[n - 1])
-        m = re.match(r"(?!static\b|typedef\b|extern\b|return\b|else\b|#)(?:inline\s+)?"
-                     r"[A-Za-z_][\w\s\*]*?[\s\*]([a-z_]\w*)\s*\([^;]*$", line)
+        fn = re.match(not_decl + r"(?:inline\s+)?[A-Za-z_][\w\s\*]*?[\s\*]([a-z_]\w*)\s*\([^;]*$", line)
+        var = re.match(not_decl + r"(?:volatile\s+|const\s+)*[A-Za-z_]\w*[\s\*]+([a-z_]\w*)\s*(\[[^\]]*\])?\s*(=[^;]*)?;\s*$",
+                       line)
+        m, kind = (fn, "Function") if fn else (var, "File-scope variable")
         if m and m.group(1) not in declared and m.group(1) != "main" and "IRQ" not in m.group(1):
-            out.append(finding("file-local", path, n, "P2", "Function used only in this file is not static",
-                               "No header declares `%s`, so nothing outside this file can call it: make it "
+            out.append(finding("file-local", path, n, "P2", "%s used only in this file is not static" % kind,
+                               "No header mentions `%s`, so nothing outside this file can use it: make it "
                                "`static` (AGENTS.md § Naming)." % m.group(1),
                                "static " + lines[n - 1].lstrip()))
     return out
