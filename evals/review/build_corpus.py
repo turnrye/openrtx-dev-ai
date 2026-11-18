@@ -21,6 +21,7 @@ the end, which is evidence, not proof, that it was acted on.
 
 import argparse
 import bisect
+import collections
 import json
 import os
 import re
@@ -237,26 +238,35 @@ def fork_point(work, sha, tips):
     return git(work, "merge-base", best[1], sha, check=False).stdout.strip() or None
 
 
-def build_case(work, raw, reviewer):
-    """One corpus case, or (None, reason) when the PR doesn't qualify."""
+def build_case(work, raw, reviewer, pool=None):
+    """One corpus case, or (None, reason) when the PR doesn't qualify.
+
+    `pool` builds a held-out case from a PR the main corpus can't use (merged as-is, closed,
+    or open): no end state is needed, outcomes are left unknown, and the case must have at
+    least one round-one inline comment to score.
+    """
     pr = raw["pull"]
     items, author = feedback_items(raw, reviewer)
     real = [it for it in items if not it["trivial"] and it["commit"]]
     if not real:
         return None, "no substantive feedback"
-    if not any(it["before_last_push"] for it in real):
+    if not pool and not any(it["before_last_push"] for it in real):
         return None, "head never moved after feedback"
     first = real[0]
-    end, merge = pr["head"]["sha"], pr.get("merge_commit_sha")
-    if first["commit"] == end:
+    end, merge = pr["head"]["sha"], pr.get("merge_commit_sha") if pr.get("merged_at") else None
+    if not pool and first["commit"] == end:
         return None, "start equals end"
+    if pool and not any(it["kind"] == "inline" and not it["trivial"] and not it.get("in_reply_to")
+                        and it["commit"] == first["commit"] and it.get("line") for it in items):
+        return None, "no round-one inline comments"
     shas = {first["commit"], end, merge} | {it["commit"] for it in items if it["commit"]}
     missing = [s for s in shas if s and not have(work, s)]
     if first["commit"] in missing or end in missing or merge in missing:
         return None, "commits not fetchable: %s" % ", ".join(s[:9] for s in missing)
+    usable_end = not pool or (pool == "merged-unmoved" and end != first["commit"])
     for it in items:
         it["available"] = bool(it["commit"]) and it["commit"] not in missing
-        it["outcome"] = outcome(work, it, end) if it["available"] else None
+        it["outcome"] = outcome(work, it, end) if it["available"] and usable_end else None
         # comments before the first one we can pin to a head were on code we can't recover;
         # a reviewer of `start` would have seen them, so they are context, not targets or leaks
         it["prior"] = it["at"] < first["at"]
@@ -277,7 +287,8 @@ def build_case(work, raw, reviewer):
         "merged_by": (pr.get("merged_by") or {}).get("login"),
         "cutoff": first["at"],
         "start": {"sha": first["commit"], "base": fork(first["commit"]), "anchor": first["anchor"]},
-        "end": {"sha": end, "base": fork(end), "merge_commit": merge},
+        "end": {"sha": end, "base": fork(end), "merge_commit": merge, "usable": usable_end},
+        "pool": pool or "merged",
         "feedback": items,
     }, None
 
@@ -289,6 +300,73 @@ def candidates(reviewer):
     return sorted(prs, key=lambda p: p["merged_at"], reverse=True)
 
 
+# Kept out of held-out sets: PRs the review skill cites, the PR discussed while tuning it, the
+# ten cases studied to write the 2026-11-17 prompt, and PRs whose feedback seeded its rules.
+SEEN = {335, 340, 354, 390, 396, 427, 429, 442, 452, 456, 478, 498, 500, 509, 510, 513, 522, 523, 524, 534,
+        542, 549, 552, 584} | {575, 528, 534, 456, 450, 429, 414, 339, 306, 426} | {527, 539}
+
+
+def later_rounds(work, case):
+    """One case per later head the reviewer commented inline on: review that head, at that time.
+
+    Earlier rounds' comments stay as `prior` context (a reviewer of round two has seen round
+    one); the targets are the inline comments made on that head.
+    """
+    out = []
+    heads = []
+    for f in case["feedback"]:
+        if f["kind"] == "inline" and not f["trivial"] and not f.get("in_reply_to") and f.get("line") \
+                and f["commit"] and f["commit"] != case["start"]["sha"] and f.get("available") \
+                and f["commit"] not in heads:
+            heads.append(f["commit"])
+    for k, head in enumerate(heads, 2):
+        cutoff = min(f["at"] for f in case["feedback"] if f["commit"] == head)
+        base = case["start"]["base"] if not git(work, "merge-base", "--is-ancestor", case["start"]["base"], head,
+                                                 check=False).returncode else case["end"]["base"]
+        feedback = [dict(f, prior=f["at"] < cutoff) for f in case["feedback"]]
+        out.append(dict(case, id="%s-r%d" % (case["id"], k), cutoff=cutoff, pool="later-round",
+                        start={"sha": head, "base": base, "anchor": "exact"}, feedback=feedback))
+    return out
+
+
+def build_heldout(a, raw_dir):
+    """Held-out cases from PRs the main corpus doesn't use: merged without a later push, closed, open.
+
+    Only PRs the research cache shows the reviewer commenting on are fetched. The PR author's own
+    PRs (`--skip-author`) and the SEEN ones are left out, as their reviews shaped the skill.
+    Prints counts only, so building it doesn't expose the comments.
+    """
+    import sqlite3
+    used = {c["number"] for c in json.load(open(os.path.join(HERE, "corpus.json")))["cases"]}
+    db = sqlite3.connect(paths.db_path("github"))
+    rows = db.execute("SELECT DISTINCT i.number, i.merged_at, i.state, i.author FROM comments c JOIN items i "
+                      "ON i.repo=c.repo AND i.number=c.number AND i.is_pr=1 WHERE c.repo=? AND c.author=?",
+                      (REPO, a.reviewer)).fetchall()
+    cases, why = [], collections.Counter()
+    for number, merged_at, state, author in sorted(rows, reverse=True):
+        if number in used or number in SEEN or number in EXCLUDE or author in (a.reviewer, a.skip_author):
+            why["left out (corpus, seen, excluded or author)"] += 1
+            continue
+        pool = "merged-unmoved" if merged_at else ("closed" if state == "closed" else "open")
+        case, reason = build_case(a.work, raw_pr(raw_dir, number, a.refresh), a.reviewer, pool)
+        if case:
+            cases.append(case)
+            why["kept: " + pool] += 1
+        else:
+            why[reason.split(":")[0]] += 1
+    for c in json.load(open(os.path.join(HERE, "corpus.json")))["cases"]:
+        if c["number"] not in SEEN and c["author"] != a.skip_author:
+            rounds = later_rounds(a.work, c)
+            cases += rounds
+            why["kept: later-round"] += len(rounds)
+    with open(a.heldout_b, "w") as f:
+        json.dump({"repo": REPO, "reviewer": a.reviewer, "cases": cases}, f, indent=1, sort_keys=True)
+        f.write("\n")
+    for k, n in sorted(why.items()):
+        print("%4d  %s" % (n, k), file=sys.stderr)
+    print("%d held-out cases -> %s" % (len(cases), a.heldout_b), file=sys.stderr)
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--limit", type=int, default=100)
@@ -296,10 +374,14 @@ def main():
     p.add_argument("--refresh", action="store_true", help="refetch the raw API data")
     p.add_argument("--work", default=os.path.join(paths.cache_dir(), "evals", "openrtx.git"))
     p.add_argument("--out", default=os.path.join(HERE, "corpus.json"))
+    p.add_argument("--heldout-b", help="instead, build held-out cases from PRs the corpus doesn't use, into this file")
+    p.add_argument("--skip-author", default="", help="leave this author's PRs out of the held-out set")
     a = p.parse_args()
 
     raw_dir = os.path.join(paths.cache_dir(), "evals", "review", "raw")
     mirror(a.work)
+    if a.heldout_b:
+        return build_heldout(a, raw_dir)
     cases, skipped = [], {}
     for pr in candidates(a.reviewer):
         if len(cases) >= a.limit:

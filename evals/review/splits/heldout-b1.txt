@@ -1,0 +1,14 @@
+# Half of corpus-heldout-b.json (untouched pools + later review rounds), split by pool and size.
+OpenRTX-481
+OpenRTX-102
+OpenRTX-376
+OpenRTX-358
+OpenRTX-166-r2
+OpenRTX-417-r2
+OpenRTX-410-r2
+OpenRTX-409-r2
+OpenRTX-403-r2
+OpenRTX-353-r2
+OpenRTX-434-r2
+OpenRTX-432
+OpenRTX-468

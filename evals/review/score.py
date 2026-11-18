@@ -226,6 +226,8 @@ def assess(work, case, findings, transcript="", judged=None):
         "flagged_case": int(bool(serious)),
         "suggestions_landed": sum(1 for x in code if suggestion_landed(work, case, x)),
         "leaked": int(leaked(case, transcript)),
+        # no end state to compare with (closed, open or merged as-is): precision doesn't apply
+        "end_usable": int(case["end"].get("usable", True) and case["end"]["sha"] != case["start"]["sha"]),
     }
     return counts, rows, list(zip(code, changed))
 
@@ -242,9 +244,11 @@ def rates(c):
         return round(n / d, 3) if d and not c["leaked"] else None
     return {
         "catch_rate": rate(c["acted_point_hits"], c["acted"]),
+        # every round-one comment, acted on or not: the measure for cases without an end state
+        "catch_rate_all": rate(c["target_point_hits"], c["targets"]),
         "catch_rate_spot": rate(c["acted_spot_hits"], c["acted"]),
         "catch_rate_file": rate(c["acted_file_hits"], c["acted"]),
-        "precision": rate(c["findings_on_changed"], c["findings_located"]),
+        "precision": rate(c["findings_on_changed"], c["findings_located"]) if c.get("end_usable", 1) else None,
         "flagged": c["flagged_case"],
         "code_findings": c["code_findings"],
         "meta_findings": c["meta_findings"],

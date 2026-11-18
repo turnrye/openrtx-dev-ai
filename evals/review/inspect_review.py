@@ -215,6 +215,8 @@ async def judge(case, code, model, cwd):
 
 
 @scorer(metrics=[over_cases("catch_rate"), over_cases("catch_rate", "stderr"), over_cases("catch_rate", "cases"),
+                 over_cases("catch_rate_all"), over_cases("catch_rate_all", "stderr"),
+                 over_cases("catch_rate_all", "cases"),
                  over_cases("catch_rate_spot"), over_cases("catch_rate_file"),
                  over_cases("precision"), over_cases("precision", "stderr"),
                  over_cases("flagged"), over_cases("code_findings"), over_cases("meta_findings"),
@@ -251,9 +253,10 @@ def review_vs_maintainer(judge_model="claude-haiku-5-5"):
 
 @task
 def review_corpus(limit: int = 0, ids: str | list[str] = "", plugin_dir: str = "", model: str = "claude-opus-5-5",
-                  builds: bool = False, time_limit: int = 1800, author: str = "", split: str = ""):
-    """The review corpus as an Inspect task."""
-    cases = json.load(open(os.path.join(HERE, "corpus.json")))["cases"]
+                  builds: bool = False, time_limit: int = 1800, author: str = "", split: str = "",
+                  corpus: str = "corpus.json"):
+    """The review corpus as an Inspect task (corpus=corpus-heldout-b.json for the held-out set)."""
+    cases = json.load(open(corpus if os.path.isabs(corpus) else os.path.join(HERE, corpus)))["cases"]
     if ids:
         # the inspect CLI turns `-T ids=a,b` into a list; the Python API passes the string
         want = set(ids.split(",") if isinstance(ids, str) else ids)
