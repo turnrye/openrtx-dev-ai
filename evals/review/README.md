@@ -80,6 +80,16 @@ It prints, per rule, how many findings it raised, how many make the same point a
 maintainer comment (its rule matches what the comment asks for, `RULE_TOPICS`), how many
 land at a comment at all, and how many are on lines that changed before the merge.
 
+`pr_eval.py` does the same for the checks of the change as a whole (`lint.py --pr`:
+commits, PR text, persistent formats, build). They have no line, so a maintainer comment
+of any kind that raises a rule's topic counts as caught when the rule fires on the head the
+comment was made on. Topic matching is by keyword, so read the caught list before trusting
+the counts. About seven minutes for the corpus:
+
+```sh
+python3 evals/review/pr_eval.py --lint <plugin checkout>/skills/review/lint.py
+```
+
 ## What a case holds
 
 | Field | Meaning |
