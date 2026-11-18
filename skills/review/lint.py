@@ -651,6 +651,69 @@ def check_cpp_classes(path, text, added):
     return out
 
 
+CONST_DEF = re.compile(r"\s*(?:#\s*define\s+|(?:static\s+)?(?:constexpr|const)\s+[\w:<>]+\s+)([A-Z][A-Z0-9_]+)\b"
+                       r"\s*=?\s*\(?\s*(?:\(\s*\w+\s*\))?\s*(-?\d+)\s*\)?\s*;?\s*$")
+
+
+def check_protocol_constants(path, lines, added, protocols):
+    """Constants named for a protocol belong with that protocol's classes (`protocols/<NAME>/`)."""
+    out = []
+    # only application code: a radio driver's per-mode settings (M17_TX_DEVIATION) belong in the driver
+    if not path.startswith("openrtx/") or path.startswith(("openrtx/include/protocols/", "openrtx/src/protocols/")) \
+            or not path.endswith(SOURCE_EXT):
+        return out
+    for n in sorted(added):
+        if n > len(lines):
+            continue
+        m = re.match(r"\s*(?:#\s*define\s+|(?:static\s+)?constexpr\s+[\w:<>]+\s+|enum\s+(?:class\s+)?)(([A-Z][A-Z0-9]*)_\w*)",
+                     strip_comments(lines[n - 1]))
+        if m and re.search(r"_H_?$|_HPP_?$", m.group(1)):  # include guards
+            continue
+        m = m and re.match(r"(.*)", m.group(2))
+        if m and m.group(1) in protocols:
+            out.append(finding("protocol-constant", path, n, "P2", "%s definition outside protocols/%s" % (m.group(1), m.group(1)),
+                               "Fields, flags and constants of the %s protocol belong with its classes in "
+                               "`openrtx/include/protocols/%s/` (as members or `enum`s of the frame that carries "
+                               "them), not in the op mode, UI or core (AGENTS.md § Layering and Ownership)."
+                               % (m.group(1), m.group(1))))
+    return out
+
+
+def check_enum_candidates(path, lines, added):
+    """Runs of related integer constants (a shared prefix, small sequential values) want to be an enum."""
+    out = []
+    if not path.endswith(SOURCE_EXT):
+        return out
+    run = []
+
+    def flush():
+        values = sorted(v for _, _, v in run)
+        if len(run) >= 2 and values == list(range(values[0], values[0] + len(values))) and values[0] in (0, 1):
+            out.append(finding("enum-candidate", path, run[0][0], "P3",
+                               "Related constants `%s_…` could be an enum" % run[0][1].rsplit("_", 1)[0],
+                               "These constants share a prefix and count up from %d: an `enum` (or `enum class` in "
+                               "C++) names the set, types it and numbers it without hand-kept values." % values[0]))
+
+    prefix = None
+    for n in range(1, len(lines) + 1):
+        m = CONST_DEF.match(strip_comments(lines[n - 1])) if n in added else None
+        stem = m.group(1).rsplit("_", 1)[0] if m and "_" in m.group(1) else None
+        if m and stem and (prefix is None or stem == prefix):
+            run.append((n, m.group(1), int(m.group(2))))
+            prefix = stem
+            continue
+        if m and stem:  # a new prefix starts a new run
+            flush()
+            run, prefix = [(n, m.group(1), int(m.group(2)))], stem
+            continue
+        if lines[n - 1].strip() == "" and run:  # a blank line inside a block of defines doesn't end the run
+            continue
+        flush()
+        run, prefix = [], None
+    flush()
+    return out
+
+
 def check_redundant_guards(path, lines, added):
     """A NULL check before free() or delete: both already do nothing on NULL (AGENTS.md § Reuse)."""
     out = []
@@ -1016,6 +1079,8 @@ def lint(repo, base, head="HEAD", tidy=False, tree=None):
     changed = {p: a for p, a in added_by_path.items()
                if p.endswith(SOURCE_EXT) and not p.startswith(SKIP_DIRS)}
     out, declared, existing = [], None, None
+    # protocol names, from the directories under openrtx/include/protocols at HEAD (M17, ...)
+    protocols = {d.upper() for d in git(repo, "ls-tree", "-d", "--name-only", "%s:openrtx/include/protocols/" % head).split()}
     for path, added in changed.items():
         text = git(repo, "show", "%s:%s" % (head, path))
         lines = text.split("\n")
@@ -1050,6 +1115,8 @@ def lint(repo, base, head="HEAD", tidy=False, tree=None):
         out += check_hw_literals(path, lines, new)
         out += check_redundant_guards(path, lines, new)
         out += check_cpp_classes(path, text, new)
+        out += check_protocol_constants(path, lines, new, protocols)
+        out += check_enum_candidates(path, lines, new)
 
         def refs(name):
             hits = git(repo, "grep", "-c", "-w", "-F", name, head, "--", *["*" + e for e in SOURCE_EXT])
