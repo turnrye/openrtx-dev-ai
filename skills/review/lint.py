@@ -42,6 +42,8 @@ TIDY_CHECKS = ",".join([
     "misc-redundant-expression",
     "readability-redundant-control-flow",
     "readability-redundant-declaration",
+    "readability-redundant-casting",          # "is the static_cast actually needed?"
+    "readability-make-member-function-const", # getters are const (AGENTS.md § C++ Class Conventions)
 ])
 
 
@@ -531,6 +533,111 @@ def check_std_array(path, lines, added):
     return out
 
 
+def class_members(body):
+    """Split a class body into (access-or-None, member text, offset) at depth 0."""
+    out, depth, start = [], 0, 0
+    i = 0
+    while i < len(body):
+        ch = body[i]
+        if ch in "{(":
+            depth += 1
+        elif ch in "})":
+            depth -= 1
+            if ch == "}" and depth == 0:  # an inline body or nested type ends the member
+                j = i + 1
+                while j < len(body) and body[j] in " \t;":
+                    j += 1
+                out.append((body[start:j], start))
+                start = i = j
+                continue
+        elif ch == ";" and depth == 0:
+            out.append((body[start:i + 1], start))
+            start = i + 1
+        elif ch == ":" and depth == 0 and re.search(r"\b(public|private|protected)\s*$", body[start:i]) \
+                and body[i + 1:i + 2] != ":":
+            out.append((body[start:i + 1], start))
+            start = i + 1
+        i += 1
+    return out
+
+
+# Member order (AGENTS.md § C++ Class Conventions): public methods, private methods,
+# private constants and enums, private variables.
+RANK_NAMES = {0: "public methods", 1: "private methods", 2: "private constants and enums", 3: "private variables"}
+
+
+def check_cpp_classes(path, text, added):
+    """Class layout: member order, explicit constructor and destructor, private data, access specifiers at column 0."""
+    out = []
+    if not path.endswith(CPP_EXT):
+        return out
+    code = first_branches(strip_comments(text))  # one branch of each #if; directives blanked, lines kept
+    line_of = lambda off: code.count("\n", 0, off) + 1  # noqa: E731
+    for m in re.finditer(r"(?<!enum\s)\b(class|struct)\s+(\w+)\s*(?:final\s*)?(?::[^{;()]*)?\{", code):
+        if re.search(r"\benum\s*$", code[max(0, m.start() - 8):m.start()]):
+            continue
+        open_i = m.end() - 1
+        close_i = matching_brace(code, open_i)
+        if close_i < 0:
+            continue
+        first, last = line_of(m.start()), line_of(close_i)
+        touched = {n for n in added if first <= n <= last}
+        if not touched:
+            continue
+        new_class = first in added
+        kind, name = m.group(1), m.group(2)
+        access = "private" if kind == "class" else "public"
+        highest, highest_desc, reported = -1, "", False
+        methods, ctor, dtor, public_data = 0, False, False, []
+        for member, off in class_members(code[open_i + 1:close_i]):
+            s = member.strip()
+            line = line_of(open_i + 1 + off + (len(member) - len(member.lstrip())))
+            spec = re.match(r"(public|private|protected)\s*:$", s)
+            if spec:
+                access = spec.group(1)
+                if line in added and re.match(r"[ \t]+(public|private|protected)\s*:", code.split("\n")[line - 1]):
+                    out.append(finding("cpp-class", path, line, "P3", "Access specifier indented in `%s`" % name,
+                                       "Access specifiers sit at column 0 (AGENTS.md § C++ Class Conventions, #166)."))
+                continue
+            if not s or s.startswith(("friend", "template", "class", "struct", "union", "static_assert")):
+                continue
+            decl = s.split("=")[0]
+            # a method: a name (or `operator…`) followed by `(`; `(*name)` is a function-pointer variable
+            is_method = (bool(re.search(r"\b~?\w+\s*\(", decl)) or bool(re.search(r"\boperator\b", decl))) \
+                and not re.search(r"\(\s*\*", decl) and not s.startswith(("using", "typedef", "enum"))
+            if is_method:
+                methods += 1
+                ctor |= bool(re.search(r"(^|[\s:])%s\s*\(" % name, s.split("{")[0])) and "~" not in s.split("(")[0]
+                dtor |= bool(re.search(r"~\s*%s\s*\(" % name, s))
+                rank, desc = (0 if access == "public" else 1), "method"
+            elif re.match(r"(enum\b|using\b|typedef\b|static\s+constexpr\b|static\s+const\b)", s):
+                rank, desc = (0 if access == "public" else 2), "constant or type"
+            else:
+                rank, desc = 3, "variable"
+                if access == "public" and kind == "class":
+                    public_data.append(line)
+            if rank < highest and not reported and (line in added or new_class):
+                out.append(finding("cpp-class", path, line, "P3", "Member out of order in `%s`" % name,
+                                   "This %s comes after the class's %s. The order is public methods, private "
+                                   "methods, private constants and enums, then private variables "
+                                   "(AGENTS.md § C++ Class Conventions; `Demodulator.hpp` is the reference)."
+                                   % (desc, RANK_NAMES[highest])))
+                reported = True
+            if rank > highest:
+                highest = rank
+        for line in public_data[:1]:
+            if line in added or new_class:
+                out.append(finding("cpp-class", path, line, "P2", "Public data member in `%s`" % name,
+                                   "Default to private, and expose state through methods only when callers "
+                                   "need it (AGENTS.md § C++ Class Conventions)."))
+        if kind == "class" and new_class and methods and not (ctor and dtor) and path.endswith((".hpp", ".hh")):
+            out.append(finding("cpp-class", path, first, "P3", "`%s` has no explicit %s" % (
+                name, "constructor or destructor" if not (ctor or dtor) else ("constructor" if not ctor else "destructor")),
+                "Declare both explicitly, even when empty, and initialize in the constructor rather than an "
+                "`init()` method (AGENTS.md § C++ Class Conventions, #481)."))
+    return out
+
+
 def check_redundant_guards(path, lines, added):
     """A NULL check before free() or delete: both already do nothing on NULL (AGENTS.md § Reuse)."""
     out = []
@@ -929,6 +1036,7 @@ def lint(repo, base, head="HEAD", tidy=False, tree=None):
         out += check_std_array(path, lines, new)
         out += check_hw_literals(path, lines, new)
         out += check_redundant_guards(path, lines, new)
+        out += check_cpp_classes(path, text, new)
 
         def refs(name):
             hits = git(repo, "grep", "-c", "-w", "-F", name, head, "--", *["*" + e for e in SOURCE_EXT])
