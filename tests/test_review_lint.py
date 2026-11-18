@@ -300,8 +300,8 @@ class Repo(unittest.TestCase):
         self.commit({"a.c": "int a_x;\nint a_f(void)\n{\n    return 2;\n}\n", "b.c": "#ifdef CONFIG_NOPE\n#endif\n"},
                     "address review comments")
         rules_found = sorted(f["rule"] for f in lint.pr_checks(self.dir, self.base, "HEAD"))
-        self.assertEqual(rules_found, ["build-unlisted", "commit-fixup", "commit-prefix", "commit-signoff",
-                                       "config-undefined"])
+        # no commit-signoff: the second commit has none, but sign-off is left to CI
+        self.assertEqual(rules_found, ["build-unlisted", "commit-fixup", "commit-prefix", "config-undefined"])
 
     def test_building_on_an_earlier_commit_is_fine(self):
         self.commit({"a.c": "int a_x;\nint a_f(void)\n{\n    return 1;\n}\n"}, "core: add a_f\n\nSigned-off-by: t")

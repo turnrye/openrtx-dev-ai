@@ -24,7 +24,6 @@ Run from the checkout (or the PR's worktree). `MB` is the merge base.
 
 ```sh
 git log --reverse --format='%h %s' $MB..HEAD                       # module prefix, imperative, short
-git log --format='%h %(trailers:key=Signed-off-by,valueonly)' $MB..HEAD   # each needs a sign-off
 git log --format='%h %(trailers:key=Co-authored-by,valueonly)' $MB..HEAD
 git log --merges --oneline $MB..HEAD                               # should be empty
 git log --format='%h %s' $MB..HEAD | grep -E '^[0-9a-f]+ (fixup|squash|amend)!'
@@ -34,7 +33,7 @@ git show --stat <sha>                                              # one module 
 - Summary prefixed with the module (`ui:`, `m17:`, `core:`, `rtx:`, `drivers:`, `nvm:`, `build:`, …). Needing two prefixes suggests two commits.
 - Reformatting an existing file is its own commit; nothing added in one commit and moved in the next.
 - `fixup!` commits are expected *during* review and squashed before merge; on a PR that is otherwise ready, call them out as "to autosquash", not as an error.
-- A missing `Signed-off-by` is a P1 for the PR: maintainers ask for it. An agent must never add one.
+- Don't report a missing `Signed-off-by`: DCO sign-off is left to CI. An agent must never add one.
 - Bisectability is a preference, not a gate (#498). To test it, in a worktree only: `git rebase -x 'meson compile -C build_review openrtx_linux' $MB`.
 
 ## Correctness on embedded targets
@@ -118,7 +117,7 @@ Check the base's tree before relying on this; CONTRIBUTING.md § Code Organizati
 | Tag | Meaning | Examples |
 |---|---|---|
 | **P0** | Blocks merge: harms users or radios, or CI fails | settings or string table reordered; TX out of band, over-deviation, `txDisable` bypassed; crash, hang or memory corruption on a reachable path; a target no longer builds; format/REUSE/strings job fails; code of unclear licence |
-| **P1** | Must fix before merge | a real bug on a less common path; a rule maintainers send PRs back for (layering, register access, lazy init, typedefs, module wrapped in `#ifdef`); missing sign-off; testing section empty |
+| **P1** | Must fix before merge | a real bug on a less common path; a rule maintainers send PRs back for (layering, register access, lazy init, typedefs, module wrapped in `#ifdef`); testing section empty |
 | **P2** | Should fix | smaller house-style rules, missing Doxygen, a helper that duplicates an existing one, commit split or message problems |
 | **P3** | Nit | wording, naming preferences, optional simplifications |
 
@@ -163,7 +162,7 @@ Facts a maintainer wants to see before merging, whatever the code quality. List 
 | Strings | ✅ pass |
 | Linux build + tests | ✅ 41/41 |
 | `openrtx_md3x0` | ⏭ not run: no ARM toolchain |
-| Commits | ⚠️ 2 of 5 lack `Signed-off-by` |
+| Commits | ⚠️ 1 `fixup!` to autosquash |
 
 ## Findings
 
