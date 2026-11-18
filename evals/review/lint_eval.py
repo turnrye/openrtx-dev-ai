@@ -103,12 +103,13 @@ def main():
     p.add_argument("--lint", required=True, help="path to skills/review/lint.py in the checkout under test")
     p.add_argument("--clang-tidy", action="store_true")
     p.add_argument("--split", help="a file under splits/ to limit the cases")
+    p.add_argument("--corpus", default="corpus.json", help="corpus file under evals/review (e.g. corpus-heldout-b.json)")
     p.add_argument("--show", action="store_true", help="print every finding and target")
     p.add_argument("--json", help="also write per-case results here")
     a = p.parse_args()
 
     lint = load_lint(a.lint)
-    cases = json.load(open(os.path.join(HERE, "corpus.json")))["cases"]
+    cases = json.load(open(os.path.join(HERE, a.corpus)))["cases"]
     if a.split:
         path = a.split if os.path.isabs(a.split) else os.path.join(HERE, "splits", a.split)
         want = {l.split("#")[0].strip() for l in open(path)} - {""}
