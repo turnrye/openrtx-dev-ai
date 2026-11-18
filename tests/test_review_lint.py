@@ -2,6 +2,9 @@
 
 import importlib.util
 import os
+import shutil
+import subprocess
+import tempfile
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -223,6 +226,76 @@ class MoreRules(unittest.TestCase):
         lines = ["    state.channel.rx_frequency = 430000000;", "    x = 1000;"]
         self.assertEqual(rules(lint.check_hw_literals("openrtx/src/core/state.c", lines, {1, 2})), [("hw-literal", 1)])
         self.assertEqual(lint.check_hw_literals("platform/targets/MD-UV3x0/hwconfig.c", lines, {1}), [])
+
+
+class PrText(unittest.TestCase):
+    """The PR template's sections."""
+
+    def test_empty_testing(self):
+        body = "### Testing performed\n\n**Tested on:**\n\n- [ ] Linux emulator\n- [ ] MD-3x0\n\n### Changelog entry\n\n"
+        self.assertEqual([f["rule"] for f in lint.check_pr_text(body)], ["pr-testing", "pr-changelog"])
+
+    def test_filled_in(self):
+        body = ("### Testing performed\n\nOn air on one CS7000-PLUS.\n\n- [x] CS7000 / CS7000-PLUS\n\n"
+                "### Changelog entry\n\nCS7000-PLUS: fix CTCSS\n")
+        self.assertEqual(lint.check_pr_text(body), [])
+
+    def test_no_template(self):
+        self.assertEqual(lint.check_pr_text("Fixes the thing."), [])
+
+
+class SettingsCounts(unittest.TestCase):
+    """settings_t fields against default_settings values."""
+
+    TEXT = ("typedef struct\n{\n    uint8_t a;\n    uint8_t b : 4,\n            c : 4;\n    char d[10];\n}\n"
+            "__attribute__((packed)) settings_t;\n\nstatic const settings_t default_settings =\n{\n    1,\n"
+            "#ifdef X\n    X_DEFAULT,\n#else\n    2,\n#endif\n    0,\n    \"N0CALL\",\n};\n")
+
+    def test_counts(self):
+        # one value per field, counting one branch of the #ifdef
+        self.assertEqual(lint.struct_members(self.TEXT, "settings_t"), 4)
+        self.assertEqual(lint.initializer_entries(self.TEXT, "default_settings"), 4)
+
+
+class Repo(unittest.TestCase):
+    """Commit and build checks on a throwaway repository."""
+
+    def git(self, *args):
+        subprocess.run(["git", "-C", self.dir] + list(args), check=True, capture_output=True)
+
+    def commit(self, files, message):
+        for path, text in files.items():
+            full = os.path.join(self.dir, path)
+            os.makedirs(os.path.dirname(full), exist_ok=True)
+            with open(full, "w") as f:
+                f.write(text)
+            self.git("add", path)
+        self.git("commit", "-q", "-m", message)
+        return subprocess.run(["git", "-C", self.dir, "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
+
+    def setUp(self):
+        self.dir = tempfile.mkdtemp()
+        self.git("init", "-q")
+        self.git("config", "user.email", "t@example.com")
+        self.git("config", "user.name", "t")
+        self.base = self.commit({"meson.build": "src = ['a.c']\n", "a.c": "int a_x;\n"}, "build: base\n\nSigned-off-by: t")
+
+    def tearDown(self):
+        shutil.rmtree(self.dir)
+
+    def test_commit_checks(self):
+        self.commit({"a.c": "int a_x;\nint a_f(void)\n{\n    return 1;\n}\n"}, "core: add a_f\n\nSigned-off-by: t")
+        self.commit({"a.c": "int a_x;\nint a_f(void)\n{\n    return 2;\n}\n", "b.c": "#ifdef CONFIG_NOPE\n#endif\n"},
+                    "tweak it")
+        rules_found = sorted(f["rule"] for f in lint.pr_checks(self.dir, self.base, "HEAD"))
+        self.assertEqual(rules_found, ["build-unlisted", "commit-fixup", "commit-prefix", "commit-signoff",
+                                       "config-undefined"])
+
+    def test_mixed_formatting(self):
+        self.commit({"a.c": "int a_x;\nint a_y;\n"}, "core: add a_y\n\nSigned-off-by: t")
+        self.commit({"a.c": "int  a_x;\nint a_y;\nint a_z;\n"}, "core: add a_z\n\nSigned-off-by: t")
+        found = [f["rule"] for f in lint.pr_checks(self.dir, self.base, "HEAD")]
+        self.assertIn("commit-mixed-format", found)
 
 
 if __name__ == "__main__":
