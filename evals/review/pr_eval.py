@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Score lint.py's PR-level checks (commits, PR text, persistence, build) against the corpus.
 
+DCO sign-off is out of scope: CI enforces it, so neither lint.py nor this scorer looks at it.
+
     python3 evals/review/pr_eval.py --lint PATH/TO/skills/review/lint.py [--show]
 
 These checks have no line to match, so they are scored per maintainer comment: a comment
@@ -35,7 +37,6 @@ RULE_TOPICS = {
     "commit-fixup": r"fixup|squash|fold .* into|turn commit|into (a single|one) commit|rewrite .*history",
     "commit-autosquash": r"autosquash|squash",
     "commit-merge": r"merge commit|rebase",
-    "commit-signoff": r"sign(ed)?[- ]?off|\bDCO\b",
     "commit-prefix": r"commit (message|title|subject)|prefix",
     "commit-mixed-format": r"clang-format|formatting|whitespace|indent",
     "pr-testing": r"\btest(ed|ing)\b|tested on",
