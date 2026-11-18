@@ -222,6 +222,12 @@ class MoreRules(unittest.TestCase):
         lines = ["class Correlator {", "private:", "    int16_t samples[SIZE];", "    char name[8];", "};"]
         self.assertEqual(rules(lint.check_std_array("a.hpp", lines, {3, 4})), [("std-array", 3)])
 
+    def test_redundant_guard(self):
+        lines = ["    if (ptr != NULL)", "        free(ptr);", "    if (buf) { free(buf); }", "    if (p) free(q);",
+                 "    if (obj)", "        delete obj;", "    if (x) {", "        free(x);", "        x = NULL;", "    }"]
+        found = lint.check_redundant_guards("a.c", lines, set(range(1, len(lines) + 1)))
+        self.assertEqual(rules(found), [("redundant-guard", 1), ("redundant-guard", 3), ("redundant-guard", 5)])
+
     def test_hw_literal(self):
         lines = ["    state.channel.rx_frequency = 430000000;", "    x = 1000;"]
         self.assertEqual(rules(lint.check_hw_literals("openrtx/src/core/state.c", lines, {1, 2})), [("hw-literal", 1)])
