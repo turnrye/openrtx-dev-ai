@@ -260,7 +260,13 @@ class CppClasses(unittest.TestCase):
 
     def test_constructor_destructor_and_public_data(self):
         text = "class Registry\n{\npublic:\n    void init();\n    int count;\n};\n"
-        self.assertEqual(sorted(self.check(text)), [("Public data member", 5), ("`Registry` has no explicit constructor or destructor", 1)])
+        self.assertEqual(sorted(self.check(text)), [("Public data member", 5), ("`Registry` has no explicit destructor", 1),
+                                                    ("`Registry` uses an init method, not a constructor", 4)])
+
+    def test_lifecycle_findings_sit_at_the_methods(self):
+        text = "class Registry\n{\npublic:\n    void init(const Src *s);\n    void terminate();\n};\n"
+        self.assertEqual(self.check(text), [("`Registry` uses an init method, not a constructor", 4),
+                                            ("`Registry` uses a terminate method, not a destructor", 5)])
 
     def test_access_specifier_column(self):
         text = "class S\n{\n  public:\n    S();\n    ~S();\n};\n"
