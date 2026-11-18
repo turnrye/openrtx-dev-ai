@@ -589,6 +589,7 @@ def check_cpp_classes(path, text, added):
         access = "private" if kind == "class" else "public"
         highest, highest_desc, reported = -1, "", False
         methods, ctor, dtor, public_data = 0, False, False, []
+        starts, stops = [], []  # init()-style and terminate()-style methods: where a constructor/destructor belongs
         for member, off in class_members(code[open_i + 1:close_i]):
             s = member.strip()
             line = line_of(open_i + 1 + off + (len(member) - len(member.lstrip())))
@@ -609,6 +610,10 @@ def check_cpp_classes(path, text, added):
                 methods += 1
                 ctor |= bool(re.search(r"(^|[\s:])%s\s*\(" % name, s.split("{")[0])) and "~" not in s.split("(")[0]
                 dtor |= bool(re.search(r"~\s*%s\s*\(" % name, s))
+                if re.search(r"\b(init|initialize|setup|begin|start)\s*\(", decl, re.I):
+                    starts.append(line)
+                if re.search(r"\b(terminate|deinit|cleanup|shutdown|destroy|end)\s*\(", decl, re.I):
+                    stops.append(line)
                 rank, desc = (0 if access == "public" else 1), "method"
             elif re.match(r"(enum\b|using\b|typedef\b|static\s+constexpr\b|static\s+const\b)", s):
                 rank, desc = (0 if access == "public" else 2), "constant or type"
@@ -631,10 +636,18 @@ def check_cpp_classes(path, text, added):
                                    "Default to private, and expose state through methods only when callers "
                                    "need it (AGENTS.md § C++ Class Conventions)."))
         if kind == "class" and new_class and methods and not (ctor and dtor) and path.endswith((".hpp", ".hh")):
-            out.append(finding("cpp-class", path, first, "P3", "`%s` has no explicit %s" % (
-                name, "constructor or destructor" if not (ctor or dtor) else ("constructor" if not ctor else "destructor")),
-                "Declare both explicitly, even when empty, and initialize in the constructor rather than an "
-                "`init()` method (AGENTS.md § C++ Class Conventions, #481)."))
+            why = ("Declare an explicit constructor and destructor, even when empty, and set the object up in the "
+                   "constructor and tear it down in the destructor rather than in `init()`/`terminate()` "
+                   "methods (AGENTS.md § C++ Class Conventions, #481).")
+            # anchor each at the method doing its job, where a reviewer would comment
+            if not ctor and starts:
+                out.append(finding("cpp-class", path, starts[0], "P3", "`%s` uses an init method, not a constructor" % name, why))
+            if not dtor and stops:
+                out.append(finding("cpp-class", path, stops[0], "P3", "`%s` uses a terminate method, not a destructor" % name, why))
+            if (not ctor and not starts) or (not dtor and not stops):
+                missing = [w for w, has in (("constructor", ctor or starts), ("destructor", dtor or stops)) if not has]
+                out.append(finding("cpp-class", path, first, "P3",
+                                   "`%s` has no explicit %s" % (name, " or ".join(missing)), why))
     return out
 
 
