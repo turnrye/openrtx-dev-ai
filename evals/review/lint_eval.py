@@ -52,6 +52,8 @@ RULE_TOPICS = {
     "changelog": r"short|cut",
     "redundant-guard": r"no need|not needed|free\(NULL\)|man free|no-op|NULL",
     "cpp-class": r"bottom of the class|above the|order|constructor|destructor|private|public|move (these|this|it)",
+    "protocol-constant": r"move (these|this|them|it)|belong|protocol|LinkSetupFrame|Frame\b",
+    "enum-candidate": r"\benum",
     "clang-tidy:readability-redundant-casting": r"cast",
     "clang-tidy:readability-make-member-function-const": r"\bconst\b",
     "append-only": r"bottom|end of the|append|voice prompt|move (this|it)",
