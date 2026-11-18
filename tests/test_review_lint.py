@@ -288,6 +288,33 @@ class CppClasses(unittest.TestCase):
         self.assertEqual(self.check(text), [])
 
 
+class Placement(unittest.TestCase):
+    """Protocol constants outside the protocol, and constant runs that want an enum."""
+
+    DEFS = ["#define M17_GNSS_SOURCE_M17CLIENT        ((uint8_t)0)", "#define M17_GNSS_SOURCE_OPENRTX          ((uint8_t)1)",
+            "", "#define M17_GNSS_STATION_FIXED           ((uint8_t)0)", "#define M17_GNSS_STATION_MOBILE          ((uint8_t)1)",
+            "#define M17_GNSS_STATION_HANDHELD        ((uint8_t)2)"]
+
+    def test_protocol_constant(self):
+        found = lint.check_protocol_constants("openrtx/include/rtx/OpMode_M17.hpp", self.DEFS, {1, 2}, {"M17"})
+        self.assertEqual(rules(found), [("protocol-constant", 1), ("protocol-constant", 2)])
+        self.assertEqual(lint.check_protocol_constants("openrtx/include/protocols/M17/LinkSetupFrame.hpp",
+                                                       self.DEFS, {1}, {"M17"}), [])
+        self.assertEqual(lint.check_protocol_constants("openrtx/src/ui/ui.c", ["#define CONFIG_M17 1"], {1}, {"M17"}), [])
+        self.assertEqual(lint.check_protocol_constants("openrtx/include/core/m17_sms.h", ["#define M17_SMS_H"], {1}, {"M17"}), [])
+        self.assertEqual(lint.check_protocol_constants("platform/drivers/baseband/radio_C62.cpp",
+                                                       ["static constexpr uint16_t M17_TX_DEVIATION = 0x582;"], {1}, {"M17"}), [])
+
+    def test_enum_candidates(self):
+        found = lint.check_enum_candidates("a.hpp", self.DEFS, set(range(1, 7)))
+        self.assertEqual(rules(found), [("enum-candidate", 1), ("enum-candidate", 4)])
+
+    def test_not_enum_candidates(self):
+        lines = ["#define BUF_SIZE 64", "#define BUF_COUNT 2", "#define MASK_A 0x01", "#define MASK_B 0x02",
+                 "#define TX_RATE 48000", "#define TX_DIV 3"]
+        self.assertEqual(lint.check_enum_candidates("a.c", lines, set(range(1, 7))), [])
+
+
 class PrText(unittest.TestCase):
     """The PR template's sections."""
 
