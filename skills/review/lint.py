@@ -575,6 +575,10 @@ def check_changelog(repo, base, head):
 
 PREFIX = re.compile(r"^[\w.+/-]+(?:\s*[,/]\s*[\w.+/-]+)*(?:\s*:\s*[\w.+/-]+)*:\s+\S")
 AUTOSQUASH = re.compile(r"^(fixup|squash|amend)!\s")
+# subjects of commits that answer a review or patch up the branch rather than add a change
+REVIEW_RESPONSE = re.compile(r"\b(review|address(ed|ing)?|comments?|feedback|suggestions?|typos?|nits?|cleanup|"
+                             r"clean up|wip|oops|forgot|minor|small fix(es)?|fix(es|ed)? (build|ci|format|style|warnings?))\b",
+                             re.I)
 
 
 def commits(repo, base, head):
@@ -641,9 +645,10 @@ def check_commits(repo, base, head):
         if i == 0 or len(c["parents"]) != 1 or AUTOSQUASH.match(c["subject"]):
             continue
         hs = hunks(repo, c["sha"])
-        # a later commit that rewrites lines an earlier commit of this change added
+        # a review response that rewrites lines an earlier commit of this change added; later
+        # commits building on earlier ones in the same series are normal and not flagged
         targets = set()
-        for path, removed, added, start, count in hs:
+        for path, removed, added, start, count in (hs if REVIEW_RESPONSE.search(c["subject"]) else []):
             if count == 0 or not removed.strip():
                 continue
             blame = git(repo, "blame", "--porcelain", "-L", "%d,%d" % (start, start + count - 1),
@@ -661,7 +666,8 @@ def check_commits(repo, base, head):
         # reformatting mixed into a commit that also changes behaviour
         ws = [h for h in hs if h[1].strip() and flat(h[1]) == flat(h[2])]
         real = [h for h in hs if flat(h[1]) != flat(h[2])]
-        if ws and real:
+        formatting_commit = re.search(r"clang-format|\bformat|\blint\b|whitespace|\bstyle\b|indent", c["subject"], re.I)
+        if len(ws) >= 3 and real and not formatting_commit:  # a stray whitespace fix isn't worth a comment
             out.append(finding("commit-mixed-format", ws[0][0], None, "P3",
                                "%s mixes reformatting with changes" % short(c["sha"]),
                                "%d hunk(s) of `%s` only change whitespace. Reformatting goes in its own commit, "
@@ -682,7 +688,7 @@ def check_pr_text(body):
     if testing is not None:
         prose = re.sub(r"<!--.*?-->|^\s*[-*]\s*\[[ xX]\].*$|\*\*Tested on:?\*\*", "", testing, flags=re.S | re.M).strip()
         ticked = re.search(r"^\s*[-*]\s*\[[xX]\]", testing, re.M)
-        if not prose or not ticked:
+        if not prose and not ticked:  # an offline-only change explained in prose is fine
             out.append(finding("pr-testing", None, None, "P2", "Testing performed is incomplete",
                                "Say what was run and on which radios, and tick the targets it was tested on "
                                "(\"Not tested on hardware — help wanted\" is a fine answer; silence isn't)."))
@@ -697,7 +703,7 @@ def check_pr_text(body):
 def struct_members(text, name):
     """Declarators in `typedef struct { ... } name;` (bitfield lists count each field)."""
     m = re.search(r"typedef\s+struct\s*(?:\w+\s*)?\{(.*?)\}\s*(?:__attribute__\(\(\w+\)\)\s*)?%s\s*;" % name,
-                  strip_comments(text), re.S)
+                  first_branches(strip_comments(text)), re.S)  # one branch of each #if, as for the defaults
     if not m:
         return None
     n = 0
@@ -776,6 +782,22 @@ def check_persistence(repo, base, head):
     return out
 
 
+def config_defined(repo, head, name):
+    """True when some header, build file or Kconfig at HEAD defines a CONFIG_ name."""
+    for hit in git(repo, "grep", "-n", "-w", "-F", name, head).split("\n"):
+        parts = hit.split(":", 3)  # sha:path:line:text
+        if len(parts) < 4:
+            continue
+        path, text = parts[1], parts[3]
+        if re.search(r"#\s*define\s+%s\b" % name, text) or "-D" + name in text:
+            return True
+        if re.search(r"(^|/)(meson\.build|meson_options\.txt|CMakeLists\.txt|Kconfig[^/]*|[^/]*\.(cmake|conf|ya?ml|ini))$",
+                     path) and not re.search(r"#\s*if", text):
+            return True
+    kconfig = name[len("CONFIG_"):]  # Zephyr: `config FOO` in a Kconfig file defines CONFIG_FOO
+    return bool(git(repo, "grep", "-l", "-w", "-F", "config " + kconfig, head, "--", "*Kconfig*").strip())
+
+
 def check_build(repo, base, head):
     """New sources the build never compiles, and CONFIG_ macros nothing defines."""
     out = []
@@ -795,9 +817,7 @@ def check_build(repo, base, head):
             if n <= len(text) and re.match(r"\s*#\s*(if|ifdef|ifndef|elif)\b", text[n - 1]):
                 used |= set(re.findall(r"\bCONFIG_[A-Z0-9_]+\b", text[n - 1]))
     for name in sorted(used):
-        defined = git(repo, "grep", "-l", "-E", r"(#\s*define\s+%s\b|-D%s\b|'%s'|\b%s\b\s*[:=]|^\s*config\s+%s\b)"
-                      % (name, name, name, name, name[len("CONFIG_"):]), head)
-        if not defined.strip():
+        if not config_defined(repo, head, name):
             out.append(finding("config-undefined", None, None, "P2", "`%s` is never defined" % name,
                                "New code tests `%s`, but no header, build file or Kconfig defines it: a typo, "
                                "or a missing default (AGENTS.md § Conditional Compilation)." % name))
