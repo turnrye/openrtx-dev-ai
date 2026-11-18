@@ -73,11 +73,15 @@ Use the `openrtx` CLI (the research skill; `openrtx_run` in Pi) — a review tha
 
 Run what CI runs instead of eyeballing it, on the PR's code (in the worktree for a PR). Exact commands are in [reference.md](reference.md#mechanical-checks); in short:
 
+- **`lint.py`, the house rules a tool can check**, from this skill's directory, on the change (`MB` is the merge base; add `--pr-body FILE` with the PR description saved to a file when reviewing a PR):
+  ```sh
+  python3 <this skill's directory>/lint.py --repo . "$MB" HEAD --pr --json
+  ```
+  It reports, on the lines the change adds: entries inserted mid-list in settings, string or voice-prompt tables; enums clang-format packed for lack of a trailing comma; `typedef`s; `sizeof`/`sizeof` instead of `ARRAY_SIZE`; `std::string`; module prefixes; functions and variables that should be `static`; layering (radio API outside the rtx thread, the rtx thread taking the state mutex, `ui_updateFSM` or `display_init` called from the UI); unused new struct members and macros; missing Doxygen; `static` locals; `#define`s between functions; unparenthesised comparisons; `if`/`else if` chains that want a `switch`; raw arrays in C++ classes; hard-coded frequencies in core code; scripts outside `scripts/`. And on the change as a whole: sign-off, commit prefixes, merges, fixups to autosquash, review responses that should be `fixup!`s, reformatting mixed with changes, saved-settings and codeplug layout, new sources missing from the build, `CONFIG_` macros nothing defines, the PR template's testing and changelog sections.
 - `scripts/clang_format.sh --check` (the `Format sources` workflow), `reuse lint`, `python3 scripts/check_strings.py`
 - `meson compile` and `meson test` on Linux; cross-compile the targets the change touches when the toolchain is there
-- the commit list: module prefix, imperative summary, `Signed-off-by` (DCO), `Co-authored-by` for AI-assisted commits, no merge commits, formatting-only commits kept apart, leftover `fixup!` commits
 
-Report what ran and what you couldn't run (missing toolchain, no hardware). Never claim a build or test result you didn't get.
+Put `lint.py`'s findings in the report as they are, at their lines and severities. Drop one only when you can show it is wrong for this change (say why in *Not reviewed*); don't re-derive what it already checks. Report what ran and what you couldn't run (missing toolchain, no hardware). Never claim a build or test result you didn't get.
 
 ## 5. Review
 
@@ -94,8 +98,8 @@ Read every hunk with these passes, in this order — correctness first, because 
    - Do new names follow their neighbours? The class's existing verbs (`init`/`update` → `reinit`, not a new verb or one that promises more than it does), the module prefix, the pattern of existing names of the same kind (`CONFIG_<FEATURE>` for hardware features), short rather than verbose.
 
    These are small, and maintainers raise them on almost every PR. Report them, with a ```` ```suggestion ```` block when the fix is a line or two.
-4. **House rules, one at a time.** Walk the [rule map](reference.md#rule-map) over the added lines rule by rule: take each bold rule for the kinds of hunk in the change and look for it, instead of reading the hunks and waiting for a rule to come to mind. Trailing commas on the last enum or initializer element, `ARRAY_SIZE` instead of a count, module prefixes, `typedef`s, designated initializers, a `switch` with `default: return -ENOTSUP` for a mode or enum dispatch. Each violation is its own finding however small, at its line: maintainers send every one back, and a missing trailing comma also makes clang-format mangle the enum.
-5. **The PR as a unit.** Size and split, commit hygiene, the template's sections (testing performed is required), changelog line. Keep this to what matters; the code comes first.
+4. **House rules the checker can't see.** `lint.py` covers the mechanical rules; walk the [rule map](reference.md#rule-map) for the rest, rule by rule: designated initializers for structs of function pointers and configs, a `switch` with `default: return -ENOTSUP` where a mode is dispatched through a two-way `if`, magic numbers where a named field or `ARRAY_SIZE` belongs, register access outside the chip's driver, `CONFIG_` naming. Also what text matching can't tell apart: a new member that shares its name with a used member of another struct, and code copied from elsewhere in the file (it looks old to the checker but is new to the change). Each violation is its own finding, at its line.
+5. **The PR as a unit.** What needs judgement: whether to split it and how, and whether the description and testing match what the change does. The checker reports commit hygiene and the template's empty sections; the code comes first.
 
 What to flag:
 
