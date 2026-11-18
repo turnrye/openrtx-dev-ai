@@ -8,6 +8,7 @@ Run from the checkout (or the PR's worktree). `MB` is the merge base.
 
 | Check | Command | CI job |
 |---|---|---|
+| House rules a tool can check | `python3 <skill dir>/lint.py --repo . $MB HEAD --pr --json` (for a fetched PR, `refs/openrtx-review/N` in place of `HEAD`; `--pr-body FILE` for the template's sections; `--clang-tidy` adds a few clang-tidy checks on files the Linux build compiles). Exit status 1 means it found something. | — |
 | Formatting | `scripts/clang_format.sh --check` — checks every tracked C/C++ file not on its exclusion lists; a new file must be `git add`ed first | `Format sources` |
 | Licence headers | `reuse lint`, or `uvx reuse lint` / `pipx run reuse lint` when it isn't installed | `Format sources` |
 | String tables | `python3 scripts/check_strings.py` | `Format sources` |
