@@ -569,6 +569,249 @@ def check_changelog(repo, base, head):
     return out
 
 
+# ---------------------------------------------------------------- PR-level checks
+# These look at the change as a whole: its commits, the PR text, persistent formats and
+# the build. Their findings have no line (or the line of the offending declaration).
+
+PREFIX = re.compile(r"^[\w.+/-]+(?:\s*[,/]\s*[\w.+/-]+)*(?:\s*:\s*[\w.+/-]+)*:\s+\S")
+AUTOSQUASH = re.compile(r"^(fixup|squash|amend)!\s")
+
+
+def commits(repo, base, head):
+    """The change's commits, oldest first: dicts of sha, parents, subject, body."""
+    out = []
+    for rec in git(repo, "log", "--reverse", "--format=%H%x00%P%x00%s%x00%b%x1e", "%s..%s" % (base, head)).split("\x1e"):
+        parts = rec.strip("\n").split("\x00")
+        if len(parts) == 4:
+            out.append({"sha": parts[0], "parents": parts[1].split(), "subject": parts[2], "body": parts[3]})
+    return out
+
+
+def hunks(repo, sha):
+    """[(path, removed text, added text, old start, old count)] for one commit's source changes."""
+    out, path, cur = [], None, None
+    specs = ["*" + e for e in SOURCE_EXT]
+    for line in git(repo, "show", "-U0", "--format=", "--no-color", sha, "--", *specs).splitlines():
+        if line.startswith("+++ "):
+            path = line[6:] if line.startswith("+++ b/") else None
+        elif line.startswith("--- "):
+            continue
+        elif line.startswith("@@"):
+            m = re.match(r"@@ -(\d+)(?:,(\d+))? \+", line)
+            cur = [path, [], [], int(m.group(1)), int(m.group(2) if m.group(2) is not None else 1)]
+            out.append(cur)
+        elif cur is not None and line[:1] in "+-":
+            cur[2 if line[0] == "+" else 1].append(line[1:])
+    return [(p, "\n".join(r), "\n".join(a), s, n) for p, r, a, s, n in out if p]
+
+
+def short(sha):
+    return sha[:9]
+
+
+def check_commits(repo, base, head):
+    """Commit hygiene and history shape (CONTRIBUTING.md § Making Changes, AGENTS.md § Commits and PRs)."""
+    out = []
+    cs = commits(repo, base, head)
+    if not cs:
+        return out
+    shas = {c["sha"] for c in cs}
+    unsigned = [c for c in cs if "Signed-off-by:" not in c["body"] and not c["subject"].startswith("Merge ")]
+    if unsigned:
+        out.append(finding("commit-signoff", None, None, "P1", "Commits without Signed-off-by",
+                           "Every commit needs the author's DCO sign-off (`git commit -s`): %s."
+                           % ", ".join(short(c["sha"]) for c in unsigned)))
+    for c in cs:
+        s = c["subject"]
+        if len(c["parents"]) > 1:
+            out.append(finding("commit-merge", None, None, "P2", "Merge commit %s in the branch" % short(c["sha"]),
+                               "Rebase on the base branch instead of merging it in; the history should be "
+                               "a straight line of complete changes."))
+            continue
+        if AUTOSQUASH.match(s):
+            out.append(finding("commit-autosquash", None, None, "P3", "%s still to autosquash" % short(c["sha"]),
+                               "`%s` is fine during review; squash it with `git rebase --autosquash` before "
+                               "the merge." % s))
+            continue
+        if not PREFIX.match(s) and not s.startswith(("Revert ", "Merge ")):
+            out.append(finding("commit-prefix", None, None, "P3", "Commit subject without a module prefix",
+                               "`%s` (%s): start the subject with the module it changes, e.g. "
+                               "`drivers: …`, `ui: …`, `m17: …`." % (s, short(c["sha"]))))
+    for i, c in enumerate(cs):
+        if i == 0 or len(c["parents"]) != 1 or AUTOSQUASH.match(c["subject"]):
+            continue
+        hs = hunks(repo, c["sha"])
+        # a later commit that rewrites lines an earlier commit of this change added
+        targets = set()
+        for path, removed, added, start, count in hs:
+            if count == 0 or not removed.strip():
+                continue
+            blame = git(repo, "blame", "--porcelain", "-L", "%d,%d" % (start, start + count - 1),
+                        c["parents"][0], "--", path)
+            for m in re.finditer(r"^([0-9a-f]{40}) \d+ \d+", blame, re.M):
+                if m.group(1) in shas and m.group(1) != c["sha"]:
+                    targets.add(m.group(1))
+        for t in sorted(targets, key=lambda sha: [x["sha"] for x in cs].index(sha)):
+            target = next(x for x in cs if x["sha"] == t)
+            out.append(finding("commit-fixup", None, None, "P2",
+                               "%s rewrites code that %s added" % (short(c["sha"]), short(t)),
+                               "`%s` changes lines `%s` introduced in this same branch. Make it a "
+                               "`fixup!` of that commit (or fold it in), so each commit is final."
+                               % (c["subject"], target["subject"])))
+        # reformatting mixed into a commit that also changes behaviour
+        ws = [h for h in hs if h[1].strip() and flat(h[1]) == flat(h[2])]
+        real = [h for h in hs if flat(h[1]) != flat(h[2])]
+        if ws and real:
+            out.append(finding("commit-mixed-format", ws[0][0], None, "P3",
+                               "%s mixes reformatting with changes" % short(c["sha"]),
+                               "%d hunk(s) of `%s` only change whitespace. Reformatting goes in its own commit, "
+                               "separate from behavioural changes (AGENTS.md § Commits and PRs)." % (len(ws), c["subject"])))
+    return out
+
+
+def section(body, heading):
+    """The text under a Markdown heading of the PR body, or None if the heading isn't there."""
+    m = re.search(r"^#+\s*%s\s*$(.*?)(?=^#+\s|\Z)" % heading, body or "", re.M | re.S | re.I)
+    return m.group(1) if m else None
+
+
+def check_pr_text(body):
+    """The PR template's required sections, when the PR uses the template."""
+    out = []
+    testing = section(body, r"Testing performed")
+    if testing is not None:
+        prose = re.sub(r"<!--.*?-->|^\s*[-*]\s*\[[ xX]\].*$|\*\*Tested on:?\*\*", "", testing, flags=re.S | re.M).strip()
+        ticked = re.search(r"^\s*[-*]\s*\[[xX]\]", testing, re.M)
+        if not prose or not ticked:
+            out.append(finding("pr-testing", None, None, "P2", "Testing performed is incomplete",
+                               "Say what was run and on which radios, and tick the targets it was tested on "
+                               "(\"Not tested on hardware — help wanted\" is a fine answer; silence isn't)."))
+    log = section(body, r"Changelog entry")
+    if log is not None and not re.sub(r"<!--.*?-->", "", log, flags=re.S).strip():
+        out.append(finding("pr-changelog", None, None, "P3", "No changelog entry",
+                           "Give the one-line changelog entry the template asks for, or `n/a` for changes "
+                           "users don't see."))
+    return out
+
+
+def struct_members(text, name):
+    """Declarators in `typedef struct { ... } name;` (bitfield lists count each field)."""
+    m = re.search(r"typedef\s+struct\s*(?:\w+\s*)?\{(.*?)\}\s*(?:__attribute__\(\(\w+\)\)\s*)?%s\s*;" % name,
+                  strip_comments(text), re.S)
+    if not m:
+        return None
+    n = 0
+    for decl in m.group(1).split(";"):
+        if decl.strip():
+            n += len(top_level_split(decl.replace(",", "&&")))  # count comma-separated declarators
+    return n
+
+
+def first_branches(text):
+    """Text with only the first branch of each #if / #else kept, as one build would see it."""
+    out, live = [], []
+    for line in text.split("\n"):
+        s = line.strip()
+        if re.match(r"#\s*if", s):
+            live.append(True)
+        elif re.match(r"#\s*(else|elif)", s) and live:
+            live[-1] = False
+        elif re.match(r"#\s*endif", s) and live:
+            live.pop()
+        elif all(live):
+            out.append(line)
+            continue
+        out.append("")
+    return "\n".join(out)
+
+
+def initializer_entries(text, name):
+    """Top-level entries of `... name = { ... };`, counting one branch of each #if."""
+    code = first_branches(strip_comments(text))
+    m = re.search(r"\b%s\s*=\s*\{" % name, code)
+    if not m:
+        return None
+    close = matching_brace(code, m.end() - 1)
+    inner, depth, n, seen = code[m.end():close], 0, 0, False
+    for ch in inner:
+        if ch in "{(":
+            depth += 1
+        elif ch in "})":
+            depth -= 1
+        elif ch == "," and depth == 0:
+            n, seen = n + 1, False
+            continue
+        if not ch.isspace():
+            seen = True
+    return n + (1 if seen else 0)
+
+
+def check_persistence(repo, base, head):
+    """Saved settings and the codeplug format must stay readable by radios in the field."""
+    out = []
+    path = "openrtx/include/core/settings.h"
+    diff = git(repo, "diff", "-U0", base, head, "--", path)
+    if diff:
+        removed = [l[1:] for l in diff.splitlines() if l.startswith("-") and not l.startswith("---")]
+        added = flat("\n".join(l[1:] for l in diff.splitlines() if l.startswith("+") and not l.startswith("+++")))
+        gone = [l for l in removed if re.match(r"\s+[A-Za-z_][\w\s\*]*\b\w+\s*(\[[^\]]*\])?\s*(:\s*\d+)?\s*[,;]", l)
+                and flat(l) not in added]
+        if gone:
+            out.append(finding("persistence", path, None, "P0", "A saved setting was removed or changed",
+                               "Radios load `settings_t` as stored; removing or changing `%s` moves every field "
+                               "after it (AGENTS.md § Persistent Data)." % gone[0].strip()))
+        text = git(repo, "show", "%s:%s" % (head, path))
+        members, defaults = struct_members(text, "settings_t"), initializer_entries(text, "default_settings")
+        if members and defaults and members != defaults:
+            out.append(finding("persistence", path, None, "P1", "default_settings doesn't match settings_t",
+                               "`settings_t` has %d fields but `default_settings` gives %d values; the "
+                               "initializer is positional, so every value after the gap lands in the wrong "
+                               "field." % (members, defaults)))
+    cps = "openrtx/include/core/cps.h"
+    diff = git(repo, "diff", "-U0", base, head, "--", cps)
+    if diff and re.search(r"^[-+]\s+[A-Za-z_].*;", diff, re.M) and "CPS_VERSION" not in diff:
+        out.append(finding("persistence", cps, None, "P1", "Codeplug layout changed without a version bump",
+                           "A codeplug structure changed but `CPS_VERSION_MAJOR/MINOR` didn't: older "
+                           "codeplugs would be read with the new layout (AGENTS.md § Persistent Data)."))
+    return out
+
+
+def check_build(repo, base, head):
+    """New sources the build never compiles, and CONFIG_ macros nothing defines."""
+    out = []
+    build_files = [p for p in git(repo, "ls-tree", "-r", "--name-only", head).split("\n")
+                   if re.search(r"(^|/)(meson\.build|CMakeLists\.txt|[^/]*\.cmake)$", p)]
+    build_text = "\n".join(git(repo, "show", "%s:%s" % (head, p)) for p in build_files)
+    for path in git(repo, "diff", "--name-only", "--diff-filter=A", base, head).split("\n"):
+        if path.endswith((".c", ".cpp", ".cc")) and not path.startswith(SKIP_DIRS) \
+                and os.path.basename(path) not in build_text:
+            out.append(finding("build-unlisted", path, None, "P1", "New source isn't in the build",
+                               "No meson.build or CMakeLists.txt names `%s`, so it is never compiled."
+                               % os.path.basename(path)))
+    used = set()
+    for path, added in added_lines(repo, base, head).items():
+        text = git(repo, "show", "%s:%s" % (head, path)).split("\n")
+        for n in added:
+            if n <= len(text) and re.match(r"\s*#\s*(if|ifdef|ifndef|elif)\b", text[n - 1]):
+                used |= set(re.findall(r"\bCONFIG_[A-Z0-9_]+\b", text[n - 1]))
+    for name in sorted(used):
+        defined = git(repo, "grep", "-l", "-E", r"(#\s*define\s+%s\b|-D%s\b|'%s'|\b%s\b\s*[:=]|^\s*config\s+%s\b)"
+                      % (name, name, name, name, name[len("CONFIG_"):]), head)
+        if not defined.strip():
+            out.append(finding("config-undefined", None, None, "P2", "`%s` is never defined" % name,
+                               "New code tests `%s`, but no header, build file or Kconfig defines it: a typo, "
+                               "or a missing default (AGENTS.md § Conditional Compilation)." % name))
+    return out
+
+
+def pr_checks(repo, base, head="HEAD", body=None):
+    """All PR-level findings for BASE..HEAD (body: the PR description, if there is one)."""
+    out = check_commits(repo, base, head) + check_persistence(repo, base, head) + check_build(repo, base, head)
+    if body is not None:
+        out += check_pr_text(body)
+    return out
+
+
 def tidy_flags(tree, path):
     """Compiler flags for clang-tidy, modelled on the Linux build."""
     inc = ["platform/targets/linux", "platform/targets/linux/emulator", "platform/drivers/audio",
@@ -664,14 +907,20 @@ def main():
     p.add_argument("--clang-tidy", action="store_true")
     p.add_argument("--tree", help="checkout of HEAD for clang-tidy (default: --repo)")
     p.add_argument("--json", action="store_true")
+    p.add_argument("--pr", action="store_true",
+                   help="also check the change as a whole: commits, persistent formats, the build")
+    p.add_argument("--pr-body", help="a file with the PR description, to check the template's sections")
     a = p.parse_args()
     found = lint(a.repo, a.base, a.head, a.clang_tidy, a.tree)
+    if a.pr or a.pr_body:
+        body = open(a.pr_body).read() if a.pr_body else None
+        found += pr_checks(a.repo, a.base, a.head, body)
     if a.json:
         json.dump(found, sys.stdout, indent=1)
         print()
     else:
         for f in found:
-            print("%s:%s [%s] %s: %s" % (f["path"], f["line"], f["severity"], f["rule"], f["title"]))
+            print("%s:%s [%s] %s: %s" % (f["path"] or "-", f["line"] or "-", f["severity"], f["rule"], f["title"]))
     return 1 if found else 0
 
 
