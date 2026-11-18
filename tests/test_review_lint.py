@@ -234,6 +234,54 @@ class MoreRules(unittest.TestCase):
         self.assertEqual(lint.check_hw_literals("platform/targets/MD-UV3x0/hwconfig.c", lines, {1}), [])
 
 
+class CppClasses(unittest.TestCase):
+    """Class layout per AGENTS.md § C++ Class Conventions."""
+
+    def check(self, text, added=None):
+        n = text.count("\n") + 1
+        return [(f["title"].split(" in ")[0].split(" `")[0], f["line"])
+                for f in lint.check_cpp_classes("a.hpp", text, set(range(1, n + 1)) if added is None else added)]
+
+    GOOD = ("class Demodulator\n{\npublic:\n    Demodulator();\n    ~Demodulator();\n    bool update();\n"
+            "private:\n    void reset();\n    static constexpr size_t N = 4;\n    enum State { A, B };\n"
+            "    uint8_t state;\n};\n")
+
+    def test_reference_layout(self):
+        self.assertEqual(self.check(self.GOOD), [])
+
+    def test_method_after_constants(self):
+        text = ("class S\n{\npublic:\n    S();\n    ~S();\nprivate:\n    static constexpr int N = 4;\n"
+                "    void helper();\n    int x;\n};\n")
+        self.assertEqual(self.check(text), [("Member out of order", 8)])
+
+    def test_variable_between_methods(self):
+        text = "class S\n{\npublic:\n    S();\n    ~S();\nprivate:\n    int x;\n    void helper();\n};\n"
+        self.assertEqual(self.check(text), [("Member out of order", 8)])
+
+    def test_constructor_destructor_and_public_data(self):
+        text = "class Registry\n{\npublic:\n    void init();\n    int count;\n};\n"
+        self.assertEqual(sorted(self.check(text)), [("Public data member", 5), ("`Registry` has no explicit constructor or destructor", 1)])
+
+    def test_access_specifier_column(self):
+        text = "class S\n{\n  public:\n    S();\n    ~S();\n};\n"
+        self.assertEqual(self.check(text), [("Access specifier indented", 3)])
+
+    def test_untouched_class_is_legacy(self):
+        text = "class S\n{\npublic:\n    S();\n    ~S();\nprivate:\n    int x;\n    void helper();\n};\n"
+        self.assertEqual(self.check(text, added={20}), [])
+
+    def test_reference_returns_operators_and_function_pointers(self):
+        text = ("class F\n{\npublic:\n    F();\n    ~F();\n    const Lsf &getLsf()\n    {\n        return lsf;\n    }\n"
+                "    operator const char *() const;\n    bool operator==(const F &o) const;\nprivate:\n"
+                "    static constexpr size_t N = 9;\n    void (*callback)(int);\n    Lsf lsf;\n};\n")
+        self.assertEqual(self.check(text), [])
+
+    def test_inline_bodies_and_enum_class(self):
+        text = ("enum class Mode { A, B };\nclass S\n{\npublic:\n    S() { reset(); }\n    ~S() { }\n"
+                "    int get() const { return x; }\nprivate:\n    void reset() { x = 0; }\n    int x;\n};\n")
+        self.assertEqual(self.check(text), [])
+
+
 class PrText(unittest.TestCase):
     """The PR template's sections."""
 
