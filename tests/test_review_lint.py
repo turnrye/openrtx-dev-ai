@@ -251,6 +251,12 @@ class SettingsCounts(unittest.TestCase):
             "__attribute__((packed)) settings_t;\n\nstatic const settings_t default_settings =\n{\n    1,\n"
             "#ifdef X\n    X_DEFAULT,\n#else\n    2,\n#endif\n    0,\n    \"N0CALL\",\n};\n")
 
+    def test_fields_under_ifdef(self):
+        text = ("typedef struct\n{\n    uint8_t a;\n    #ifdef X\n    uint8_t b;\n    #endif\n\n}\n"
+                "__attribute__((packed)) settings_t;\n\nstatic const settings_t default_settings =\n{\n    1,\n"
+                "    #ifdef X\n    2\n    #endif\n};\n")
+        self.assertEqual(lint.struct_members(text, "settings_t"), lint.initializer_entries(text, "default_settings"))
+
     def test_counts(self):
         # one value per field, counting one branch of the #ifdef
         self.assertEqual(lint.struct_members(self.TEXT, "settings_t"), 4)
@@ -286,14 +292,26 @@ class Repo(unittest.TestCase):
     def test_commit_checks(self):
         self.commit({"a.c": "int a_x;\nint a_f(void)\n{\n    return 1;\n}\n"}, "core: add a_f\n\nSigned-off-by: t")
         self.commit({"a.c": "int a_x;\nint a_f(void)\n{\n    return 2;\n}\n", "b.c": "#ifdef CONFIG_NOPE\n#endif\n"},
-                    "tweak it")
+                    "address review comments")
         rules_found = sorted(f["rule"] for f in lint.pr_checks(self.dir, self.base, "HEAD"))
         self.assertEqual(rules_found, ["build-unlisted", "commit-fixup", "commit-prefix", "commit-signoff",
                                        "config-undefined"])
 
+    def test_building_on_an_earlier_commit_is_fine(self):
+        self.commit({"a.c": "int a_x;\nint a_f(void)\n{\n    return 1;\n}\n"}, "core: add a_f\n\nSigned-off-by: t")
+        self.commit({"a.c": "int a_x;\nint a_f(void)\n{\n    return 2;\n}\n"}, "core: make a_f return 2\n\nSigned-off-by: t")
+        self.assertEqual([f["rule"] for f in lint.pr_checks(self.dir, self.base, "HEAD")], [])
+
+    def test_defined_config_is_fine(self):
+        self.commit({"meson.build": "src = ['a.c', 'b.c']\ndefs = {'CONFIG_YES': ''}\n",
+                     "b.c": "#ifdef CONFIG_YES\n#endif\n"}, "core: add b\n\nSigned-off-by: t")
+        self.assertEqual([f["rule"] for f in lint.pr_checks(self.dir, self.base, "HEAD")], [])
+
     def test_mixed_formatting(self):
-        self.commit({"a.c": "int a_x;\nint a_y;\n"}, "core: add a_y\n\nSigned-off-by: t")
-        self.commit({"a.c": "int  a_x;\nint a_y;\nint a_z;\n"}, "core: add a_z\n\nSigned-off-by: t")
+        text = "".join("int a_%d;\n\n\n\n" % i for i in range(4))
+        self.commit({"a.c": text}, "core: add vars\n\nSigned-off-by: t")
+        reformatted = "".join("int  a_%d;\n\n\n\n" % i for i in range(3)) + "int a_3;\n\n\n\nint a_new;\n"
+        self.commit({"a.c": reformatted}, "core: add a_new\n\nSigned-off-by: t")
         found = [f["rule"] for f in lint.pr_checks(self.dir, self.base, "HEAD")]
         self.assertIn("commit-mixed-format", found)
 
