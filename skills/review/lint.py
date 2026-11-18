@@ -531,6 +531,32 @@ def check_std_array(path, lines, added):
     return out
 
 
+def check_redundant_guards(path, lines, added):
+    """A NULL check before free() or delete: both already do nothing on NULL (AGENTS.md § Reuse)."""
+    out = []
+    if not path.endswith(SOURCE_EXT):
+        return out
+    code = strip_comments("\n".join(lines)).split("\n")
+    guard = re.compile(r"\bif\s*\(\s*(?:(\w[\w.\->]*)\s*(?:!=\s*(?:NULL|nullptr|0))?|(?:NULL|nullptr)\s*!=\s*(\w[\w.\->]*))\s*\)")
+    for n in sorted(added):
+        if n > len(code):
+            continue
+        m = guard.search(code[n - 1])
+        if not m:
+            continue
+        ptr = m.group(1) or m.group(2)
+        rest = code[n - 1][m.end():] + " " + " ".join(code[n:n + 2])
+        call = r"(free\s*\(\s*%s\s*\)|delete(?:\s*\[\])?\s+%s)\s*;" % (re.escape(ptr), re.escape(ptr))
+        # the guarded body must be the free alone: a block that also does more needs the check
+        body = re.match(r"\s*\{\s*%s\s*\}" % call, rest) or (not rest.lstrip().startswith("{") and re.match(r"\s*" + call, rest))
+        if body:
+            out.append(finding("redundant-guard", path, n, "P3", "NULL check before %s" % body.group(1).split("(")[0].split()[0],
+                               "`free(NULL)` and `delete nullptr` do nothing, so the check only adds code "
+                               "(AGENTS.md § Reuse Before Reimplementation).",
+                               "%s;" % body.group(1)))
+    return out
+
+
 def check_hw_literals(path, lines, added):
     """Frequencies hard-coded in core code break radios on other bands."""
     out = []
@@ -906,6 +932,7 @@ def lint(repo, base, head="HEAD", tidy=False, tree=None):
         out += check_parentheses(path, lines, new)
         out += check_std_array(path, lines, new)
         out += check_hw_literals(path, lines, new)
+        out += check_redundant_guards(path, lines, new)
 
         def refs(name):
             hits = git(repo, "grep", "-c", "-w", "-F", name, head, "--", *["*" + e for e in SOURCE_EXT])
