@@ -9,5 +9,4 @@ OpenRTX-409-r2
 OpenRTX-403-r2
 OpenRTX-353-r2
 OpenRTX-434-r2
-OpenRTX-432
 OpenRTX-468

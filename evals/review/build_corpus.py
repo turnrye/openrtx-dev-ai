@@ -46,6 +46,7 @@ EXCLUDE = {
     547: "the feedback is the maintainer deciding project policy in AGENTS.md/CONTRIBUTING.md, not reviewing code",
     166: "the PR introduces clang-format; its review is about the formatter's configuration, not the code",
 }
+POLICY_DOCS = {"AGENTS.md", "CONTRIBUTING.md"}
 
 
 def gh(path, paginate=False):
@@ -275,6 +276,12 @@ def build_case(work, raw, reviewer, pool=None):
 
     def fork(sha):
         return fork_point(work, sha, tips)
+
+    # a PR that only changes project policy documents gets a policy discussion, not a code review
+    files = git(work, "diff", "--name-only", fork(first["commit"]) or first["commit"] + "^", first["commit"],
+                check=False).stdout.split()
+    if files and all(os.path.basename(f) in POLICY_DOCS for f in files):
+        return None, "only project policy documents (%s)" % ", ".join(sorted(set(files)))
 
     return {
         "id": "OpenRTX-%d" % pr["number"],
