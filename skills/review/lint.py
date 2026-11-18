@@ -646,11 +646,7 @@ def check_commits(repo, base, head):
     if not cs:
         return out
     shas = {c["sha"] for c in cs}
-    unsigned = [c for c in cs if "Signed-off-by:" not in c["body"] and not c["subject"].startswith("Merge ")]
-    if unsigned:
-        out.append(finding("commit-signoff", None, None, "P1", "Commits without Signed-off-by",
-                           "Every commit needs the author's DCO sign-off (`git commit -s`): %s."
-                           % ", ".join(short(c["sha"]) for c in unsigned)))
+    # DCO sign-off is left to CI, not the review
     for c in cs:
         s = c["subject"]
         if len(c["parents"]) > 1:
