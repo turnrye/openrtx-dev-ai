@@ -45,9 +45,10 @@ OPENRTX_BIN = os.path.join(os.path.dirname(os.path.dirname(HERE)), "bin", "openr
 PROMPT = """/openrtx:review branch origin/{base}
 
 This is a non-interactive evaluation run: nobody can annotate, so print the full report \
-instead of opening Plannotator. {builds}When you have finished, also write every finding to \
-{findings} as a JSON list of objects with the keys path, line, end_line, severity (P0 to P3), \
-title, body and suggestion (the replacement code, or null). Write [] if there are none."""
+instead of opening Plannotator. {builds}When you have finished, also write the findings your \
+report lists to {findings} as a JSON list of objects with the keys path, line, end_line, \
+severity (P0 to P3), title, body and suggestion (the replacement code, or null). Write [] if \
+there are none."""
 
 NO_BUILDS = "Don't run builds or tests; there is no toolchain here. "
 

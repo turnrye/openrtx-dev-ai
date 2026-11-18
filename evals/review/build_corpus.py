@@ -44,6 +44,7 @@ CONTEXT = 2  # lines either side of an inline comment that count as "its" lines
 # PRs whose feedback a code review can't be expected to give, with the reason.
 EXCLUDE = {
     547: "the feedback is the maintainer deciding project policy in AGENTS.md/CONTRIBUTING.md, not reviewing code",
+    166: "the PR introduces clang-format; its review is about the formatter's configuration, not the code",
 }
 
 
@@ -355,7 +356,7 @@ def build_heldout(a, raw_dir):
         else:
             why[reason.split(":")[0]] += 1
     for c in json.load(open(os.path.join(HERE, "corpus.json")))["cases"]:
-        if c["number"] not in SEEN and c["author"] != a.skip_author:
+        if c["number"] not in SEEN and c["number"] not in EXCLUDE and c["author"] != a.skip_author:
             rounds = later_rounds(a.work, c)
             cases += rounds
             why["kept: later-round"] += len(rounds)

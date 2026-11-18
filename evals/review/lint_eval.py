@@ -50,6 +50,7 @@ RULE_TOPICS = {
     "hw-literal": r"hardware|VHF|UHF|band|initiali[sz]ation value",
     "script-location": r"scripts",
     "changelog": r"short|cut",
+    "redundant-guard": r"no need|not needed|free\(NULL\)|man free|no-op|NULL",
     "append-only": r"bottom|end of the|append|voice prompt|move (this|it)",
     "clang-tidy:readability-simplify-boolean-expr": r"simplif|boils down|return (true|false)|== ?(true|false)|const variables",
     "clang-tidy:misc-use-internal-linkage": r"\bstatic\b",

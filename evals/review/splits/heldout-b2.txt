@@ -6,8 +6,6 @@ OpenRTX-467-r2
 OpenRTX-363-r2
 OpenRTX-360-r3
 OpenRTX-360-r2
-OpenRTX-166-r4
-OpenRTX-166-r3
 OpenRTX-409-r3
 OpenRTX-541-r2
 OpenRTX-240

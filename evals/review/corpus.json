@@ -8,7 +8,8 @@
    "end": {
     "base": "13dfe3e3fc27096467f56ad6d22feb9c3553ca2b",
     "merge_commit": "584588188e450fde8908eb0ef2a66847aa6ae99f",
-    "sha": "f224eb397edc7a753e799d2ce545578040c9075b"
+    "sha": "f224eb397edc7a753e799d2ce545578040c9075b",
+    "usable": true
    },
    "feedback": [
     {
@@ -45,6 +46,7 @@
    "merged_at": "2026-11-17T14:42:21Z",
    "merged_by": "silseva",
    "number": 581,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "e21c55154b08bb57bcd7406cdce35131017138ee",
@@ -61,7 +63,8 @@
    "end": {
     "base": "f403de9d2bc457e6d4ebf48cfb2b19110ed18eb2",
     "merge_commit": "b3f9b1955d7ff61209649cf33d4b5b0c6140ff3e",
-    "sha": "94044563e1eb6dd89f9a47ea12ab0713c3ab01a8"
+    "sha": "94044563e1eb6dd89f9a47ea12ab0713c3ab01a8",
+    "usable": true
    },
    "feedback": [
     {
@@ -113,6 +116,7 @@
    "merged_at": "2026-11-15T03:25:56Z",
    "merged_by": "turnrye",
    "number": 575,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "f403de9d2bc457e6d4ebf48cfb2b19110ed18eb2",
@@ -129,7 +133,8 @@
    "end": {
     "base": "cff877af1df473bc1d9a50e3b97f39e48f30e24f",
     "merge_commit": "14b5ff41debefda464b73f08a35bdf2763cdebfa",
-    "sha": "a6e203d4e01e6da16ee580a6297eb027e782a7d3"
+    "sha": "a6e203d4e01e6da16ee580a6297eb027e782a7d3",
+    "usable": true
    },
    "feedback": [
     {
@@ -959,6 +964,7 @@
    "merged_at": "2026-11-10T10:20:03Z",
    "merged_by": "silseva",
    "number": 542,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "f96e49eba62ff0a0112331cddeeb66a63aa2ea99",
@@ -975,7 +981,8 @@
    "end": {
     "base": "312e295197d9fc30a3fdc351d4b127c6a2887d63",
     "merge_commit": "0a2d61aecd92add92d8811058d64564e5800208b",
-    "sha": "8697abd16e5500d9bca0b2df0adbb88cec64b774"
+    "sha": "8697abd16e5500d9bca0b2df0adbb88cec64b774",
+    "usable": true
    },
    "feedback": [
     {
@@ -1063,6 +1070,7 @@
    "merged_at": "2026-11-05T20:51:51Z",
    "merged_by": "silseva",
    "number": 549,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "d27a1e09cdd47b0fbd32c241121816d438330562",
@@ -1079,7 +1087,8 @@
    "end": {
     "base": "f96e49eba62ff0a0112331cddeeb66a63aa2ea99",
     "merge_commit": "cff877af1df473bc1d9a50e3b97f39e48f30e24f",
-    "sha": "c25f5f9c0612c1cd0e20ba937d0957b2e4aaf0bd"
+    "sha": "c25f5f9c0612c1cd0e20ba937d0957b2e4aaf0bd",
+    "usable": true
    },
    "feedback": [
     {
@@ -1115,6 +1124,7 @@
    "merged_at": "2026-11-05T20:42:32Z",
    "merged_by": "silseva",
    "number": 551,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "f96e49eba62ff0a0112331cddeeb66a63aa2ea99",
@@ -1131,7 +1141,8 @@
    "end": {
     "base": "69396f102a6a34d164c1f0a88109be9f07c27f6b",
     "merge_commit": "fdbeef01a0a5574864b6d8d1c4d18d85241e4c05",
-    "sha": "cc0b7aedf5afba4151a43c40b86edf26036d2005"
+    "sha": "cc0b7aedf5afba4151a43c40b86edf26036d2005",
+    "usable": true
    },
    "feedback": [
     {
@@ -1517,6 +1528,7 @@
    "merged_at": "2026-10-27T21:32:54Z",
    "merged_by": "silseva",
    "number": 539,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "5ff2ac3467c59c0c9d3a927ef7becc4f34a0d77c",
@@ -1533,7 +1545,8 @@
    "end": {
     "base": "3c5d7a1e7afad0332a61256fe996e9cc03614f30",
     "merge_commit": "58d6b9291b16e8bfe486bbec92e99e634e071d06",
-    "sha": "798619b20b69c53d45ce81ac29ecdc46e9bd923a"
+    "sha": "798619b20b69c53d45ce81ac29ecdc46e9bd923a",
+    "usable": true
    },
    "feedback": [
     {
@@ -1704,6 +1717,7 @@
    "merged_at": "2026-10-27T20:50:16Z",
    "merged_by": "silseva",
    "number": 541,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "3c5d7a1e7afad0332a61256fe996e9cc03614f30",
@@ -1720,7 +1734,8 @@
    "end": {
     "base": "4ee68e3a24fbe96735f94b0aabdbcdb29f663f88",
     "merge_commit": "3c5d7a1e7afad0332a61256fe996e9cc03614f30",
-    "sha": "4bde34d14aa3f1d0daa1a457d4672d382ddeb7d3"
+    "sha": "4bde34d14aa3f1d0daa1a457d4672d382ddeb7d3",
+    "usable": true
    },
    "feedback": [
     {
@@ -2021,6 +2036,7 @@
    "merged_at": "2026-10-22T06:45:54Z",
    "merged_by": "silseva",
    "number": 509,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "97e6d467207eba8498da866f6d2bf2417864e550",
@@ -2037,7 +2053,8 @@
    "end": {
     "base": "cd733c24a80739255237c42fb7c1ec78886c0f2c",
     "merge_commit": "e6801c27280f091df1112bb1a10672a337b95bda",
-    "sha": "ea4b2720510ccc191770dd1075ff633130fe65d2"
+    "sha": "ea4b2720510ccc191770dd1075ff633130fe65d2",
+    "usable": true
    },
    "feedback": [
     {
@@ -2207,6 +2224,7 @@
    "merged_at": "2026-10-20T18:08:06Z",
    "merged_by": "silseva",
    "number": 534,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "d3ae36530c99434e07f6b4f687c92d4f801654ac",
@@ -2223,7 +2241,8 @@
    "end": {
     "base": "2499b27b74388f683cb9059b15d0e80bb0c91859",
     "merge_commit": "22384a69d3b26dfa0f933d051ae08a688f2f1f13",
-    "sha": "6762d8f0de8779e950da51c213dc7fa4971eb091"
+    "sha": "6762d8f0de8779e950da51c213dc7fa4971eb091",
+    "usable": true
    },
    "feedback": [
     {
@@ -2259,6 +2278,7 @@
    "merged_at": "2026-10-14T16:35:32Z",
    "merged_by": "silseva",
    "number": 529,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "834035825bf7f2dc37b264104851785c9f7c607a",
@@ -2275,7 +2295,8 @@
    "end": {
     "base": "834035825bf7f2dc37b264104851785c9f7c607a",
     "merge_commit": "2499b27b74388f683cb9059b15d0e80bb0c91859",
-    "sha": "30d2978886827ce6fc51b2f9cc5ee64d8116ce73"
+    "sha": "30d2978886827ce6fc51b2f9cc5ee64d8116ce73",
+    "usable": true
    },
    "feedback": [
     {
@@ -2381,6 +2402,7 @@
    "merged_at": "2026-10-13T17:25:11Z",
    "merged_by": "silseva",
    "number": 528,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "03bf5f5f2d71e8605c30048131ac002877ff8c70",
@@ -2397,7 +2419,8 @@
    "end": {
     "base": "03bf5f5f2d71e8605c30048131ac002877ff8c70",
     "merge_commit": "834035825bf7f2dc37b264104851785c9f7c607a",
-    "sha": "dcae153a2258ba2ecaf606fe22dfe8665ee1e75a"
+    "sha": "dcae153a2258ba2ecaf606fe22dfe8665ee1e75a",
+    "usable": true
    },
    "feedback": [
     {
@@ -2513,6 +2536,7 @@
    "merged_at": "2026-10-13T06:56:03Z",
    "merged_by": "silseva",
    "number": 527,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "03bf5f5f2d71e8605c30048131ac002877ff8c70",
@@ -2529,7 +2553,8 @@
    "end": {
     "base": "9efa132cc48575a915872e1ab6aefb0f7ceb8c86",
     "merge_commit": "29e790093c7195b30c55296baace13bc4a1d5e85",
-    "sha": "1b3ce5b86c9dac11495754ad7200560e3efdb12c"
+    "sha": "1b3ce5b86c9dac11495754ad7200560e3efdb12c",
+    "usable": true
    },
    "feedback": [
     {
@@ -3757,6 +3782,7 @@
    "merged_at": "2026-10-10T10:37:58Z",
    "merged_by": "silseva",
    "number": 510,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "9efa132cc48575a915872e1ab6aefb0f7ceb8c86",
@@ -3773,7 +3799,8 @@
    "end": {
     "base": "34052ea7119339641ce64429cc3cf2626302a12a",
     "merge_commit": "6706dd1e048bf3f1057020abecced64f99373392",
-    "sha": "c10e2fbafce726165fe8c123ae294cd9644db982"
+    "sha": "c10e2fbafce726165fe8c123ae294cd9644db982",
+    "usable": true
    },
    "feedback": [
     {
@@ -3837,6 +3864,7 @@
    "merged_at": "2026-10-10T10:20:14Z",
    "merged_by": "silseva",
    "number": 525,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "34052ea7119339641ce64429cc3cf2626302a12a",
@@ -3853,7 +3881,8 @@
    "end": {
     "base": "32a98908a484af9933cc78608a581d5ae64924b4",
     "merge_commit": "34052ea7119339641ce64429cc3cf2626302a12a",
-    "sha": "440165750530aebb3e8958b5b9317ab1b796ea14"
+    "sha": "440165750530aebb3e8958b5b9317ab1b796ea14",
+    "usable": true
    },
    "feedback": [
     {
@@ -3955,6 +3984,7 @@
    "merged_at": "2026-10-03T12:52:04Z",
    "merged_by": "silseva",
    "number": 513,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "3746195895d98e2380df0b646d367272458fa322",
@@ -3971,7 +4001,8 @@
    "end": {
     "base": "6ec8f40e788b356b21f4081a41a838747ce56ccf",
     "merge_commit": "39fbd2f90bfe5326416bb9e0846eb1d93563d844",
-    "sha": "a29c576a2967f3c453bf88156a202d93c48f2290"
+    "sha": "a29c576a2967f3c453bf88156a202d93c48f2290",
+    "usable": true
    },
    "feedback": [
     {
@@ -4045,6 +4076,7 @@
    "merged_at": "2026-10-03T12:34:27Z",
    "merged_by": "silseva",
    "number": 522,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "6ec8f40e788b356b21f4081a41a838747ce56ccf",
@@ -4061,7 +4093,8 @@
    "end": {
     "base": "1b93fca8b4acde86945782d8ad6b301c109d1af4",
     "merge_commit": "5b20a23d34fe7b7b7f2876f61984b1ef1389ce87",
-    "sha": "d98a4890b03fcb780bd4de0d67ccd42cf8c5224a"
+    "sha": "d98a4890b03fcb780bd4de0d67ccd42cf8c5224a",
+    "usable": true
    },
    "feedback": [
     {
@@ -4091,6 +4124,7 @@
    "merged_at": "2026-09-24T15:59:51Z",
    "merged_by": "silseva",
    "number": 507,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "9efa132cc48575a915872e1ab6aefb0f7ceb8c86",
@@ -4107,7 +4141,8 @@
    "end": {
     "base": "8b0cb77ffe04528cf8f2004f9ec46d02822a9007",
     "merge_commit": "277fe079d30fa79cddf1b214283cb13ad5fb9271",
-    "sha": "9378f5dc2882766cf3c8d93ca47a60a362548a37"
+    "sha": "9378f5dc2882766cf3c8d93ca47a60a362548a37",
+    "usable": true
    },
    "feedback": [
     {
@@ -4667,6 +4702,7 @@
    "merged_at": "2026-08-15T08:27:13Z",
    "merged_by": "silseva",
    "number": 467,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "8895b268317e516674637812d570176f674a36b8",
@@ -4683,7 +4719,8 @@
    "end": {
     "base": "ea89d8d7e723a92601bbdb0cce89c28eaa30a5fc",
     "merge_commit": "33e5a4684e91d20f3ae3a0ef3cc27eb01ed35f19",
-    "sha": "0cc2021fe0554be68aa703e59fa791a923f1c9f5"
+    "sha": "0cc2021fe0554be68aa703e59fa791a923f1c9f5",
+    "usable": true
    },
    "feedback": [
     {
@@ -5892,6 +5929,7 @@
    "merged_at": "2026-07-27T19:25:15Z",
    "merged_by": "silseva",
    "number": 498,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "ea89d8d7e723a92601bbdb0cce89c28eaa30a5fc",
@@ -5908,7 +5946,8 @@
    "end": {
     "base": "ea89d8d7e723a92601bbdb0cce89c28eaa30a5fc",
     "merge_commit": "ae38397d3197fe1c2c0a60cb1b25c6beaa1ea3d7",
-    "sha": "ffed9f0dda53a54515d6bb1c7f2302cfde9ce4ab"
+    "sha": "ffed9f0dda53a54515d6bb1c7f2302cfde9ce4ab",
+    "usable": true
    },
    "feedback": [
     {
@@ -5960,6 +5999,7 @@
    "merged_at": "2026-07-25T17:28:22Z",
    "merged_by": "silseva",
    "number": 494,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "ea89d8d7e723a92601bbdb0cce89c28eaa30a5fc",
@@ -5976,7 +6016,8 @@
    "end": {
     "base": "10395aaadcc10702451fae91cb78792c530a6795",
     "merge_commit": "7efbdeb0aa5f6c7e03282febaf7ccb2c7c6e9c9d",
-    "sha": "8b71ae589bf66decdffb3f078efe763636799a41"
+    "sha": "8b71ae589bf66decdffb3f078efe763636799a41",
+    "usable": true
    },
    "feedback": [
     {
@@ -6012,6 +6053,7 @@
    "merged_at": "2026-06-25T08:09:35Z",
    "merged_by": "silseva",
    "number": 463,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "7603cd658c6329be256149c1c4538c38fdb8f3c6",
@@ -6028,7 +6070,8 @@
    "end": {
     "base": "2aa91e4c3083b2267fce754dd02a8d1182788ea0",
     "merge_commit": "fc5530f9f171920deed05d8451a471fd40305827",
-    "sha": "1de192dec0f936a7619c6ead8ece1b66fec233e7"
+    "sha": "1de192dec0f936a7619c6ead8ece1b66fec233e7",
+    "usable": true
    },
    "feedback": [
     {
@@ -6888,6 +6931,7 @@
    "merged_at": "2026-06-21T16:44:12Z",
    "merged_by": "silseva",
    "number": 427,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "75bf2fee175443f136c8e63381d5256511fe42ec",
@@ -6904,7 +6948,8 @@
    "end": {
     "base": "75bf2fee175443f136c8e63381d5256511fe42ec",
     "merge_commit": "b6f4a875acf82520e062de3eed3c8e95d3c068af",
-    "sha": "812083aeba85459dbc16c15fd5428f621971c687"
+    "sha": "812083aeba85459dbc16c15fd5428f621971c687",
+    "usable": true
    },
    "feedback": [
     {
@@ -8161,6 +8206,7 @@
    "merged_at": "2026-06-07T12:20:20Z",
    "merged_by": "silseva",
    "number": 396,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "7ffd4e6b12a9d832eaadf317470952442d782687",
@@ -8177,7 +8223,8 @@
    "end": {
     "base": "c28110a5a7aca6616088d8a41eb9d9b503bb0802",
     "merge_commit": "1a5f0609ce0c55283fb6240e96a6752859751931",
-    "sha": "cfe687ce6362fff0788ef2e47887c4b4d92211f9"
+    "sha": "cfe687ce6362fff0788ef2e47887c4b4d92211f9",
+    "usable": true
    },
    "feedback": [
     {
@@ -8199,6 +8246,7 @@
    "merged_at": "2026-05-28T20:10:13Z",
    "merged_by": "silseva",
    "number": 451,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "4a83e8f6f4c095cc0580ed13ec11eba14fa190d8",
@@ -8215,7 +8263,8 @@
    "end": {
     "base": "0a497ff7831f5ec615148af33393f19af91ef0b7",
     "merge_commit": "0bfcde8a10c4ebcc35a9e5bf81a57fee0951a1d4",
-    "sha": "435eca9dfaae2e5080451c20c608b086c937aae7"
+    "sha": "435eca9dfaae2e5080451c20c608b086c937aae7",
+    "usable": true
    },
    "feedback": [
     {
@@ -8468,6 +8517,7 @@
    "merged_at": "2026-05-18T19:47:09Z",
    "merged_by": "silseva",
    "number": 456,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "0bfab1f3621c536b1a9caa0e3505ad28277f9fda",
@@ -8484,7 +8534,8 @@
    "end": {
     "base": "cb91b064315d3f529742a11f66e85a9a35a6d0c1",
     "merge_commit": "8658b985c116cd58d71e82df69e8d3ce4d6feb72",
-    "sha": "fc7471d2adbc12228f1efb06a2f906680a6c5bfe"
+    "sha": "fc7471d2adbc12228f1efb06a2f906680a6c5bfe",
+    "usable": true
    },
    "feedback": [
     {
@@ -8701,6 +8752,7 @@
    "merged_at": "2026-05-18T18:48:16Z",
    "merged_by": "silseva",
    "number": 409,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "e1d1387ef88bf7712e13fc4d15782bedf87ec414",
@@ -8717,7 +8769,8 @@
    "end": {
     "base": "9a7363df8e2c9c9a54b5ba0836a45eccaa7409eb",
     "merge_commit": "ccb98537e40b8ba7a1ddbe9d415e0ee7ebbff737",
-    "sha": "39dcc59f7617ab78afc4d6390b35956d988218ef"
+    "sha": "39dcc59f7617ab78afc4d6390b35956d988218ef",
+    "usable": true
    },
    "feedback": [
     {
@@ -9019,6 +9072,7 @@
    "merged_at": "2026-04-23T18:58:17Z",
    "merged_by": "silseva",
    "number": 410,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "7c81f001738ddd1f1e344cbfcfdd94baf1e795bc",
@@ -9035,7 +9089,8 @@
    "end": {
     "base": "e44fd28ae23cc6f81e3232026a1f8c711ed7e28d",
     "merge_commit": "22848017a40260b6086f2bbb4ff2e8bc18306a05",
-    "sha": "7cae4b097b8330f907812506eda1d5b6d7f95001"
+    "sha": "7cae4b097b8330f907812506eda1d5b6d7f95001",
+    "usable": true
    },
    "feedback": [
     {
@@ -9183,6 +9238,7 @@
    "merged_at": "2026-04-22T17:05:10Z",
    "merged_by": "silseva",
    "number": 450,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "e44fd28ae23cc6f81e3232026a1f8c711ed7e28d",
@@ -9199,7 +9255,8 @@
    "end": {
     "base": "4a83e8f6f4c095cc0580ed13ec11eba14fa190d8",
     "merge_commit": "496ced1861e6339da5f5b3ec9bd2983117983769",
-    "sha": "ba2bf8225445305e8f852fff8441f7f75c726132"
+    "sha": "ba2bf8225445305e8f852fff8441f7f75c726132",
+    "usable": true
    },
    "feedback": [
     {
@@ -9291,6 +9348,7 @@
    "merged_at": "2026-04-22T16:56:21Z",
    "merged_by": "silseva",
    "number": 452,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "4a83e8f6f4c095cc0580ed13ec11eba14fa190d8",
@@ -9307,7 +9365,8 @@
    "end": {
     "base": "088d906cb5f10370ac451a7aac95366ae95220a1",
     "merge_commit": "e361fd84035c0d3d06c85ca3cafa39ce0d440036",
-    "sha": "84524ca949a72711ce74201a3e9f2118ce549f29"
+    "sha": "84524ca949a72711ce74201a3e9f2118ce549f29",
+    "usable": true
    },
    "feedback": [
     {
@@ -9561,6 +9620,7 @@
    "merged_at": "2026-04-18T18:44:15Z",
    "merged_by": "silseva",
    "number": 442,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "088d906cb5f10370ac451a7aac95366ae95220a1",
@@ -9577,7 +9637,8 @@
    "end": {
     "base": "e78597632db6027dc9ab148759a8a0df842dfa3e",
     "merge_commit": "3511cf33e2ef9fef596fbd700e638c0b1e46fb1f",
-    "sha": "d4146132be54fde6040726d5474303c7d90c0409"
+    "sha": "d4146132be54fde6040726d5474303c7d90c0409",
+    "usable": true
    },
    "feedback": [
     {
@@ -9671,6 +9732,7 @@
    "merged_at": "2026-04-08T15:39:59Z",
    "merged_by": "silseva",
    "number": 426,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "3139f71e26cf0c00ad31973024aac2a63b0df970",
@@ -9687,7 +9749,8 @@
    "end": {
     "base": "75bf2fee175443f136c8e63381d5256511fe42ec",
     "merge_commit": "66c5c58b7e945907c1c7dc4142bdac296ec90993",
-    "sha": "035ffdb472c429980e3149fab1d9e473825fc2e5"
+    "sha": "035ffdb472c429980e3149fab1d9e473825fc2e5",
+    "usable": true
    },
    "feedback": [
     {
@@ -9779,6 +9842,7 @@
    "merged_at": "2026-04-07T06:22:26Z",
    "merged_by": "silseva",
    "number": 434,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "75bf2fee175443f136c8e63381d5256511fe42ec",
@@ -9795,7 +9859,8 @@
    "end": {
     "base": "75bf2fee175443f136c8e63381d5256511fe42ec",
     "merge_commit": "f76a45987d7fcf20575401792837a8c1fdfa8523",
-    "sha": "26e7a31554a8300fcd2629642e74ea65e086334d"
+    "sha": "26e7a31554a8300fcd2629642e74ea65e086334d",
+    "usable": true
    },
    "feedback": [
     {
@@ -9919,6 +9984,7 @@
    "merged_at": "2026-04-06T06:47:06Z",
    "merged_by": "silseva",
    "number": 429,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "75bf2fee175443f136c8e63381d5256511fe42ec",
@@ -9935,7 +10001,8 @@
    "end": {
     "base": "a00655383787ab944438964d679fa4ce2ea252cd",
     "merge_commit": "819f9715c06b94d63074e00c38c55ad6399656dc",
-    "sha": "1f5da65ef5915ef6f32abca5f6a91ee49d7768c1"
+    "sha": "1f5da65ef5915ef6f32abca5f6a91ee49d7768c1",
+    "usable": true
    },
    "feedback": [
     {
@@ -10177,6 +10244,7 @@
    "merged_at": "2026-03-22T17:43:37Z",
    "merged_by": "silseva",
    "number": 417,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "7c81f001738ddd1f1e344cbfcfdd94baf1e795bc",
@@ -10193,7 +10261,8 @@
    "end": {
     "base": "e1d1387ef88bf7712e13fc4d15782bedf87ec414",
     "merge_commit": "5c688ce9a78e06c39c37cb4cc0eeeb4b4326c54f",
-    "sha": "189044d912eeaa96575709391e68da1af6a23a89"
+    "sha": "189044d912eeaa96575709391e68da1af6a23a89",
+    "usable": true
    },
    "feedback": [
     {
@@ -10460,6 +10529,7 @@
    "merged_at": "2026-03-18T19:43:46Z",
    "merged_by": "silseva",
    "number": 403,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "49e8df9c0da7f9bbe5b8e4783854309691fe727d",
@@ -10476,7 +10546,8 @@
    "end": {
     "base": "b262fd5fe1e1959c53f24d39cc08b8b8b9920941",
     "merge_commit": "3e3f2c25c5f77b0f3d84e49bc37e185fa545c708",
-    "sha": "415405068d4a746b7159ff528d716efc8ca413c7"
+    "sha": "415405068d4a746b7159ff528d716efc8ca413c7",
+    "usable": true
    },
    "feedback": [
     {
@@ -11284,6 +11355,7 @@
    "merged_at": "2026-03-13T17:45:52Z",
    "merged_by": "silseva",
    "number": 390,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "1c6725fa5e6e61fdfe56aaa573c76f5401a74a25",
@@ -11300,7 +11372,8 @@
    "end": {
     "base": "1c6725fa5e6e61fdfe56aaa573c76f5401a74a25",
     "merge_commit": "17b240d687c5bfb9dd80617f75fe4d9946b50c90",
-    "sha": "6c2e1b1b30bcd3550286d7b87ca1edc376e5f695"
+    "sha": "6c2e1b1b30bcd3550286d7b87ca1edc376e5f695",
+    "usable": true
    },
    "feedback": [
     {
@@ -11366,6 +11439,7 @@
    "merged_at": "2026-03-06T15:59:17Z",
    "merged_by": "silseva",
    "number": 414,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "1c6725fa5e6e61fdfe56aaa573c76f5401a74a25",
@@ -11382,7 +11456,8 @@
    "end": {
     "base": "bac77956d280316a23077144948f00ecc7ac9543",
     "merge_commit": "db6df6cf5958783f54db602ee0bb9e7fc1c24b94",
-    "sha": "4d665c9016461213ddb553b6cc2bd1cb9bc49f0e"
+    "sha": "4d665c9016461213ddb553b6cc2bd1cb9bc49f0e",
+    "usable": true
    },
    "feedback": [
     {
@@ -11474,6 +11549,7 @@
    "merged_at": "2026-03-04T12:45:31Z",
    "merged_by": "silseva",
    "number": 411,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "bac77956d280316a23077144948f00ecc7ac9543",
@@ -11490,7 +11566,8 @@
    "end": {
     "base": "bac77956d280316a23077144948f00ecc7ac9543",
     "merge_commit": "d27cc927b924c6e802d75f27174de090fb48c558",
-    "sha": "5971f0985bc7257812eca1f32e7143661c075f50"
+    "sha": "5971f0985bc7257812eca1f32e7143661c075f50",
+    "usable": true
    },
    "feedback": [
     {
@@ -11576,6 +11653,7 @@
    "merged_at": "2026-03-04T07:10:40Z",
    "merged_by": "silseva",
    "number": 398,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "bac77956d280316a23077144948f00ecc7ac9543",
@@ -11592,7 +11670,8 @@
    "end": {
     "base": "bac77956d280316a23077144948f00ecc7ac9543",
     "merge_commit": "31deb46cf9d39e6ab2696e0f12ae0909393f57eb",
-    "sha": "7977dfc01cbec3e6b634ebbcaf396b2c64dbd4dd"
+    "sha": "7977dfc01cbec3e6b634ebbcaf396b2c64dbd4dd",
+    "usable": true
    },
    "feedback": [
     {
@@ -12082,6 +12161,7 @@
    "merged_at": "2026-03-03T19:04:59Z",
    "merged_by": "silseva",
    "number": 335,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "485dedc8f305c9b86b359b8adba7d4705d74ff27",
@@ -12098,7 +12178,8 @@
    "end": {
     "base": "6b255e56a10523097005157427c6b49353ced45f",
     "merge_commit": "9bd48419deda8239948feb52e8426be25e361c25",
-    "sha": "a2283885fcd8a726b03389b6aee92de4e34357ae"
+    "sha": "a2283885fcd8a726b03389b6aee92de4e34357ae",
+    "usable": true
    },
    "feedback": [
     {
@@ -12162,6 +12243,7 @@
    "merged_at": "2026-02-19T20:01:29Z",
    "merged_by": "silseva",
    "number": 324,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "76b8d191b0f59d6049f7500e29a91780a2e1676b",
@@ -12178,7 +12260,8 @@
    "end": {
     "base": "1c6725fa5e6e61fdfe56aaa573c76f5401a74a25",
     "merge_commit": "e3caad0291e23819ba87971f2c7df8fa38198442",
-    "sha": "11d6bb4425f6d17b0ee17462bd8e95b23bd05608"
+    "sha": "11d6bb4425f6d17b0ee17462bd8e95b23bd05608",
+    "usable": true
    },
    "feedback": [
     {
@@ -12228,6 +12311,7 @@
    "merged_at": "2026-02-14T14:03:41Z",
    "merged_by": "silseva",
    "number": 399,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "1c6725fa5e6e61fdfe56aaa573c76f5401a74a25",
@@ -12244,7 +12328,8 @@
    "end": {
     "base": "7ffd4e6b12a9d832eaadf317470952442d782687",
     "merge_commit": "e5fa6febe7a4faf399f21b5d89d7397e9b641b53",
-    "sha": "6fa4f39b7afa6b52b9caf547619fba1ebb947e36"
+    "sha": "6fa4f39b7afa6b52b9caf547619fba1ebb947e36",
+    "usable": true
    },
    "feedback": [
     {
@@ -12322,6 +12407,7 @@
    "merged_at": "2026-01-13T19:52:39Z",
    "merged_by": "silseva",
    "number": 371,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "6b255e56a10523097005157427c6b49353ced45f",
@@ -12338,7 +12424,8 @@
    "end": {
     "base": "6b255e56a10523097005157427c6b49353ced45f",
     "merge_commit": "923dc1956bd6590dc33c8a4e3de92bfe7b9eee1e",
-    "sha": "1a4273d2db20f458f1d4e4c7283616f5248e3cab"
+    "sha": "1a4273d2db20f458f1d4e4c7283616f5248e3cab",
+    "usable": true
    },
    "feedback": [
     {
@@ -12536,6 +12623,7 @@
    "merged_at": "2025-11-05T19:29:01Z",
    "merged_by": "silseva",
    "number": 363,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "6b255e56a10523097005157427c6b49353ced45f",
@@ -12552,7 +12640,8 @@
    "end": {
     "base": "c596fd8007669c2fb785b619fe183e4be72dd9f5",
     "merge_commit": "35ade1ae9d9d96af3d134b43905a3f1ca3192a4d",
-    "sha": "08d1977234b73c0c97be187c76f89c05346fe636"
+    "sha": "08d1977234b73c0c97be187c76f89c05346fe636",
+    "usable": true
    },
    "feedback": [
     {
@@ -12638,6 +12727,7 @@
    "merged_at": "2025-11-02T19:14:57Z",
    "merged_by": "silseva",
    "number": 389,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "c596fd8007669c2fb785b619fe183e4be72dd9f5",
@@ -12654,7 +12744,8 @@
    "end": {
     "base": "6b255e56a10523097005157427c6b49353ced45f",
     "merge_commit": "34ddee04965cf704763978facc8c019dc84c8b5c",
-    "sha": "c8420eeb2e087fbb417405ad4ebc4da7cc7ecee0"
+    "sha": "c8420eeb2e087fbb417405ad4ebc4da7cc7ecee0",
+    "usable": true
    },
    "feedback": [
     {
@@ -13286,6 +13377,7 @@
    "merged_at": "2025-10-16T20:04:27Z",
    "merged_by": "silseva",
    "number": 360,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "a30dae357d1c7ed0203e699015fe2e844645f442",
@@ -13302,7 +13394,8 @@
    "end": {
     "base": "4b9f75fe81092947eaef586d304cf10662cbb6ff",
     "merge_commit": "7fdfb0b4e7e6e4e537291e9cdc2511f9a08b0b7d",
-    "sha": "b2be445ed900ca9eb06cbed0d314712d4c8621a1"
+    "sha": "b2be445ed900ca9eb06cbed0d314712d4c8621a1",
+    "usable": true
    },
    "feedback": [
     {
@@ -13338,6 +13431,7 @@
    "merged_at": "2025-09-28T15:55:58Z",
    "merged_by": "silseva",
    "number": 362,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "4b9f75fe81092947eaef586d304cf10662cbb6ff",
@@ -13354,7 +13448,8 @@
    "end": {
     "base": "3add35275c548368b532d77f5e72a54f5d801f3c",
     "merge_commit": "010996064ba75940e71544d849c206efeca918d9",
-    "sha": "990a39ee4e31aef3d5ecff928330b3cc6a9ce651"
+    "sha": "990a39ee4e31aef3d5ecff928330b3cc6a9ce651",
+    "usable": true
    },
    "feedback": [
     {
@@ -13445,6 +13540,7 @@
    "merged_at": "2025-09-22T17:53:42Z",
    "merged_by": "silseva",
    "number": 353,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "3add35275c548368b532d77f5e72a54f5d801f3c",
@@ -13461,7 +13557,8 @@
    "end": {
     "base": "485dedc8f305c9b86b359b8adba7d4705d74ff27",
     "merge_commit": "f1ae1eb7880e7e4a38199bb93c22fbb370a46a02",
-    "sha": "8e620f26706c2e927b9e7b470ad5c99dab9604f4"
+    "sha": "8e620f26706c2e927b9e7b470ad5c99dab9604f4",
+    "usable": true
    },
    "feedback": [
     {
@@ -13581,6 +13678,7 @@
    "merged_at": "2025-09-18T16:47:36Z",
    "merged_by": "silseva",
    "number": 339,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "485dedc8f305c9b86b359b8adba7d4705d74ff27",
@@ -13597,7 +13695,8 @@
    "end": {
     "base": "74e89450b735dd021aba526e6d72e68cae072c02",
     "merge_commit": "d8f16d694535693a83fe91bc6f041380f42e4cd5",
-    "sha": "b370e5f2eb0daaf690f74f2bd986b174f8f1e17e"
+    "sha": "b370e5f2eb0daaf690f74f2bd986b174f8f1e17e",
+    "usable": true
    },
    "feedback": [
     {
@@ -13619,6 +13718,7 @@
    "merged_at": "2025-09-12T14:57:52Z",
    "merged_by": "silseva",
    "number": 336,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "485dedc8f305c9b86b359b8adba7d4705d74ff27",
@@ -13628,527 +13728,6 @@
    "url": "https://github.com/OpenRTX/OpenRTX/pull/336"
   },
   {
-   "author": "turnrye",
-   "base_ref": "clang-format",
-   "created_at": "2023-08-16T12:24:52Z",
-   "cutoff": "2023-08-16T13:34:29Z",
-   "end": {
-    "base": "485dedc8f305c9b86b359b8adba7d4705d74ff27",
-    "merge_commit": "0abc1df401efbd5a1cc62d4d19ba7df24d4760e6",
-    "sha": "8404d313aa591a516268c69dad1e36256b2798c4"
-   },
-   "feedback": [
-    {
-     "after_merge": false,
-     "anchor": "reconstructed",
-     "at": "2023-08-16T13:34:29Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Hi!\r\nThanks for the PR! About the current clang-format configuration: I started working on a version more adherent to the code stile of the OpenRTX codebase but, due to lack of time, I never manage to complete it (also because fine-tuning everything is a long process). I have to search where I left the modified file and attach it here.\r\n\r\nBtw, something I tried to configure is to avoid the linter aggressively reorder the whitespaces in the struct definitions. For example [this file](https://github.com/OpenRTX/OpenRTX/blob/master/openrtx/include/calibration/calibInfo_GDx.h) became [this](https://github.com/OpenRTX/OpenRTX/blob/75b2ae8845d87ede6ebc9a0a27244cc1925a09a2/openrtx/include/calibration/calibInfo_GDx.h) after a lint pass, something I consider a regression in the code style. If you know a wayt to tell clang-format to not bother with these alignment, please let me know.",
-     "commit": "75b2ae8845d87ede6ebc9a0a27244cc1925a09a2",
-     "id": 1680617665,
-     "kind": "conversation",
-     "outcome": null,
-     "prior": false,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "reconstructed",
-     "at": "2023-08-16T16:51:24Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Here you are the clang-format file I began to tweak. As you'll see, I set the `PenaltyBreakComment` to an insanely high value to prevent the lint to break a line when the comment overflows the 80 line limit by some characters. Rationale for this is:\r\n1) comments are... comments, I don't consider it crucial to have them fall within the 80 column limit;\r\n2) there are places where the lint pass makes the code worse than before because it breaks the line in an insane place, like [here](https://github.com/OpenRTX/OpenRTX/blob/75b2ae8845d87ede6ebc9a0a27244cc1925a09a2/openrtx/include/calibration/calibInfo_GDx.h#L84) (before it was [this](https://github.com/OpenRTX/OpenRTX/blob/e689e2f7ae53f15c2828bc5edeb8ed801ddd8050/openrtx/include/calibration/calibInfo_GDx.h#L84)).\r\n \r\nThanks for the work done so far!\r\n[clang-format.txt](https://github.com/OpenRTX/OpenRTX/files/12361711/clang-format.txt)\r\n",
-     "commit": "5e9ae70584bcd5fcf51df4c87843634d17197542",
-     "id": 1680951171,
-     "kind": "conversation",
-     "outcome": null,
-     "prior": false,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2023-08-17T08:21:07Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Is there a way to avoid having the lint doing this? Ok that the line goes above the 80 column limit, but breaking it like this make it unreadable. Probably the only way to fix this behavior is to split the comment (but geez).",
-     "commit": "f5f14d0a2e1f4df41d86e104e994cd9f8f3e3d50",
-     "diff_hunk": "@@ -76,16 +76,16 @@ typedef struct\n     uint16_t mixGainNarrowband;        // 0x06A\n     uint8_t rxDacGain;                 // 0x06C\n     uint8_t rxVoiceGain;               // 0x06D\n-}\n-bandCalData_t;\n+} bandCalData_t;\n \n typedef struct\n {\n-    bandCalData_t data[2];      // Calibration data for VHF (index 0) and UHF (index 1) bands\n-    freq_t vhfCalPoints[8];     // VHF calibration points for both TX power and mod1Amplitude\n+    bandCalData_t\n+        data[2]; // Calibration data for VHF (index 0) and UHF (index 1) bands",
-     "id": 1296852456,
-     "in_reply_to": null,
-     "kind": "inline",
-     "line": 82,
-     "outcome": "changed",
-     "path": "openrtx/include/calibration/calibInfo_GDx.h",
-     "prior": false,
-     "replies": [],
-     "review_id": 1582053651,
-     "side": "RIGHT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2023-08-17T08:22:37Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "We should prevent the lint from doing this",
-     "commit": "f5f14d0a2e1f4df41d86e104e994cd9f8f3e3d50",
-     "diff_hunk": "@@ -32,11 +32,8 @@ typedef struct\n {\n     uint16_t tx_wiper;\n     uint16_t rx_wiper;\n-    uint8_t  mic_gain;\n-    uint8_t  tx_invert : 1,\n-             rx_invert : 1,\n-             _padding  : 6;\n-}\n-mod17Calib_t;\n+    uint8_t mic_gain;\n+    uint8_t tx_invert : 1, rx_invert : 1, _padding : 6;",
-     "id": 1296854195,
-     "in_reply_to": null,
-     "kind": "inline",
-     "line": 36,
-     "outcome": "changed",
-     "path": "openrtx/include/calibration/calibInfo_Mod17.h",
-     "prior": false,
-     "replies": [
-      {
-       "at": "2023-08-17T12:59:15Z",
-       "author": "turnrye",
-       "body": "Right now this is happening because there are no comments after the field definition. The other cases where the newlines are maintained are there because of the comments. I'm unclear on whether we can force these to new lines without comments (or disabling clang-format for the block).\r\n\r\nWill investigate feasibility here more later."
-      }
-     ],
-     "review_id": 1582056275,
-     "side": "RIGHT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2023-08-17T08:24:37Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "All the fields should stay aligned, like it was before. This makes them more readable",
-     "commit": "f5f14d0a2e1f4df41d86e104e994cd9f8f3e3d50",
-     "diff_hunk": "@@ -45,27 +44,23 @@\n  * present in the codeplug binary data.\n  */\n #define MAX_TONE_INDEX 50\n-static const uint16_t ctcss_tone[MAX_TONE_INDEX] =\n-{\n-    670, 693, 719, 744, 770, 797, 825, 854, 885, 915, 948, 974, 1000, 1034,\n-    1072, 1109, 1148, 1188, 1230, 1273, 1318, 1365, 1413, 1462, 1514, 1567,\n-    1598, 1622, 1655, 1679, 1713, 1738, 1773, 1799, 1835, 1862, 1899, 1928,\n-    1966, 1995, 2035, 2065, 2107, 2181, 2257, 2291, 2336, 2418, 2503, 2541\n-};\n+static const uint16_t ctcss_tone[MAX_TONE_INDEX] = {\n+    670,  693,  719,  744,  770,  797,  825,  854,  885,  915,\n+    948,  974,  1000, 1034, 1072, 1109, 1148, 1188, 1230, 1273,\n+    1318, 1365, 1413, 1462, 1514, 1567, 1598, 1622, 1655, 1679,\n+    1713, 1738, 1773, 1799, 1835, 1862, 1899, 1928, 1966, 1995,\n+    2035, 2065, 2107, 2181, 2257, 2291, 2336, 2418, 2503, 2541};\n \n /**\n  * Data structure defining an analog-specific channel information such as tones.\n  */\n typedef struct\n {\n-    uint8_t rxToneEn : 1,   //< RX CTC/DCS tone enable\n-            rxTone   : 7;   //< RX CTC/DCS tone index\n-    uint8_t txToneEn : 1,   //< TX CTC/DCS tone enable\n-            txTone   : 7;   //< TX CTC/DCS tone index\n-}\n-__attribute__((packed)) fmInfo_t; // 2B\n-\n-\n+    uint8_t rxToneEn : 1,           //< RX CTC/DCS tone enable\n+        rxTone       : 7;           //< RX CTC/DCS tone index",
-     "id": 1296856571,
-     "in_reply_to": null,
-     "kind": "inline",
-     "line": 60,
-     "outcome": "changed",
-     "path": "openrtx/include/core/cps.h",
-     "prior": false,
-     "replies": [
-      {
-       "at": "2023-08-17T12:09:07Z",
-       "author": "turnrye",
-       "body": "Help me understand what I'm looking at here, is this called a \"multiple adjacent bit field\"?"
-      },
-      {
-       "at": "2023-08-17T14:44:37Z",
-       "author": "turnrye",
-       "body": "Haven't cracked how to do this yet."
-      }
-     ],
-     "review_id": 1582059863,
-     "side": "RIGHT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2023-08-17T09:42:18Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Probably is better to avoid having the pile of arguments, when they are more than three the linted version becomes a bit more messy than the original one",
-     "commit": "f5f14d0a2e1f4df41d86e104e994cd9f8f3e3d50",
-     "diff_hunk": "@@ -223,8 +221,11 @@ uint8_t gfx_getFontHeight(fontSize_t size);\n  * @param buf: char buffer\n  * @return text width and height as point_t coordinates\n  */\n-point_t gfx_printBuffer(point_t start, fontSize_t size, textAlign_t alignment,\n-                        color_t color, const char *buf);\n+point_t gfx_printBuffer(point_t start,",
-     "id": 1296950807,
-     "in_reply_to": null,
-     "kind": "inline",
-     "line": 224,
-     "outcome": "changed",
-     "path": "openrtx/include/core/graphics.h",
-     "prior": false,
-     "replies": [],
-     "review_id": 1582204052,
-     "side": "RIGHT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2023-08-17T09:43:17Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Is it possible to leave the `private`, `public` and `protected` fields with indentation zero (as they where before)?",
-     "commit": "f5f14d0a2e1f4df41d86e104e994cd9f8f3e3d50",
-     "diff_hunk": "@@ -26,17 +26,17 @@\n #endif\n \n #include <pthread.h>\n+\n #include <cstdint>\n \n /**\n  * Class implementing a statically allocated circular buffer with blocking and\n  * non-blocking push and pop functions.\n  */\n-template < typename T, size_t N >\n+template <typename T, size_t N>\n class RingBuffer\n {\n-public:",
-     "id": 1296952650,
-     "in_reply_to": null,
-     "kind": "inline",
-     "line": 38,
-     "outcome": null,
-     "path": "openrtx/include/core/ringbuf.hpp",
-     "prior": false,
-     "replies": [],
-     "review_id": 1582207391,
-     "side": "LEFT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2023-08-17T09:47:10Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Is it possible to tell the lint to do the opposite of what is doing here? Instead of chewing up the extra spaces, I think is better, for readability, to have all the field names aligned.",
-     "commit": "f5f14d0a2e1f4df41d86e104e994cd9f8f3e3d50",
-     "diff_hunk": "@@ -28,33 +28,31 @@\n  */\n typedef struct\n {\n-    uint8_t  id;          // ID of the satellite\n-    uint8_t  elevation;   // Elevation in degrees\n-    uint16_t azimuth;     // Azimuth in degrees\n-    uint8_t  snr;         // Quality of the signal in range 0-99\n-}\n-gpssat_t;\n+    uint8_t id;        // ID of the satellite\n+    uint8_t elevation; // Elevation in degrees\n+    uint16_t azimuth;  // Azimuth in degrees\n+    uint8_t snr;       // Quality of the signal in range 0-99\n+} gpssat_t;\n \n /**\n  * Data structure representing the last state received from the GPS module.\n  */\n typedef struct\n {\n-    datetime_t timestamp;            // Timestamp of the latest GPS update\n-    uint8_t    fix_quality;          // 0: no fix, 1: GPS, 2: GPS SPS, 3: GPS PPS\n-    uint8_t    fix_type;             // 0: no fix, 1: 2D,  2: 3D\n-    uint8_t    satellites_tracked;   // Number of tracked satellites\n-    uint8_t    satellites_in_view;   // Satellites in view\n-    gpssat_t   satellites[12];       // Details about satellites in view\n-    uint32_t   active_sats;          // Bitmap representing which sats are part of the fix\n-    float      latitude;             // Latitude coordinates\n-    float      longitude;            // Longitude coordinates\n-    float      altitude;             // Antenna altitude above mean sea level (geoid) in m\n-    float      speed;                // Ground speed in km/h\n-    float      tmg_mag;              // Course over ground, degrees, magnetic\n-    float      tmg_true;             // Course over ground, degrees, true\n-}\n-gps_t;\n+    datetime_t timestamp;       // Timestamp of the latest GPS update",
-     "id": 1296970943,
-     "in_reply_to": null,
-     "kind": "inline",
-     "line": 42,
-     "outcome": "changed",
-     "path": "openrtx/include/core/gps.h",
-     "prior": false,
-     "replies": [],
-     "review_id": 1582233550,
-     "side": "RIGHT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2023-08-17T09:48:18Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Just another example: removing the extra spaces broke the alignment of the fields, making the code less clear",
-     "commit": "f5f14d0a2e1f4df41d86e104e994cd9f8f3e3d50",
-     "diff_hunk": "@@ -35,32 +35,31 @@\n  */\n typedef struct\n {",
-     "id": 1296977449,
-     "in_reply_to": null,
-     "kind": "inline",
-     "line": 37,
-     "outcome": "changed",
-     "path": "openrtx/include/core/state.h",
-     "prior": false,
-     "replies": [],
-     "review_id": 1582241091,
-     "side": "RIGHT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2023-08-17T09:49:27Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Urgh! Also here: please, lint, leave the alignment as it was :)",
-     "commit": "f5f14d0a2e1f4df41d86e104e994cd9f8f3e3d50",
-     "diff_hunk": "@@ -198,23 +198,21 @@ typedef enum\n     vpAnnounceLessCommonSymbols         = 0x10,\n     vpAnnounceASCIIValueForUnknownChars = 0x20,\n     vpAnnouncePhoneticRendering         = 0x40,\n-}\n-vpFlags_t;\n+} vpFlags_t;\n \n /**\n  * Queuing flags determining if speech is interrupted, played immediately,\n  * whether prompts are queued for values, etc.\n  */\n typedef enum\n {",
-     "id": 1296982250,
-     "in_reply_to": null,
-     "kind": "inline",
-     "line": 209,
-     "outcome": "changed",
-     "path": "openrtx/include/core/voicePrompts.h",
-     "prior": false,
-     "replies": [],
-     "review_id": 1582247122,
-     "side": "RIGHT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2023-08-17T09:50:34Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Here the lint went crazy!",
-     "commit": "f5f14d0a2e1f4df41d86e104e994cd9f8f3e3d50",
-     "diff_hunk": "@@ -36,22 +37,73 @@ namespace M17\n /**\n  * Puncture matrix for linx setup frame.\n  */\n-static constexpr auto LSF_PUNCTURE = std::experimental::make_array< uint8_t >",
-     "id": 1296983604,
-     "in_reply_to": null,
-     "kind": "inline",
-     "line": 39,
-     "outcome": null,
-     "path": "openrtx/include/protocols/M17/M17CodePuncturing.hpp",
-     "prior": false,
-     "replies": [
-      {
-       "at": "2023-08-17T13:19:57Z",
-       "author": "turnrye",
-       "body": "Haha, going to have to use a `//clang-format off` here."
-      }
-     ],
-     "review_id": 1582249175,
-     "side": "LEFT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2023-08-17T09:51:42Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Why did the lint break this? Again for the 80 column overflow? ",
-     "commit": "f5f14d0a2e1f4df41d86e104e994cd9f8f3e3d50",
-     "diff_hunk": "@@ -37,12 +37,15 @@ static constexpr size_t M17_FRAME_SYMBOLS    = 192;\n static constexpr size_t M17_SYNCWORD_SYMBOLS = 8;\n static constexpr size_t M17_FRAME_BYTES      = M17_FRAME_SYMBOLS / 4;\n \n-static constexpr syncw_t LSF_SYNC_WORD    = {0x55, 0xF7};  // LSF sync word\n-static constexpr syncw_t BERT_SYNC_WORD   = {0xDF, 0x55};  // BERT data sync word\n-static constexpr syncw_t STREAM_SYNC_WORD = {0xFF, 0x5D};  // Stream data sync word\n-static constexpr syncw_t PACKET_SYNC_WORD = {0x75, 0xFF};  // Packet data sync word\n-static constexpr syncw_t EOT_SYNC_WORD    = {0x55, 0x5D};  // End of transmission sync word\n+static constexpr syncw_t LSF_SYNC_WORD    = {0x55, 0xF7}; // LSF sync word\n+static constexpr syncw_t BERT_SYNC_WORD   = {0xDF, 0x55}; // BERT data sync word\n+static constexpr syncw_t STREAM_SYNC_WORD = {0xFF,",
-     "id": 1296984803,
-     "in_reply_to": null,
-     "kind": "inline",
-     "line": 42,
-     "outcome": "changed",
-     "path": "openrtx/include/protocols/M17/M17Constants.hpp",
-     "prior": false,
-     "replies": [
-      {
-       "at": "2023-08-17T13:20:45Z",
-       "author": "turnrye",
-       "body": "Yes, but we can force the comment to wrap instead."
-      }
-     ],
-     "review_id": 1582251053,
-     "side": "RIGHT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2023-08-17T09:52:43Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Ok that we overflowed the 80 columns, but it was more readable... Probably we have to add lint exceptions here and there",
-     "commit": "f5f14d0a2e1f4df41d86e104e994cd9f8f3e3d50",
-     "diff_hunk": "@@ -115,54 +114,61 @@ class M17Demodulator\n      */\n     void invertPhase(const bool status);\n \n-private:\n-\n+   private:\n     /**\n      * M17 baseband signal sampled at 24kHz, half of an M17 frame is processed\n      * at each update of the demodulator.\n      */\n-    static constexpr size_t M17_RX_SAMPLE_RATE     = 24000;\n-\n-\n-    static constexpr size_t  M17_SAMPLES_PER_SYMBOL = M17_RX_SAMPLE_RATE / M17_SYMBOL_RATE;\n-    static constexpr size_t  M17_FRAME_SAMPLES      = M17_FRAME_SYMBOLS * M17_SAMPLES_PER_SYMBOL;\n-    static constexpr size_t  M17_SAMPLE_BUF_SIZE    = M17_FRAME_SAMPLES / 2;\n-    static constexpr size_t  M17_SYNCWORD_SAMPLES   = M17_SAMPLES_PER_SYMBOL * M17_SYNCWORD_SYMBOLS;\n-    static constexpr int8_t  SYNC_SWEEP_WIDTH       = 10;\n-    static constexpr int8_t  SYNC_SWEEP_OFFSET      = ceil(SYNC_SWEEP_WIDTH / M17_SAMPLES_PER_SYMBOL);\n-    static constexpr int16_t M17_BRIDGE_SIZE        = M17_SYNCWORD_SAMPLES + 2 * SYNC_SWEEP_WIDTH;\n-\n-    static constexpr float  CONV_STATS_ALPHA       = 0.005f;\n-    static constexpr float  CONV_THRESHOLD_FACTOR  = 3.40;\n-    static constexpr int16_t QNT_SMA_WINDOW        = 8;\n+    static constexpr size_t M17_RX_SAMPLE_RATE = 24000;",
-     "id": 1296985920,
-     "in_reply_to": null,
-     "kind": "inline",
-     "line": 124,
-     "outcome": "changed",
-     "path": "openrtx/include/protocols/M17/M17Demodulator.hpp",
-     "prior": false,
-     "replies": [],
-     "review_id": 1582252722,
-     "side": "RIGHT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2023-08-17T09:53:22Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Also here we have a readability regression",
-     "commit": "f5f14d0a2e1f4df41d86e104e994cd9f8f3e3d50",
-     "diff_hunk": "@@ -115,54 +114,61 @@ class M17Demodulator\n      */\n     void invertPhase(const bool status);\n \n-private:\n-\n+   private:\n     /**\n      * M17 baseband signal sampled at 24kHz, half of an M17 frame is processed\n      * at each update of the demodulator.\n      */\n-    static constexpr size_t M17_RX_SAMPLE_RATE     = 24000;\n-\n-\n-    static constexpr size_t  M17_SAMPLES_PER_SYMBOL = M17_RX_SAMPLE_RATE / M17_SYMBOL_RATE;\n-    static constexpr size_t  M17_FRAME_SAMPLES      = M17_FRAME_SYMBOLS * M17_SAMPLES_PER_SYMBOL;\n-    static constexpr size_t  M17_SAMPLE_BUF_SIZE    = M17_FRAME_SAMPLES / 2;\n-    static constexpr size_t  M17_SYNCWORD_SAMPLES   = M17_SAMPLES_PER_SYMBOL * M17_SYNCWORD_SYMBOLS;\n-    static constexpr int8_t  SYNC_SWEEP_WIDTH       = 10;\n-    static constexpr int8_t  SYNC_SWEEP_OFFSET      = ceil(SYNC_SWEEP_WIDTH / M17_SAMPLES_PER_SYMBOL);\n-    static constexpr int16_t M17_BRIDGE_SIZE        = M17_SYNCWORD_SAMPLES + 2 * SYNC_SWEEP_WIDTH;\n-\n-    static constexpr float  CONV_STATS_ALPHA       = 0.005f;\n-    static constexpr float  CONV_THRESHOLD_FACTOR  = 3.40;\n-    static constexpr int16_t QNT_SMA_WINDOW        = 8;\n+    static constexpr size_t M17_RX_SAMPLE_RATE = 24000;\n+\n+    static constexpr size_t M17_SAMPLES_PER_SYMBOL =\n+        M17_RX_SAMPLE_RATE / M17_SYMBOL_RATE;\n+    static constexpr size_t M17_FRAME_SAMPLES =\n+        M17_FRAME_SYMBOLS * M17_SAMPLES_PER_SYMBOL;\n+    static constexpr size_t M17_SAMPLE_BUF_SIZE = M17_FRAME_SAMPLES / 2;\n+    static constexpr size_t M17_SYNCWORD_SAMPLES =\n+        M17_SAMPLES_PER_SYMBOL * M17_SYNCWORD_SYMBOLS;\n+    static constexpr int8_t SYNC_SWEEP_WIDTH = 10;\n+    static constexpr int8_t SYNC_SWEEP_OFFSET =\n+        ceil(SYNC_SWEEP_WIDTH / M17_SAMPLES_PER_SYMBOL);\n+    static constexpr int16_t M17_BRIDGE_SIZE =\n+        M17_SYNCWORD_SAMPLES + 2 * SYNC_SWEEP_WIDTH;\n+\n+    static constexpr float CONV_STATS_ALPHA      = 0.005f;\n+    static constexpr float CONV_THRESHOLD_FACTOR = 3.40;\n+    static constexpr int16_t QNT_SMA_WINDOW      = 8;\n \n     /**\n      * M17 syncwords;\n      */\n-    int8_t  lsf_syncword[M17_SYNCWORD_SYMBOLS]    = { +3, +3, +3, +3, -3, -3, +3, -3 };\n-    int8_t  stream_syncword[M17_SYNCWORD_SYMBOLS] = { -3, -3, -3, -3, +3, +3, -3, +3 };\n+    int8_t lsf_syncword[M17_SYNCWORD_SYMBOLS]    = {+3, +3, +3, +3,\n+                                                    -3, -3, +3, -3};\n+    int8_t stream_syncword[M17_SYNCWORD_SYMBOLS] = {-3, -3, -3, -3,\n+                                                    +3, +3, -3, +3};\n \n     /*\n      * Buffers\n      */\n-    std::unique_ptr< int16_t[] > baseband_buffer; ///< Buffer for baseband audio handling.",
-     "id": 1296986674,
-     "in_reply_to": null,
-     "kind": "inline",
-     "line": 148,
-     "outcome": null,
-     "path": "openrtx/include/protocols/M17/M17Demodulator.hpp",
-     "prior": false,
-     "replies": [],
-     "review_id": 1582253820,
-     "side": "LEFT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "reconstructed",
-     "at": "2023-08-17T10:01:07Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "I did a round of revision and, while doing it, I remembered why at some point I gave up with adjusting the clang-format file: I found that in some occasions the lint behavior is way too rigid and leads to code worse than before in terms of readability.\r\nProbably is better to have the clang-format ready and apply it by hand before opening a PR or merging a branch into master, instead of having it run as a build hook. In this way we have it doing all the heavy lifting and we just have to tweak the remaining spots of code style by hand. The alternative may be to place \"no lint\" directives around in the code, but it does not look very elegant to me...\r\n\r\nComments/opinions are welcome!",
-     "commit": "f5f14d0a2e1f4df41d86e104e994cd9f8f3e3d50",
-     "id": 1681999158,
-     "kind": "conversation",
-     "outcome": null,
-     "prior": false,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2023-08-17T12:16:11Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Yes!",
-     "commit": "f5f14d0a2e1f4df41d86e104e994cd9f8f3e3d50",
-     "diff_hunk": "@@ -45,27 +44,23 @@\n  * present in the codeplug binary data.\n  */\n #define MAX_TONE_INDEX 50\n-static const uint16_t ctcss_tone[MAX_TONE_INDEX] =\n-{\n-    670, 693, 719, 744, 770, 797, 825, 854, 885, 915, 948, 974, 1000, 1034,\n-    1072, 1109, 1148, 1188, 1230, 1273, 1318, 1365, 1413, 1462, 1514, 1567,\n-    1598, 1622, 1655, 1679, 1713, 1738, 1773, 1799, 1835, 1862, 1899, 1928,\n-    1966, 1995, 2035, 2065, 2107, 2181, 2257, 2291, 2336, 2418, 2503, 2541\n-};\n+static const uint16_t ctcss_tone[MAX_TONE_INDEX] = {\n+    670,  693,  719,  744,  770,  797,  825,  854,  885,  915,\n+    948,  974,  1000, 1034, 1072, 1109, 1148, 1188, 1230, 1273,\n+    1318, 1365, 1413, 1462, 1514, 1567, 1598, 1622, 1655, 1679,\n+    1713, 1738, 1773, 1799, 1835, 1862, 1899, 1928, 1966, 1995,\n+    2035, 2065, 2107, 2181, 2257, 2291, 2336, 2418, 2503, 2541};\n \n /**\n  * Data structure defining an analog-specific channel information such as tones.\n  */\n typedef struct\n {\n-    uint8_t rxToneEn : 1,   //< RX CTC/DCS tone enable\n-            rxTone   : 7;   //< RX CTC/DCS tone index\n-    uint8_t txToneEn : 1,   //< TX CTC/DCS tone enable\n-            txTone   : 7;   //< TX CTC/DCS tone index\n-}\n-__attribute__((packed)) fmInfo_t; // 2B\n-\n-\n+    uint8_t rxToneEn : 1,           //< RX CTC/DCS tone enable\n+        rxTone       : 7;           //< RX CTC/DCS tone index",
-     "id": 1297135476,
-     "in_reply_to": 1296856571,
-     "kind": "inline",
-     "line": 60,
-     "outcome": "changed",
-     "path": "openrtx/include/core/cps.h",
-     "prior": false,
-     "replies": [],
-     "review_id": 1582484376,
-     "side": "RIGHT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2025-09-06T19:10:16Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Actually we don't need these, they're very linux-specific",
-     "commit": "60ba58205468af1d885d23362f22cbb7e5150363",
-     "diff_hunk": "@@ -1,35 +1,811 @@\n+# Clang format taken from https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/.clang-format?id=b9a10f876409bf3768178f4aded199e193ddbe33\n+# Patched with:\n+#  - .*indentwidth: 4\n+#  - IndentCaseLabels: true \n+# \n+# Original header below\n+##########################################################################\n+# SPDX-License-Identifier: GPL-2.0\n+#\n+# clang-format configuration file. Intended for clang-format >= 11.\n+#\n+# For more information, see:\n+#\n+#   Documentation/dev-tools/clang-format.rst\n+#   https://clang.llvm.org/docs/ClangFormat.html\n+#   https://clang.llvm.org/docs/ClangFormatStyleOptions.html\n+#\n ---\n-BasedOnStyle: Google\n-AlignConsecutiveBitFields: AcrossEmptyLinesAndComments\n-AlignTrailingComments: 'true'\n-AlignConsecutiveAssignments: Consecutive\n-AllowShortFunctionsOnASingleLine: 'false'\n-ColumnLimit: '80'\n-DerivePointerAlignment: 'false'\n-IndentExternBlock: NoIndent\n-IndentWidth: '4'\n-NamespaceIndentation: Inner\n-\n-BinPackParameters: 'false'\n-BreakBeforeBraces: Custom\n+AccessModifierOffset: -4\n+AlignAfterOpenBracket: Align\n+AlignConsecutiveAssignments: false\n+AlignConsecutiveDeclarations: false\n+AlignEscapedNewlines: Left\n+AlignOperands: true\n+AlignTrailingComments: false\n+AllowAllParametersOfDeclarationOnNextLine: false\n+AllowShortBlocksOnASingleLine: false\n+AllowShortCaseLabelsOnASingleLine: false\n+AllowShortFunctionsOnASingleLine: None\n+AllowShortIfStatementsOnASingleLine: false\n+AllowShortLoopsOnASingleLine: false\n+AlwaysBreakAfterDefinitionReturnType: None\n+AlwaysBreakAfterReturnType: None\n+AlwaysBreakBeforeMultilineStrings: false\n+AlwaysBreakTemplateDeclarations: false\n+BinPackArguments: true\n+BinPackParameters: true\n BraceWrapping:\n-  AfterCaseLabel:  'true'\n-  AfterClass:      'true'\n-  AfterControlStatement: Always\n-  AfterEnum:       'true'\n-  AfterFunction:   'true'\n-  AfterNamespace:  'true'\n-  AfterObjCDeclaration: 'true'\n-  AfterStruct:     'true'\n-  AfterUnion:      'true'\n-  AfterExternBlock: 'false'\n-  BeforeCatch:     'true'\n-  BeforeElse:      'true'\n-  BeforeLambdaBody: 'true'\n-  BeforeWhile:     'false'\n-  IndentBraces:    'false'\n-  SplitEmptyFunction: 'true'\n-  SplitEmptyRecord: 'true'\n-  SplitEmptyNamespace: 'true'\n+  AfterClass: false\n+  AfterControlStatement: false\n+  AfterEnum: false\n+  AfterFunction: true\n+  AfterNamespace: true\n+  AfterObjCDeclaration: false\n+  AfterStruct: false\n+  AfterUnion: false\n+  AfterExternBlock: false\n+  BeforeCatch: false\n+  BeforeElse: false\n+  IndentBraces: false\n+  SplitEmptyFunction: true\n+  SplitEmptyRecord: true\n+  SplitEmptyNamespace: true\n+BreakBeforeBinaryOperators: None\n+BreakBeforeBraces: Custom\n+BreakBeforeInheritanceComma: false\n+BreakBeforeTernaryOperators: false\n+BreakConstructorInitializersBeforeComma: false\n+BreakConstructorInitializers: BeforeComma\n+BreakAfterJavaFieldAnnotations: false\n+BreakStringLiterals: false\n+ColumnLimit: 80\n+CommentPragmas: '^ IWYU pragma:'\n+CompactNamespaces: false\n+ConstructorInitializerAllOnOneLineOrOnePerLine: false\n+ConstructorInitializerIndentWidth: 4\n+ContinuationIndentWidth: 4\n+Cpp11BracedListStyle: false\n+DerivePointerAlignment: false\n+DisableFormat: false\n+ExperimentalAutoDetectBinPacking: false\n+FixNamespaceComments: false\n+\n+# Taken from:",
-     "id": 2328249263,
-     "in_reply_to": null,
-     "kind": "inline",
-     "line": 74,
-     "outcome": "changed",
-     "path": ".clang-format",
-     "prior": false,
-     "replies": [
-      {
-       "at": "2025-09-06T19:54:57Z",
-       "author": "turnrye",
-       "body": "Sounds good! I removed it and then noted the change in the header. Please take another look at your convenience, and resolve this conversation if I've addressed your feedback."
-      }
-     ],
-     "review_id": 3193753563,
-     "side": "RIGHT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "reconstructed",
-     "at": "2025-09-10T17:32:10Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Three observations:\r\n1) I saw that, when bringing in the specification for the linux code style, some configs are gone: I have to go through them and see which ones should be kept;\r\n2) I prefer not to have the commit passing the entire repository through the clang-format: even though it makes sense doing so, I think is a change too much intrusive. It will also generate an enormous pile of merge conficts with the branches currently under development and the PRs;\r\n3) I'm afraid that automating the linting via github actions is again too much intrusive. The point is that clang-format is blindly applying the specified set of rules and, in doing so, it can make the the code look worse than it was before the linting pass.",
-     "commit": "fc43082d99238109fb317284fc6853f52616ccc4",
-     "id": 3275884398,
-     "kind": "conversation",
-     "outcome": null,
-     "prior": false,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2025-09-10T19:33:07Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Add\r\n```\r\nAlignConsecutiveBitFields: true\r\nAlignOperands: AlignAfterOperator\r\nAlignTrailingComments:\r\n  Kind: Always\r\n  OverEmptyLines: 1\r\n```",
-     "commit": "9e619d833c13db32036b4903195bcc1a8a41cf84",
-     "diff_hunk": "@@ -1,35 +1,128 @@\n+# Clang format taken from https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/.clang-format?id=b9a10f876409bf3768178f4aded199e193ddbe33\n+# Patched with:\n+#  - .*indentwidth: 4\n+#  - IndentCaseLabels: true \n+#  - removal of \"ForEachMacros\" that are irrevelant to this project\n+# \n+# Original header below\n+##########################################################################\n+# SPDX-License-Identifier: GPL-2.0\n+#\n+# clang-format configuration file. Intended for clang-format >= 11.\n+#\n+# For more information, see:\n+#\n+#   Documentation/dev-tools/clang-format.rst\n+#   https://clang.llvm.org/docs/ClangFormat.html\n+#   https://clang.llvm.org/docs/ClangFormatStyleOptions.html\n+#\n ---\n-BasedOnStyle: Google\n-AlignConsecutiveBitFields: AcrossEmptyLinesAndComments\n-AlignTrailingComments: 'true'\n-AlignConsecutiveAssignments: Consecutive\n-AllowShortFunctionsOnASingleLine: 'false'\n-ColumnLimit: '80'\n-DerivePointerAlignment: 'false'\n-IndentExternBlock: NoIndent\n-IndentWidth: '4'\n-NamespaceIndentation: Inner\n-\n-BinPackParameters: 'false'\n-BreakBeforeBraces: Custom\n+AccessModifierOffset: -4\n+AlignAfterOpenBracket: Align\n+AlignConsecutiveAssignments: false\n+AlignConsecutiveDeclarations: false\n+AlignEscapedNewlines: Left\n+AlignOperands: true",
-     "id": 2337717970,
-     "in_reply_to": null,
-     "kind": "inline",
-     "line": 25,
-     "outcome": "changed",
-     "path": ".clang-format",
-     "prior": false,
-     "replies": [
-      {
-       "at": "2025-09-10T19:53:05Z",
-       "author": "turnrye",
-       "body": "Sounds good! I added/modified these and then noted the change in the header. Please take another look at your convenience, and resolve this conversation if I've addressed your feedback."
-      }
-     ],
-     "review_id": 3207562118,
-     "side": "RIGHT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "exact",
-     "at": "2025-09-10T19:33:51Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "Change to `Standard: c++14`",
-     "commit": "9e619d833c13db32036b4903195bcc1a8a41cf84",
-     "diff_hunk": "@@ -1,35 +1,128 @@\n+# Clang format taken from https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/.clang-format?id=b9a10f876409bf3768178f4aded199e193ddbe33\n+# Patched with:\n+#  - .*indentwidth: 4\n+#  - IndentCaseLabels: true \n+#  - removal of \"ForEachMacros\" that are irrevelant to this project\n+# \n+# Original header below\n+##########################################################################\n+# SPDX-License-Identifier: GPL-2.0\n+#\n+# clang-format configuration file. Intended for clang-format >= 11.\n+#\n+# For more information, see:\n+#\n+#   Documentation/dev-tools/clang-format.rst\n+#   https://clang.llvm.org/docs/ClangFormat.html\n+#   https://clang.llvm.org/docs/ClangFormatStyleOptions.html\n+#\n ---\n-BasedOnStyle: Google\n-AlignConsecutiveBitFields: AcrossEmptyLinesAndComments\n-AlignTrailingComments: 'true'\n-AlignConsecutiveAssignments: Consecutive\n-AllowShortFunctionsOnASingleLine: 'false'\n-ColumnLimit: '80'\n-DerivePointerAlignment: 'false'\n-IndentExternBlock: NoIndent\n-IndentWidth: '4'\n-NamespaceIndentation: Inner\n-\n-BinPackParameters: 'false'\n-BreakBeforeBraces: Custom\n+AccessModifierOffset: -4\n+AlignAfterOpenBracket: Align\n+AlignConsecutiveAssignments: false\n+AlignConsecutiveDeclarations: false\n+AlignEscapedNewlines: Left\n+AlignOperands: true\n+AlignTrailingComments: false\n+AllowAllParametersOfDeclarationOnNextLine: false\n+AllowShortBlocksOnASingleLine: false\n+AllowShortCaseLabelsOnASingleLine: false\n+AllowShortFunctionsOnASingleLine: None\n+AllowShortIfStatementsOnASingleLine: false\n+AllowShortLoopsOnASingleLine: false\n+AlwaysBreakAfterDefinitionReturnType: None\n+AlwaysBreakAfterReturnType: None\n+AlwaysBreakBeforeMultilineStrings: false\n+AlwaysBreakTemplateDeclarations: false\n+BinPackArguments: true\n+BinPackParameters: true\n BraceWrapping:\n-  AfterCaseLabel:  'true'\n-  AfterClass:      'true'\n-  AfterControlStatement: Always\n-  AfterEnum:       'true'\n-  AfterFunction:   'true'\n-  AfterNamespace:  'true'\n-  AfterObjCDeclaration: 'true'\n-  AfterStruct:     'true'\n-  AfterUnion:      'true'\n-  AfterExternBlock: 'false'\n-  BeforeCatch:     'true'\n-  BeforeElse:      'true'\n-  BeforeLambdaBody: 'true'\n-  BeforeWhile:     'false'\n-  IndentBraces:    'false'\n-  SplitEmptyFunction: 'true'\n-  SplitEmptyRecord: 'true'\n-  SplitEmptyNamespace: 'true'\n+  AfterClass: false\n+  AfterControlStatement: false\n+  AfterEnum: false\n+  AfterFunction: true\n+  AfterNamespace: true\n+  AfterObjCDeclaration: false\n+  AfterStruct: false\n+  AfterUnion: false\n+  AfterExternBlock: false\n+  BeforeCatch: false\n+  BeforeElse: false\n+  IndentBraces: false\n+  SplitEmptyFunction: true\n+  SplitEmptyRecord: true\n+  SplitEmptyNamespace: true\n+BreakBeforeBinaryOperators: None\n+BreakBeforeBraces: Custom\n+BreakBeforeInheritanceComma: false\n+BreakBeforeTernaryOperators: false\n+BreakConstructorInitializersBeforeComma: false\n+BreakConstructorInitializers: BeforeComma\n+BreakAfterJavaFieldAnnotations: false\n+BreakStringLiterals: false\n+ColumnLimit: 80\n+CommentPragmas: '^ IWYU pragma:'\n+CompactNamespaces: false\n+ConstructorInitializerAllOnOneLineOrOnePerLine: false\n+ConstructorInitializerIndentWidth: 4\n+ContinuationIndentWidth: 4\n+Cpp11BracedListStyle: false\n+DerivePointerAlignment: false\n+DisableFormat: false\n+ExperimentalAutoDetectBinPacking: false\n+FixNamespaceComments: false\n+\n+\n+IncludeBlocks: Preserve\n+IncludeCategories:\n+  - Regex: '.*'\n+    Priority: 1\n+IncludeIsMainRegex: '(Test)?$'\n+IndentCaseLabels: true\n+IndentGotoLabels: false\n+IndentPPDirectives: None\n+IndentWidth: 4\n+IndentWrappedFunctionNames: false\n+JavaScriptQuotes: Leave\n+JavaScriptWrapImports: true\n+KeepEmptyLinesAtTheStartOfBlocks: false\n+MacroBlockBegin: ''\n+MacroBlockEnd: ''\n+MaxEmptyLinesToKeep: 1\n+NamespaceIndentation: None\n+ObjCBinPackProtocolList: Auto\n+ObjCBlockIndentWidth: 4\n+ObjCSpaceAfterProperty: true\n+ObjCSpaceBeforeProtocolList: true\n+\n+# Taken from git's rules\n+PenaltyBreakAssignment: 10\n+PenaltyBreakBeforeFirstCallParameter: 30\n+PenaltyBreakComment: 10\n+PenaltyBreakFirstLessLess: 0\n+PenaltyBreakString: 10\n+PenaltyExcessCharacter: 100\n+PenaltyReturnTypeOnItsOwnLine: 60\n \n+PointerAlignment: Right\n+ReflowComments: false\n+SortIncludes: false\n+SortUsingDeclarations: false\n+SpaceAfterCStyleCast: false\n+SpaceAfterTemplateKeyword: true\n+SpaceBeforeAssignmentOperators: true\n+SpaceBeforeCtorInitializerColon: true\n+SpaceBeforeInheritanceColon: true\n+SpaceBeforeParens: ControlStatementsExceptForEachMacros\n+SpaceBeforeRangeBasedForLoopColon: true\n+SpaceInEmptyParentheses: false\n+SpacesBeforeTrailingComments: 1\n+SpacesInAngles: false\n+SpacesInContainerLiterals: false\n+SpacesInCStyleCastParentheses: false\n+SpacesInParentheses: false\n+SpacesInSquareBrackets: false\n+Standard: Cpp03",
-     "id": 2337719329,
-     "in_reply_to": null,
-     "kind": "inline",
-     "line": 125,
-     "outcome": "changed",
-     "path": ".clang-format",
-     "prior": false,
-     "replies": [
-      {
-       "at": "2025-09-10T19:53:38Z",
-       "author": "turnrye",
-       "body": "Sounds good! I modified this and then noted the change in the header. Please take another look at your convenience, and resolve this conversation if I've addressed your feedback."
-      }
-     ],
-     "review_id": 3207564184,
-     "side": "RIGHT",
-     "start_line": null,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "reconstructed",
-     "at": "2025-09-10T19:40:57Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "I'd really like to find a way to prevent clang-format from playing shenanigans like this\r\n```\r\ntypedef struct {\r\n    bandCalData_t\r\n        data[2]; // Calibration data for VHF (index 0) and UHF (index 1) bands\r\n    freq_t vhfCalPoints\r\n        [8];     // VHF calibration points for both TX power and mod1Amplitude\r\n    freq_t uhfPwrCalPoints[16]; // UHF calibration points for TX power\r\n    freq_t uhfCalPoints[8];     // UHF calibration points for mod1Amplitude\r\n} gdxCalibration_t;\r\n```\r\n\r\nThe workaround is to set `ColumnLimit` to something a bit more than 80, like 100. Otherwise, I don't know if there is a way to tell clang-format to not break a like if the comment goes out of the column limit.\r\n",
-     "commit": "9e619d833c13db32036b4903195bcc1a8a41cf84",
-     "id": 3276281916,
-     "kind": "conversation",
-     "outcome": null,
-     "prior": false,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "reconstructed",
-     "at": "2025-09-10T19:43:50Z",
-     "available": true,
-     "before_last_push": true,
-     "body": "> Ok, I can undo that part. Let's document a strategy then for how we'll work towards getting the whole project formatted and tackle that as a follow-up.\r\n> \r\nThanks!\r\n\r\n> The CI just verifies that all of the code is formatted. It is not making code changes. The goal is to use CI to indicate if the project is properly formatted or not. We can't do this in the same way due to the changes you've requested in observation 2, but perhaps we can find a way to incrementally validate as part of that. I've put my suggestions in #346.\r\n\r\nAh, ok. I thought it had a more invasive approach. If the format doesn't pass, the CI rises an error? If we can choose between an error and a warning, I'd probably choose the latter",
-     "commit": "9e619d833c13db32036b4903195bcc1a8a41cf84",
-     "id": 3276288687,
-     "kind": "conversation",
-     "outcome": null,
-     "prior": false,
-     "trivial": false
-    },
-    {
-     "after_merge": false,
-     "anchor": "reconstructed",
-     "at": "2025-09-12T09:12:18Z",
-     "available": true,
-     "before_last_push": false,
-     "body": "> How frequent is this? May want to change our convention for comment placement or disable formatting for this section. Edit: my searching also yields that there isn't a solution, and it seems like the best alternative is to shift comments to their own line in this scenario.\r\n\r\nIs not very frequent, actually. We can just `clang-format off` these cases and call it a day",
-     "commit": "8404d313aa591a516268c69dad1e36256b2798c4",
-     "id": 3284441159,
-     "kind": "conversation",
-     "outcome": null,
-     "prior": false,
-     "trivial": false
-    }
-   ],
-   "id": "OpenRTX-166",
-   "merged_at": "2025-09-12T13:32:53Z",
-   "merged_by": "silseva",
-   "number": 166,
-   "start": {
-    "anchor": "reconstructed",
-    "base": "e689e2f7ae53f15c2828bc5edeb8ed801ddd8050",
-    "sha": "75b2ae8845d87ede6ebc9a0a27244cc1925a09a2"
-   },
-   "title": "Clang-format improvements: new standards, script opt-in, CI job to report on format issues",
-   "url": "https://github.com/OpenRTX/OpenRTX/pull/166"
-  },
-  {
    "author": "marcoSchr",
    "base_ref": "ttwrplus-fix",
    "created_at": "2024-12-29T13:36:49Z",
@@ -14156,7 +13735,8 @@
    "end": {
     "base": "52d0c713239337441aceeb7845272cc62ef26042",
     "merge_commit": "7b5c833c5de11fc80dae396e9dbb701e9db341a2",
-    "sha": "582cbd973979927d4166f1e166829f8bd795b77c"
+    "sha": "582cbd973979927d4166f1e166829f8bd795b77c",
+    "usable": true
    },
    "feedback": [
     {
@@ -14219,6 +13799,7 @@
    "merged_at": "2025-01-29T08:10:34Z",
    "merged_by": "silseva",
    "number": 304,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "52d0c713239337441aceeb7845272cc62ef26042",
@@ -14235,7 +13816,8 @@
    "end": {
     "base": "185d3f1a2245191ccdb8c2f0c41fe21f6a2a7c04",
     "merge_commit": "f3285729c0eadb843d96118359d6d870fdc53fc1",
-    "sha": "6aac5b19529dba42053d83ce1c99af5dc9e41d86"
+    "sha": "6aac5b19529dba42053d83ce1c99af5dc9e41d86",
+    "usable": true
    },
    "feedback": [
     {
@@ -14407,6 +13989,7 @@
    "merged_at": "2025-01-18T08:57:47Z",
    "merged_by": "silseva",
    "number": 306,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "185d3f1a2245191ccdb8c2f0c41fe21f6a2a7c04",
@@ -14423,7 +14006,8 @@
    "end": {
     "base": "616806471e508dd0fdb0028fa6f6a2dd1abf63bc",
     "merge_commit": "e4623a972a43d79376973c687dd778182ddd9c19",
-    "sha": "d8f7f24869637f709069779890870213cdbe7646"
+    "sha": "d8f7f24869637f709069779890870213cdbe7646",
+    "usable": true
    },
    "feedback": [
     {
@@ -14473,6 +14057,7 @@
    "merged_at": "2025-01-01T17:39:11Z",
    "merged_by": "silseva",
    "number": 299,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "616806471e508dd0fdb0028fa6f6a2dd1abf63bc",
@@ -14489,7 +14074,8 @@
    "end": {
     "base": "87314db13393445c7aa4bd023c695d1735948d0d",
     "merge_commit": "0fb52955f6c3acb0cf62cc5e5ffb2b8f85b3d9b1",
-    "sha": "897d439e9c7d09a61942dcb03b8fa3c54ca4d04a"
+    "sha": "897d439e9c7d09a61942dcb03b8fa3c54ca4d04a",
+    "usable": true
    },
    "feedback": [
     {
@@ -14511,6 +14097,7 @@
    "merged_at": "2024-03-13T07:59:03Z",
    "merged_by": "silseva",
    "number": 252,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "87314db13393445c7aa4bd023c695d1735948d0d",
@@ -14527,7 +14114,8 @@
    "end": {
     "base": "2ce3f5e9492bdc5f4f9fd3df3d6f38a06a404758",
     "merge_commit": "5c7b6471b222261cdcdce51803adace551b6f061",
-    "sha": "32c122d7ab3ee47896e78d42811647df141f100d"
+    "sha": "32c122d7ab3ee47896e78d42811647df141f100d",
+    "usable": true
    },
    "feedback": [
     {
@@ -14549,6 +14137,7 @@
    "merged_at": "2024-01-08T18:38:12Z",
    "merged_by": "silseva",
    "number": 224,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "2ce3f5e9492bdc5f4f9fd3df3d6f38a06a404758",
@@ -14565,7 +14154,8 @@
    "end": {
     "base": "65d2fdb0e36e278cd8cc8c7ce5f8989a8087bab9",
     "merge_commit": "e2e13aa0b651db8adb2021dcca70919b30f97af9",
-    "sha": "957bf19b47daf1b6c76a5f92da065863e89d5af3"
+    "sha": "957bf19b47daf1b6c76a5f92da065863e89d5af3",
+    "usable": true
    },
    "feedback": [
     {
@@ -14601,6 +14191,7 @@
    "merged_at": "2023-11-12T11:47:41Z",
    "merged_by": "silseva",
    "number": 191,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "0126efe429223c2db3676446d1d2fb1bd5ca1684",
@@ -14617,7 +14208,8 @@
    "end": {
     "base": "f43281e815cbedacc826dd2a0b18194c2ba485ea",
     "merge_commit": "4b1ffb277e534f43992a6a50055009252810608a",
-    "sha": "a59a67fae0cefc0ab620f2896619f56316faf95f"
+    "sha": "a59a67fae0cefc0ab620f2896619f56316faf95f",
+    "usable": true
    },
    "feedback": [
     {
@@ -14639,6 +14231,7 @@
    "merged_at": "2023-10-28T09:56:05Z",
    "merged_by": "silseva",
    "number": 195,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "6baa36898467894b7573e0b1d36f5afb24e027e0",
@@ -14655,7 +14248,8 @@
    "end": {
     "base": "4920921862736b62794189beaf89acef5df852ec",
     "merge_commit": "589ecdfc2173469f7e370ba0ae23a82c91870d5a",
-    "sha": "49f18c10cbd230c450eeba03967ae145c07a1d93"
+    "sha": "49f18c10cbd230c450eeba03967ae145c07a1d93",
+    "usable": true
    },
    "feedback": [
     {
@@ -14729,6 +14323,7 @@
    "merged_at": "2023-08-23T18:43:41Z",
    "merged_by": "silseva",
    "number": 165,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "a3c7df2b3e0a163b08f4d8080be39e234d827b13",
@@ -14745,7 +14340,8 @@
    "end": {
     "base": "5f7729821857e7279fecd196e23df0dac4e04b4f",
     "merge_commit": "c9ab6cc926ce6466ccd8b3bcbd286bb2c0f3210c",
-    "sha": "c90cfd16c668b71a803055d1b66b042c000a215f"
+    "sha": "c90cfd16c668b71a803055d1b66b042c000a215f",
+    "usable": true
    },
    "feedback": [
     {
@@ -14781,6 +14377,7 @@
    "merged_at": "2023-04-24T09:33:22Z",
    "merged_by": "silseva",
    "number": 135,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "5f7729821857e7279fecd196e23df0dac4e04b4f",
@@ -14797,7 +14394,8 @@
    "end": {
     "base": "8b5b6ed57149dc4bd4b452659f834fe0a6851627",
     "merge_commit": "79c4522788970bd4c9b1e76c932ff3c5b90e7f72",
-    "sha": "d1b0bf633a8000cdf69b53be0c86dd1412b866ba"
+    "sha": "d1b0bf633a8000cdf69b53be0c86dd1412b866ba",
+    "usable": true
    },
    "feedback": [
     {
@@ -14819,6 +14417,7 @@
    "merged_at": "2022-06-10T10:27:40Z",
    "merged_by": "silseva",
    "number": 77,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "8b5b6ed57149dc4bd4b452659f834fe0a6851627",
@@ -14835,7 +14434,8 @@
    "end": {
     "base": "512de7059eb1c23726496c01095c2b37438aeb52",
     "merge_commit": "f6b1d6cd421a69c723e8feb66b6036e348a38963",
-    "sha": "8d12a50ecf5084a495a8539b8abdc338fceec615"
+    "sha": "8d12a50ecf5084a495a8539b8abdc338fceec615",
+    "usable": true
    },
    "feedback": [
     {
@@ -14921,6 +14521,7 @@
    "merged_at": "2021-12-21T20:30:34Z",
    "merged_by": "silseva",
    "number": 55,
+   "pool": "merged",
    "start": {
     "anchor": "exact",
     "base": "1605f5a29c18e302f2392181f71929e62d77f755",
@@ -14937,7 +14538,8 @@
    "end": {
     "base": "d8bbd57c8f1009981558786ff9e8c4162a9b113d",
     "merge_commit": "82daea79e0122438fff38f893ce4bf44ba73d1b1",
-    "sha": "6c4238af765b9d73d845c9b3709a1f6c1852f10f"
+    "sha": "6c4238af765b9d73d845c9b3709a1f6c1852f10f",
+    "usable": true
    },
    "feedback": [
     {
@@ -14987,6 +14589,7 @@
    "merged_at": "2021-12-05T16:12:30Z",
    "merged_by": "silseva",
    "number": 59,
+   "pool": "merged",
    "start": {
     "anchor": "reconstructed",
     "base": "d8bbd57c8f1009981558786ff9e8c4162a9b113d",
@@ -15053,6 +14656,7 @@
   "154": "head never moved after feedback",
   "156": "head never moved after feedback",
   "164": "no substantive feedback",
+  "166": "excluded: the PR introduces clang-format; its review is about the formatter's configuration, not the code",
   "170": "no substantive feedback",
   "180": "no substantive feedback",
   "182": "no substantive feedback",
