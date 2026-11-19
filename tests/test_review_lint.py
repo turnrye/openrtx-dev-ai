@@ -288,6 +288,30 @@ class CppClasses(unittest.TestCase):
         self.assertEqual(self.check(text), [])
 
 
+class StandardLibrary(unittest.TestCase):
+    """C++ clamps that want std::min/std::max, code for newer standards, templates' Doxygen."""
+
+    def test_saturation_chain(self):
+        lines = ["    const int32_t out = (acc + Q15_HALF) >> 15;", "    if (out > INT16_MAX)", "        *sample = INT16_MAX;",
+                 "    else if (out < INT16_MIN)", "        *sample = INT16_MIN;", "    else",
+                 "        *sample = static_cast<int16_t>(out);"]
+        self.assertEqual(rules(lint.check_saturation("dsp.cpp", lines, set(range(1, 8)))), [("saturation", 2)])
+        self.assertEqual(lint.check_saturation("dsp.c", lines, set(range(1, 8))), [])
+
+    def test_not_saturation(self):
+        lines = ["if (count > ratio)", "    count = 0;", "if (len > MAX) {", "    return -EINVAL;", "}"]
+        self.assertEqual(lint.check_saturation("a.cpp", lines, set(range(1, 6))), [])
+
+    def test_cxx_version(self):
+        lines = ["#if __cplusplus >= 201703L", "#if __cplusplus >= 201103L"]
+        self.assertEqual(rules(lint.check_cxx_version("fir.hpp", lines, {1, 2})), [("cxx-version", 1)])
+
+    def test_doxygen_above_template(self):
+        lines = ["/**", " * Push a sample.", " */", "template < typename T >",
+                 "void firPush(T *hist, const size_t len, size_t &pos, const T input)"]
+        self.assertEqual(lint.check_doxygen("openrtx/include/core/fir.hpp", lines, {5}), [])
+
+
 class Placement(unittest.TestCase):
     """Protocol constants outside the protocol, and constant runs that want an enum."""
 
