@@ -392,7 +392,9 @@ def check_doxygen(path, lines, added):
         m = c_decl or cpp_decl
         if not m or "return" in line or m.group(1) in ("if", "while", "for", "switch", "sizeof"):
             continue
-        prev = next((lines[j].strip() for j in range(n - 2, -1, -1) if lines[j].strip()), "")
+        # the comment sits above a template's `template <...>` line
+        prev = next((lines[j].strip() for j in range(n - 2, -1, -1)
+                     if lines[j].strip() and not re.match(r"\s*template\s*<", lines[j])), "")
         if not (prev.endswith("*/") or prev.startswith("//")):
             out.append(finding("doxygen", path, n, "P2", "No Doxygen comment on `%s`" % m.group(1),
                                "Every public function is documented in its header with a Doxygen comment "
@@ -711,6 +713,47 @@ def check_enum_candidates(path, lines, added):
         flush()
         run, prefix = [], None
     flush()
+    return out
+
+
+def check_saturation(path, lines, added):
+    """In C++, a value clamped by if/else (if (x > MAX) y = MAX;) is std::min/std::max."""
+    out = []
+    if not path.endswith(CPP_EXT):
+        return out
+    code = strip_comments("\n".join(lines)).split("\n")
+    test = re.compile(r"\bif\s*\(\s*([\w.\->\[\]]+)\s*([<>])=?\s*([\w:.\-+()]+?)\s*\)\s*(.*)$")
+    for n in sorted(added):
+        if n > len(code) or re.search(r"\belse\s+if\b", code[n - 1]):
+            continue  # report a chain once, at its first if
+        m = test.search(code[n - 1])
+        if not m:
+            continue
+        limit = m.group(3)
+        body = m.group(4).strip() or (code[n].strip() if n < len(code) else "")
+        body = body.lstrip("{").strip()
+        # the branch assigns the limit it compared against (a `return` there is usually an error path)
+        if re.match(r"[\w.\->\[\]*]+\s*=\s*(?:static_cast\s*<[^>]*>\s*)?\(?\s*%s\s*\)?\s*;" % re.escape(limit), body):
+            fn = "std::min" if m.group(2) == ">" else "std::max"
+            out.append(finding("saturation", path, n, "P3", "Clamp written as if/else",
+                               "Use `%s` (and the other bound for a two-sided clamp), naming the type when the "
+                               "operands differ: `int32_t` is `long` on ARM, so `std::min(out, INT16_MAX)` fails "
+                               "on the radios; write `std::min<int32_t>(out, INT16_MAX)`. C++14 has no "
+                               "`std::clamp`." % fn))
+    return out
+
+
+def check_cxx_version(path, lines, added):
+    """Code for a C++ standard newer than the project's C++14."""
+    out = []
+    if not path.endswith(SOURCE_EXT):
+        return out
+    for n in sorted(added):
+        m = n <= len(lines) and re.search(r"__cplusplus\s*(?:>=|>|==)\s*(\d{6})L?", lines[n - 1])
+        if m and int(m.group(1)) > 201402:
+            out.append(finding("cxx-version", path, n, "P2", "Code path for a C++ standard newer than C++14",
+                               "OpenRTX builds as C++14 (AGENTS.md § Code Style); newer revisions are handled "
+                               "when the project moves to them. Keep the C++14 form only."))
     return out
 
 
@@ -1117,6 +1160,8 @@ def lint(repo, base, head="HEAD", tidy=False, tree=None):
         out += check_cpp_classes(path, text, new)
         out += check_protocol_constants(path, lines, new, protocols)
         out += check_enum_candidates(path, lines, new)
+        out += check_saturation(path, lines, new)
+        out += check_cxx_version(path, lines, new)
 
         def refs(name):
             hits = git(repo, "grep", "-c", "-w", "-F", name, head, "--", *["*" + e for e in SOURCE_EXT])
