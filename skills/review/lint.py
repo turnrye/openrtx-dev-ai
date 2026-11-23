@@ -757,6 +757,156 @@ def check_cxx_version(path, lines, added):
     return out
 
 
+def include_dir(path):
+    """The include-root directory of a source file: openrtx/src/x/y.cpp and openrtx/include/x/y.hpp give x."""
+    for root in ("openrtx/include/", "openrtx/src/"):
+        if path.startswith(root):
+            return os.path.dirname(path[len(root):])
+    return None
+
+
+def check_include_form(path, lines, added):
+    """A new include of a sibling header in another form than the file's other sibling includes."""
+    out = []
+    here = include_dir(path)
+    if here is None:
+        return out
+    forms = {}
+    for n, line in enumerate(lines, 1):
+        m = re.match(r'\s*#\s*include\s+"([^"]+)"', line)
+        if not m:
+            continue
+        target = m.group(1)
+        if "/" not in target:
+            forms[n] = "bare"
+        elif os.path.dirname(target) == here:
+            forms[n] = "path"
+    old = {f for n, f in forms.items() if n not in added}
+    if len(old) != 1:
+        return out  # no sibling includes to follow, or already mixed
+    usual = old.pop()
+    for n in sorted(added):
+        if forms.get(n, usual) != usual:
+            example = "\"%s\"" % os.path.basename(re.search(r'"([^"]+)"', lines[n - 1]).group(1))
+            if usual == "path":
+                example = "\"%s/%s\"" % (here, example.strip('"'))
+            out.append(finding("include-form", path, n, "P3", "Include written unlike the file's other includes",
+                               "This file includes its sibling headers in one form; write this one the same "
+                               "way, %s (maintainer edit at merge, #524)." % example))
+    return out
+
+
+DECL_TYPE_ONLY = re.compile(r"\s+(?!return\b|template\b|public\b|private\b|protected\b|case\b|else\b|do\b)"
+                            r"(?:(?:static|virtual|inline|constexpr|const)\s+)*"
+                            r"[A-Za-z_][\w:]*(?:\s*<[^;(){}]*>)?\s*[*&]?\s*$")
+DECL_NAME = re.compile(r"\s+[*&]?[A-Za-z_~][\w:]*\s*\(")
+
+
+def check_declaration_layout(path, lines, added):
+    """A header declaration with its return type alone on a line, in a file whose declarations don't do that."""
+    out = []
+    if not path.endswith((".h", ".hpp")):
+        return out
+    code = strip_comments("\n".join(lines)).split("\n")
+    split = [n for n in range(1, len(code))
+             if DECL_TYPE_ONLY.fullmatch(code[n - 1]) and DECL_NAME.match(code[n])]
+    # a bare return type like `int8_t` reads as old text, so the name line decides what is new
+    new = [n for n in split if (n + 1) in added]
+    if len(new) < len(split):
+        return out  # the file already lays declarations out this way
+    for n in new:
+        # joined, the name follows the type and continuation lines realign under its parenthesis
+        head = code[n - 1].rstrip() + " " + code[n].strip()
+        width = head.index("(") + 1 if "(" in head else 0
+        rest = []
+        for k in range(n + 1, len(code)):
+            if code[k - 1].rstrip().endswith((";", "{", ")")):
+                break
+            rest.append(code[k].strip())
+        if len(head) > 80 or any(width + len(r) > 80 for r in rest):
+            continue  # it doesn't fit on one line: the split is the formatter's
+        out.append(finding("declaration-layout", path, n, "P3", "Return type on a line of its own",
+                           "No other declaration in this file splits its return type from its name; keep "
+                           "it on the same line, as the neighbours do (maintainer edit at merge, #524)."))
+    return out
+
+
+def check_comment_layout(path, lines, added):
+    """An own-line comment above a declaration whose neighbours carry trailing comments, or an own-line ///<."""
+    out = []
+    if not path.endswith(SOURCE_EXT):
+        return out
+    trailing = re.compile(r".*;\s*//")
+    for n in sorted(added):
+        if n >= len(lines):
+            continue
+        text, below = lines[n - 1], lines[n]
+        if re.match(r"\s*///<", text) and below.strip():
+            out.append(finding("comment-layout", path, n, "P3", "`///<` on a line of its own",
+                               "`///<` documents the member *before* it; put it at the end of the member's "
+                               "line, or use a `/** */` block above (AGENTS.md § Documentation)."))
+            continue
+        if not re.match(r"\s*//(?!/)", text) or not below.rstrip().endswith(";") or "//" in below:
+            continue
+        before = next((lines[j] for j in range(n - 2, -1, -1) if lines[j].strip()), "")
+        after = lines[n + 1] if n + 1 < len(lines) else ""
+        if trailing.match(before) or trailing.match(after):
+            out.append(finding("comment-layout", path, n, "P3", "Comment above a line whose neighbours trail theirs",
+                               "The declarations around this one carry their comment at the end of the line; "
+                               "write this one the same way (maintainer edit at merge, #524)."))
+    return out
+
+
+CONSTANT = re.compile(r"\s*(?:static\s+)?constexpr\s+[\w:<>, ]+?\s+([A-Z][A-Z0-9_]+)\s*=|\s*#\s*define\s+([A-Z][A-Z0-9_]+)\b")
+
+
+def comment_above(lines, n):
+    """The text of the comment ending right above line n (a // run or a /* */ block), or None."""
+    j = n - 2
+    if j < 0:
+        return None
+    if lines[j].strip().endswith("*/"):
+        k = j
+        while k >= 0 and "/*" not in lines[k]:
+            k -= 1
+        if k < 0:
+            return None
+        text = " ".join(re.sub(r"^\s*(?:/\*+!?<?|\*+/?|\*)\s?|\*/\s*$", "", l) for l in lines[k:j + 1])
+        return text, range(k + 1, j + 2)
+    run = []
+    while j >= 0 and re.match(r"\s*//", lines[j]):
+        run.insert(0, re.sub(r"^\s*//+<?\s?", "", lines[j]))
+        j -= 1
+    return (" ".join(run), range(j + 2, n)) if run else None
+
+
+def check_restated_comment(path, lines, added):
+    """A short comment above a constant that only restates the constant's name."""
+    out = []
+    if not path.endswith(SOURCE_EXT):
+        return out
+    for n in sorted(added):
+        m = n <= len(lines) and CONSTANT.match(lines[n - 1])
+        if not m:
+            continue
+        name = m.group(1) or m.group(2)
+        above = comment_above(lines, n)
+        if not above or not any(k in added for k in above[1]):
+            continue  # an existing comment, or a /** */ block whose delimiters alone look old
+        words = set(re.findall(r"[a-z0-9]+", above[0].lower()))
+        parts = [w for w in name.lower().split("_") if w]
+        # every word of the name appears in the comment as a word (or its plural)
+        restates = len(words) <= 12 and all((p in words) or (p + "s" in words) or (p.rstrip("s") in words)
+                                            for p in parts)
+        if restates:
+            out.append(finding("restated-comment", path, above[1][0], "P3", "Comment restates `%s`" % name,
+                               "The name already says this; a self-describing constant needs no comment "
+                               "(AGENTS.md § Readability: remove comments that restate the line below). "
+                               "Keep a comment only for what the name can't say, such as why the value is what "
+                               "it is (maintainer edit at merge, #524)."))
+    return out
+
+
 def check_redundant_guards(path, lines, added):
     """A NULL check before free() or delete: both already do nothing on NULL (AGENTS.md § Reuse)."""
     out = []
@@ -1162,6 +1312,10 @@ def lint(repo, base, head="HEAD", tidy=False, tree=None):
         out += check_enum_candidates(path, lines, new)
         out += check_saturation(path, lines, new)
         out += check_cxx_version(path, lines, new)
+        out += check_include_form(path, lines, new)
+        out += check_declaration_layout(path, lines, new)
+        out += check_comment_layout(path, lines, new)
+        out += check_restated_comment(path, lines, new)
 
         def refs(name):
             hits = git(repo, "grep", "-c", "-w", "-F", name, head, "--", *["*" + e for e in SOURCE_EXT])
