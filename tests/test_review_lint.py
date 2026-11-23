@@ -339,6 +339,60 @@ class Placement(unittest.TestCase):
         self.assertEqual(lint.check_enum_candidates("a.c", lines, set(range(1, 7))), [])
 
 
+class MergeEdits(unittest.TestCase):
+    """Layout and comment edits a maintainer made by hand when merging #524."""
+
+    HPP = "openrtx/include/protocols/M17/FrameDecoder.hpp"
+
+    def test_include_form_follows_the_file(self):
+        lines = ['#include <array>', '#include "Viterbi.hpp"', '#include "protocols/M17/Constants.hpp"',
+                 '#include "core/utils.h"']
+        self.assertEqual(rules(lint.check_include_form(self.HPP, lines, {3})), [("include-form", 3)])
+        lines[2] = '#include "Constants.hpp"'
+        self.assertEqual(lint.check_include_form(self.HPP, lines, {3}), [])
+        # a .cpp whose includes are root-relative keeps them so; other directories don't count
+        cpp = ['#include "protocols/M17/Golay.hpp"', '#include "Utils.hpp"', '#include "core/utils.h"']
+        found = lint.check_include_form("openrtx/src/protocols/M17/Golay.cpp", cpp, {2, 3})
+        self.assertEqual(rules(found), [("include-form", 2)])
+
+    def test_declaration_layout_only_when_it_fits_and_the_file_never_splits(self):
+        lines = ["class A", "{", "private:", "    int8_t", "    hardSlice(const int16_t sample,",
+                 "              const std::pair< int32_t, int32_t >& dev);", "    void reset();", "};"]
+        self.assertEqual(rules(lint.check_declaration_layout("a.hpp", lines, {5, 6})),
+                         [("declaration-layout", 4)])
+        # joined, the continuation would run past 80 columns: the split is the formatter's
+        lines[3] = "    std::array< uint16_t, 2 >"
+        self.assertEqual(lint.check_declaration_layout("a.hpp", lines, {5, 6}), [])
+        # the file already splits an existing declaration this way
+        lines[3] = "    int8_t"
+        old = ["    uint16_t", "    other(int x);"]
+        self.assertEqual(lint.check_declaration_layout("a.hpp", lines[:6] + old + lines[6:], {5, 6}), [])
+
+    def test_comment_layout(self):
+        lines = ["using a_t = std::array< uint8_t, 2 >;   // A", "// Soft bits of a frame",
+                 "using soft_t = std::array< uint16_t, 384 >;", "using b_t = std::array< uint8_t, 2 >;   // B"]
+        self.assertEqual(rules(lint.check_comment_layout("a.hpp", lines, {2, 3})), [("comment-layout", 2)])
+        own = ["    int a;", "    ///< Coded bits.", "    static constexpr size_t N = 2;"]
+        self.assertEqual(rules(lint.check_comment_layout("a.hpp", own, {2, 3})), [("comment-layout", 2)])
+        # a comment above a declaration among neighbours without trailing comments is fine
+        plain = ["int a;", "// Why b is 3", "int b = 3;", "int c;"]
+        self.assertEqual(lint.check_comment_layout("a.cpp", plain, {2, 3}), [])
+
+    def test_restated_comment(self):
+        lines = ["    /**", "     * Coded bits of the sync word.", "     */",
+                 "    static constexpr size_t SYNC_BITS = 16;"]
+        self.assertEqual(rules(lint.check_restated_comment("a.hpp", lines, {2, 4})), [("restated-comment", 1)])
+        # a word of the name missing from the comment, or a comment that says why: kept
+        lines[1] = "     * Maximum allowed hamming distance when determining the frame type."
+        lines[3] = "    static constexpr uint8_t MAX_SYNC_HAMM_DISTANCE = 4;"
+        self.assertEqual(lint.check_restated_comment("a.hpp", lines, {2, 4}), [])
+        kept = ["/// Bits in a Golay(24,12) codeword.", "static constexpr uint8_t CODE_BITS = 24;"]
+        self.assertEqual(lint.check_restated_comment("a.cpp", kept, {1, 2}), [])
+        # an existing comment above a new constant isn't the change's
+        old = ["// Golay blocks", "static constexpr size_t GOLAY_BLOCKS = 4;"]
+        self.assertEqual(lint.check_restated_comment("a.cpp", old, {2}), [])
+
+
 class PrText(unittest.TestCase):
     """The PR template's sections."""
 
